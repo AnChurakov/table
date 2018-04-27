@@ -294,6 +294,7 @@
     <Content Include="Views\Ads\AddAds.cshtml" />
     <Content Include="Views\SubCategory\AddSubCategory.cshtml" />
     <Content Include="Views\Ads\SelectAds.cshtml" />
+    <Content Include="Views\Ads\MyAds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

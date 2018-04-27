@@ -11,6 +11,14 @@ namespace Board.Controllers
     public class AdsController : Controller
     {
         ApplicationDbContext _context = new ApplicationDbContext();
+        
+        [Authorize]
+        public ActionResult MyAds()
+        {
+            var selectAds = _context.Ads.Where(a => a.User.UserName == User.Identity.Name).ToList();
+
+            return View(selectAds);
+        }
 
         [Authorize]
         public ActionResult AllAds(string name, Guid Id)
@@ -78,6 +86,17 @@ namespace Board.Controllers
             return RedirectToAction("SelectAds", new { id = ads.Id});
         }
 
+        [HttpGet]
+        public RedirectToRouteResult Delete(Guid Id)
+        {
+            var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
+
+            _context.Ads.Remove(selectAds);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("MyAds");
+        }
         
     }
 }
