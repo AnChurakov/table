@@ -193,6 +193,7 @@
     <Compile Include="Controllers\AdsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\ComplaintController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SubCategoryController.cs" />
@@ -215,11 +216,16 @@
     <Compile Include="Migrations\201804271429272_UpSubCat.Designer.cs">
       <DependentUpon>201804271429272_UpSubCat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804271832526_AddComplaint.cs" />
+    <Compile Include="Migrations\201804271832526_AddComplaint.Designer.cs">
+      <DependentUpon>201804271832526_AddComplaint.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ads.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Complaint.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageAds.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -298,6 +304,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Complaint\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -324,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804271429272_UpSubCat.resx">
       <DependentUpon>201804271429272_UpSubCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271832526_AddComplaint.resx">
+      <DependentUpon>201804271832526_AddComplaint.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

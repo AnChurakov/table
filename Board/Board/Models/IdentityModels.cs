@@ -16,6 +16,8 @@ namespace Board.Models
 
         public virtual ICollection<Ads> Ads { get; set; }
 
+        public virtual ICollection<Complaint> Complaints { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType
@@ -37,6 +39,7 @@ namespace Board.Models
         public DbSet<City> City { get; set; }
         public DbSet<SubCategory> SubCategory { get; set; }
         public DbSet<ImageAds> ImageAds { get; set; }
+        public DbSet<Complaint> Complaints { get; set; }
 
         public static ApplicationDbContext Create()
         {

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Board.Models.Ads>
+
+
+<h2>Мои объявления</h2>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Название</th>
+              <th scope="col">Дата публикации</th>
+              <th scope="col">Удаление</th>
+            </tr>
+          </thead>
+            <tbody>
+                @foreach (var ads in Model)
+                {  
+                    <tr>
+                        <td>@ads.Name</td>
+                        <td>@ads.DateCreation</td>
+                        <td>@Html.ActionLink("Удалить","Delete", "Ads", new { id = ads.Id}, new { @class = "btn btn-danger"})</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

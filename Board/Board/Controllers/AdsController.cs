@@ -20,7 +20,7 @@ namespace Board.Controllers
             return View(selectAds);
         }
 
-        [Authorize]
+        
         public ActionResult AllAds(string name, Guid Id)
         {
             var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);
@@ -41,7 +41,7 @@ namespace Board.Controllers
             return View();
         }
 
-        [Authorize]
+        
         public ActionResult SelectAds(Guid Id)
         {
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
@@ -80,8 +80,6 @@ namespace Board.Controllers
 
                 _context.Ads.Add(ads);
                 _context.SaveChanges();
-            
-
 
             return RedirectToAction("SelectAds", new { id = ads.Id});
         }

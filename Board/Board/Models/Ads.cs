@@ -24,6 +24,8 @@ namespace Board.Models
 
         public virtual SubCategory SubCategory { get; set; }
 
+        public virtual ICollection<Complaint> Complaints { get; set; }
+
         public virtual ICollection<ImageAds> ImageAds { get; set; }
     }
 }

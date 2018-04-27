@@ -1,0 +1,19 @@
+﻿@model Board.Models.Ads
+
+
+<h4>@Model.Name</h4>
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-xs-12">
+        @if (User.Identity.IsAuthenticated && !Model.Complaints.Select(a => a.User.UserName == User.Identity.Name).FirstOrDefault()
+            && !Model.Complaints.Select(a => a.Ads.Id == Model.Id).FirstOrDefault())
+        {     
+            @Html.ActionLink("Пожаловаться", "AddComplaint", "Complaint", new { id = Model.Id}, new { @class = "btn btn-danger"});
+        }
+        <br />
+        Дата добавления : @Model.DateCreation <br /><br />
+        Пользователь: @Model.User.FirstName @Model.User.LastName<br />
+
+        
+
+    </div>
+</div>
