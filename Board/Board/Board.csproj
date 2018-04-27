@@ -195,6 +195,7 @@
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SubCategoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,13 +203,27 @@
     <Compile Include="Migrations\201804270658148_AdsCatCityFIO.Designer.cs">
       <DependentUpon>201804270658148_AdsCatCityFIO.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804271358070_test.cs" />
+    <Compile Include="Migrations\201804271358070_test.Designer.cs">
+      <DependentUpon>201804271358070_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804271405540_ImageAdsSubCat.cs" />
+    <Compile Include="Migrations\201804271405540_ImageAdsSubCat.Designer.cs">
+      <DependentUpon>201804271405540_ImageAdsSubCat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804271429272_UpSubCat.cs" />
+    <Compile Include="Migrations\201804271429272_UpSubCat.Designer.cs">
+      <DependentUpon>201804271429272_UpSubCat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ads.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageAds.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -277,6 +292,8 @@
     <Content Include="Views\City\AllCity.cshtml" />
     <Content Include="Views\Ads\AllAds.cshtml" />
     <Content Include="Views\Ads\AddAds.cshtml" />
+    <Content Include="Views\SubCategory\AddSubCategory.cshtml" />
+    <Content Include="Views\Ads\SelectAds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -297,6 +314,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804270658148_AdsCatCityFIO.resx">
       <DependentUpon>201804270658148_AdsCatCityFIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271358070_test.resx">
+      <DependentUpon>201804271358070_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271405540_ImageAdsSubCat.resx">
+      <DependentUpon>201804271405540_ImageAdsSubCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271429272_UpSubCat.resx">
+      <DependentUpon>201804271429272_UpSubCat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

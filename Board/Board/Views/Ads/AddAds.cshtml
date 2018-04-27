@@ -35,14 +35,27 @@
                 </div>
             </div>
 
-             <label>Категория</label>
+            <div class="form-group">
+            <label>Категория</label>
             <select class="form-control" name="Category">
                 @foreach (Category cat in ViewBag.Category)
                 {
                     <option value="@cat.Id">@cat.Name</option>
                 }
             </select>
+            </div>
 
+            <div class="form-group">
+            <label>Подкатегория</label>
+            <select class="form-control" name="SubCat">
+                @foreach (SubCategory cat in ViewBag.SubCat)
+                {
+                    <option value="@cat.Id">@cat.Name</option>
+                }
+            </select>
+            </div>
+
+            <div class="form-group">
             <label>Город</label>
             <select class="form-control" name="City">
                 @foreach (City city in ViewBag.City)
@@ -50,7 +63,9 @@
                     <option value="@city.Id">@city.Name</option>
                 }
             </select>
+            </div>
 
+            
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Добавить" class="btn btn-default" />

@@ -1,1 +1,28 @@
-﻿
+﻿@model IEnumerable<Board.Models.Ads>
+<div class="row">
+    
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <h4>@ViewBag.Category</h4>
+        <br /><br />
+        <table class="table table-borderless">
+
+            <tbody>
+                @if (ViewBag.Ads != null)
+            {
+                foreach (var ads in ViewBag.Ads)
+                {
+                    <tr>
+                        <td>@ads.Name</td>
+                        <td>@ads.DateCreation</td>
+                        <td>@ads.User.UserName</td>
+                    </tr>
+            }
+        }
+        else
+        {
+            <span>В данный момент объявлений нет</span>
+    }
+            </tbody>
+        </table>
+    </div>
+</div>

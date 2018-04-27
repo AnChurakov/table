@@ -21,5 +21,9 @@ namespace Board.Models
         public virtual City Citys { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        public virtual SubCategory SubCategory { get; set; }
+
+        public virtual ICollection<ImageAds> ImageAds { get; set; }
     }
 }

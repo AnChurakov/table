@@ -35,6 +35,8 @@ namespace Board.Models
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Ads> Ads { get; set; }
         public DbSet<City> City { get; set; }
+        public DbSet<SubCategory> SubCategory { get; set; }
+        public DbSet<ImageAds> ImageAds { get; set; }
 
         public static ApplicationDbContext Create()
         {
