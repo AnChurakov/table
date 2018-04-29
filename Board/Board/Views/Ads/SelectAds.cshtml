@@ -1,19 +1,46 @@
 ﻿@model Board.Models.Ads
 
-
-<h4>@Model.Name</h4>
 <div class="row">
     <div class="col-md-6 col-lg-6 col-xs-12">
-        @if (User.Identity.IsAuthenticated && !Model.Complaints.Select(a => a.User.UserName == User.Identity.Name).FirstOrDefault()
+        <h4>@Model.Name</h4>
+
+
+       @if (User.Identity.IsAuthenticated && !Model.Complaints.Select(a => a.User.UserName == User.Identity.Name).FirstOrDefault()
             && !Model.Complaints.Select(a => a.Ads.Id == Model.Id).FirstOrDefault())
-        {     
-            @Html.ActionLink("Пожаловаться", "AddComplaint", "Complaint", new { id = Model.Id}, new { @class = "btn btn-danger"});
+        {
+         @Html.ActionLink("Пожаловаться", "AddComplaint", "Complaint", new { id = Model.Id }, new { @class = "btn btn-danger", id = "complaint" });
         }
         <br />
-        Дата добавления : @Model.DateCreation <br /><br />
+
+        @foreach (var image in ViewBag.ListImage)
+        {
+            <img src="@Url.Content(image.Path)" class="img-thumbnail" />
+        }
+
+        Дата добавления : @Model.DateCreation <br />
         Пользователь: @Model.User.FirstName @Model.User.LastName<br />
-
-        
-
+        Контактные данные: 
+        @if (Model.User.PhoneNumber == null)
+        {
+            <span>Данные не указаны</span>
+        }
+        else
+        {
+            @Model.User.PhoneNumber
+        }
     </div>
 </div>
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#complaint").click(function () {
+                $("#successComplaint").show();
+            });
+
+        })
+    </script>
+}

@@ -4,30 +4,36 @@
     <div class="col-lg-12 col-md-12 col-xs-12">
         <h4>@ViewBag.Category</h4>
         <br /><br />
+        
+       @using (Ajax.BeginForm("AdsSearch","Ads", new AjaxOptions { HttpMethod = "Post",UpdateTargetId = "results"}))
+        {
+            <input type="text" name="name" />
+            <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
+            <input type="hidden" value="@ViewBag.Name" name="NameCategory"/>
+            <input type="submit" value="Поиск" />
+        }
+
         <table class="table table-borderless">
             <thead>
-            <tr>
-              <th scope="col">Название</th>
-              <th scope="col">Дата публикации</th>
-              <th scope="col">Пользователь</th>
-            </tr>
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Дата публикации</th>
+                    <th scope="col">Город</th>
+                    <th scope="col">Пользователь</th>
+                </tr>
           </thead>
-            <tbody>
-                @if (ViewBag.Ads != null)
-                {
-                    foreach (var ads in ViewBag.Ads)
+            <tbody id="results">
+               
+                    @foreach (var ads in Model)
                     {
                     <tr>
                         <td><a href="~/Ads/SelectAds/@ads.Id">@ads.Name</a></td>
                         <td>@ads.DateCreation</td>
+                        <td>@ads.Citys.Name</td>
                         <td>@ads.User.UserName</td>
                     </tr>
                     }
-                }
-            else
-            {
-            <span>В данный момент объявлений нет</span>
-            }
+               
             </tbody>
         </table>
     </div>

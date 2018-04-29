@@ -11,7 +11,7 @@ namespace Board.Models
     {
         public Guid Id { get; set; }
 
-        public Ads Ads { get; set; }
+        public virtual Ads Ads { get; set; }
 
         public virtual ApplicationUser User { get; set; }
     }

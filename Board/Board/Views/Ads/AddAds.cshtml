@@ -20,64 +20,81 @@
 <div class="row">
     <div class="col-md-8">
         <div class="alert alert-primary" role="alert">
-         Опасайтесь мошенников просящих пополнить баланс телефона якобы за найденную вещь
+            Опасайтесь мошенников просящих пополнить баланс телефона якобы за найденную вещь
         </div>
         <section id="loginForm">
-            @using (Html.BeginForm("CreateNewAds", "Ads", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            @using (Html.BeginForm("CreateNewAds", "Ads", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-            <label>Категория</label>
-            <select class="form-control" name="Category">
-                @foreach (Category cat in ViewBag.Category)
-                {
-                    <option value="@cat.Id">@cat.Name</option>
-                }
-            </select>
-            </div>
-
-            <div class="form-group">
-            <label>Подкатегория</label>
-            <select class="form-control" name="SubCat">
-                @foreach (SubCategory cat in ViewBag.SubCat)
-                {
-                    <option value="@cat.Id">@cat.Name</option>
-                }
-            </select>
-            </div>
-
-            <div class="form-group">
-            <label>Город</label>
-            <select class="form-control" name="City">
-                @foreach (City city in ViewBag.City)
-                {
-                    <option value="@city.Id">@city.Name</option>
-                }
-            </select>
-            </div>
-
-            
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Добавить" class="btn btn-default" />
+                <div class="form-group">
+                    <label>Категория</label>
+                    <select class="form-control" name="Category">
+                        @foreach (Category cat in ViewBag.Category)
+                        {
+                            <option value="@cat.Id">@cat.Name</option>
+                        }
+                    </select>
                 </div>
-            </div>
 
-    }
+                <div class="form-group">
+                    <label>Подкатегория</label>
+                    <select class="form-control" name="SubCat">
+                        @foreach (SubCategory cat in ViewBag.SubCat)
+                        {
+                            <option value="@cat.Id">@cat.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Город</label>
+                    <select class="form-control" name="City">
+                        @foreach (City city in ViewBag.City)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group" id="file">
+                    <input type="file" class="form-control" name="upload" />
+                    <input type="button" id="Add" class="btn btn-primary" value="+" />
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Добавить" class="btn btn-default" />
+                    </div>
+                </div>
+
+            }
         </section>
     </div>
 
+   
+
 </div>
+@Scripts.Render("~/bundles/jqueryval")
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+            $("body").on("click", "#Add", function () {
+
+                alert(1);
+
+            })
+
+        })
+    </script>
 }

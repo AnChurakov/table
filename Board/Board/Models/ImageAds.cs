@@ -9,7 +9,7 @@ namespace Board.Models
     {
         public Guid Id { get; set; }
 
-        public string Path { get; set; }
+        public virtual string Path { get; set; }
 
         public virtual Ads Ads { get; set; }
     }

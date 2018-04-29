@@ -13,7 +13,9 @@ namespace Board.Controllers
 
         public ActionResult Index()
         {
-            return View(_context.Categorys.ToList());
+            var selectCategorys = _context.Categorys.ToList();
+
+            return View(selectCategorys);
         }
     }
 }

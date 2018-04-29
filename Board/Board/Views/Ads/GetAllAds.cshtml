@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Board.Models.Ads>
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <h2>Все объявления</h2>
+
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Пользователь</th>
+                    <th scope="col">Удаление</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var ads in Model)
+            {
+                <tr>
+                    <th>@ads.Name</th>
+                    <td>@ads.User.UserName</td>
+                    <td>@Html.ActionLink("Удалить", "Delete", "Ads", new { url = Request.Url.AbsoluteUri ,id = ads.Id}, new { @class = "btn btn-danger" })</td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

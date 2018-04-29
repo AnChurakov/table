@@ -12,6 +12,14 @@ namespace Board.Controllers
         ApplicationDbContext _context = new ApplicationDbContext();
 
         [Authorize]
+        public ActionResult AllComplaint()
+        {
+            var listComplaint = _context.Complaints.ToList();
+
+            return View(listComplaint);
+        }
+
+        [Authorize]
         [HttpGet]
         public RedirectToRouteResult AddComplaint(Guid Id)
         {

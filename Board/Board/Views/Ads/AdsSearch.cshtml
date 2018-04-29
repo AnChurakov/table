@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Board.Models.Ads>
+<div class="row">
+
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <h4>Поиск по : @ViewBag.NameSearch</h4>
+        <br /><br />
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Дата публикации</th>
+                    <th scope="col">Город</th>
+                    <th scope="col">Пользователь</th>
+                </tr>
+            </thead>
+            <tbody id="results">
+
+                @foreach (var ads in Model)
+                {
+                    <tr>
+                        <td><a href="~/Ads/SelectAds/@ads.Id">@ads.Name</a></td>
+                        <td>@ads.DateCreation</td>
+                        <td>@ads.Citys.Name</td>
+                        <td>@ads.User.UserName</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

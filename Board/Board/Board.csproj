@@ -250,6 +250,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -301,10 +303,14 @@
     <Content Include="Views\SubCategory\AddSubCategory.cshtml" />
     <Content Include="Views\Ads\SelectAds.cshtml" />
     <Content Include="Views\Ads\MyAds.cshtml" />
+    <Content Include="Views\Complaint\AllComplaint.cshtml" />
+    <Content Include="Views\Ads\GetAllAds.cshtml" />
+    <Content Include="Views\Ads\AdsSearch.cshtml" />
+    <Content Include="Views\Ads\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Complaint\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
