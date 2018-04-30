@@ -16,8 +16,13 @@ namespace Board.Models
 
         public DateTime? DateCreation { get; set; }
 
+        [Display(Name = "Описание")]
+        public string Description { get; set; }
+
+        [Display(Name = "Категория")]
         public virtual Category Categorys { get; set; }
 
+        [Display(Name = "Город")]
         public virtual City Citys { get; set; }
 
         public virtual ApplicationUser User { get; set; }

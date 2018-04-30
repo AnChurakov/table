@@ -14,6 +14,9 @@ namespace Board.Models
         [Display(Name = "Название категории")]
         public string Name { get; set; }
 
+        [Display(Name = "Специальная категория")]
+        public bool Special { get; set; }
+
         public virtual ICollection<Ads> Ads { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace Board.Controllers
         {
             var selectCategorys = _context.Categorys.ToList();
 
+            ViewBag.SubCategory = _context.SubCategory.ToList();
+
             return View(selectCategorys);
         }
     }

@@ -12,7 +12,7 @@ namespace Board.Controllers
     public class AdsController : Controller
     {
         ApplicationDbContext _context = new ApplicationDbContext();
-        
+
         [Authorize]
         public ActionResult MyAds()
         {
@@ -26,37 +26,29 @@ namespace Board.Controllers
         {
             return View(_context.Ads.ToList());
         }
-        
-        public ActionResult AllAds(string name, Guid Id)
+
+        public ActionResult AllAds(Guid Id, string SubcatId)
         {
+            List<Ads> listAds = new List<Ads>();
+
             var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);
 
             ViewBag.Category = selectCat.Name;
 
-            if (name == "my")
+            if (SubcatId == null)
             {
-                ViewBag.Ads = _context.Ads.Where(a => a.SubCategory.Name == "Нашел" && a.Categorys.Id == selectCat.Id)
-                    .OrderByDescending(t => t.DateCreation)
-                    .ToList();
-
-                ViewBag.Name = name;
-
-                ViewBag.CategoryId = Id;
-                
+                listAds = _context.Ads.Where(a => a.Categorys.Special == true && a.Categorys.Id == selectCat.Id)
+                        .OrderByDescending(t => t.DateCreation)
+                        .ToList();
             }
-
-            if (name == "search")
+            else
             {
-                ViewBag.Ads = _context.Ads.Where(a => a.SubCategory.Name == "Ищу" && a.Categorys.Id == selectCat.Id)
-                    .ToList();
-
-                ViewBag.Name = name;
-
-                ViewBag.CategoryId = Id;
+                listAds = _context.Ads.Where(a => a.SubCategory.Id == new Guid(SubcatId) && a.Categorys.Id == selectCat.Id)
+                        .OrderByDescending(t => t.DateCreation)
+                        .ToList();
             }
-
         
-            return View();
+            return View(listAds);
         }
 
         [Authorize]
@@ -68,13 +60,41 @@ namespace Board.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> UpdateAds(string NameAds, string DescAds, Guid AdsId)
+        {
+            var selectAds = _context.Ads.FirstOrDefault(a => a.Id == AdsId);
+
+            if (NameAds != null || NameAds != string.Empty)
+            {
+                selectAds.Name = NameAds;
+            }
+
+            if (DescAds != null || DescAds != string.Empty)
+            {
+                selectAds.Description = DescAds;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Edit", new { id = AdsId});
+        }
+
+        [HttpPost]
         public ActionResult AdsSearch(string nameSearch)
         {
-            var search = _context.Ads.Where(a => a.Name.Contains(nameSearch)).ToList();
+            List<Ads> resultSearch = new List<Ads>();
+
+            string[] splitSearch = nameSearch.Split(' ');
+
+            foreach (var search in splitSearch)
+
+            {
+                resultSearch = _context.Ads.Where(a => a.Name.Contains(search)).ToList();
+            }
 
             ViewBag.NameSearch = nameSearch;
 
-            return View(search);
+            return View(resultSearch);
         }
         
         public ActionResult SelectAds(Guid Id)
@@ -111,6 +131,7 @@ namespace Board.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = model.Name,
+                Description = model.Description,
                 DateCreation = DateTime.Now,
                 Categorys = selectCategory,
                 SubCategory = selectSubCat,
@@ -136,6 +157,7 @@ namespace Board.Controllers
                 };            
 
             _context.ImageAds.Add(image);
+
             _context.Ads.Add(ads);
 
             _context.SaveChanges();
@@ -154,11 +176,24 @@ namespace Board.Controllers
 
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
 
-            var selectComplaint = _context.Complaints.FirstOrDefault(a => a.Ads.Id == Id);
+            var selectComplaint = _context.Complaints.Where(a => a.Ads.Id == Id).ToList();
+
+            var selectImages = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
+
+            if (selectImages != null)
+            {
+                foreach(var deleteImages in selectImages)
+                {
+                    _context.ImageAds.Remove(deleteImages);
+                }
+            }
 
             if (selectComplaint != null)
             {
-                _context.Complaints.Remove(selectComplaint);
+                foreach (var deleteComplaint in selectComplaint)
+                {
+                    _context.Complaints.Remove(deleteComplaint);
+                };
             }
 
             _context.Ads.Remove(selectAds);

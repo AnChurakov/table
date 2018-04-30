@@ -25,15 +25,18 @@ namespace Board.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateNewCat(Category model)
         {
+         
            if (ModelState.IsValid)
-            {
+            {             
                 Category cat = new Category
                 {
                     Id = Guid.NewGuid(),
-                    Name = model.Name
+                    Name = model.Name,
+                    Special = model.Special
                 };
 
                 _context.Categorys.Add(cat);
+
                 _context.SaveChanges();
 
                 ViewBag.Flag = "Success";

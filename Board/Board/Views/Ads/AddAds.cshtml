@@ -36,6 +36,14 @@
                 </div>
 
                 <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label>Категория</label>
                     <select class="form-control" name="Category">
                         @foreach (Category cat in ViewBag.Category)

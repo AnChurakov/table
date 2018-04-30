@@ -220,6 +220,10 @@
     <Compile Include="Migrations\201804271832526_AddComplaint.Designer.cs">
       <DependentUpon>201804271832526_AddComplaint.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804291401107_SpecialCatDescAds.cs" />
+    <Compile Include="Migrations\201804291401107_SpecialCatDescAds.Designer.cs">
+      <DependentUpon>201804291401107_SpecialCatDescAds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ads.cs" />
@@ -340,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804271832526_AddComplaint.resx">
       <DependentUpon>201804271832526_AddComplaint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291401107_SpecialCatDescAds.resx">
+      <DependentUpon>201804291401107_SpecialCatDescAds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
