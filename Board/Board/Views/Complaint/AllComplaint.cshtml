@@ -19,9 +19,8 @@
                {                   
                     <tr>
                         <td>@complaint.Ads.Name</td>
-                        <td>@complaint.Ads.User.UserName</td>
-                        <td>@Html.ActionLink("Удалить", "Delete", "Ads", new { url = Request.Url.AbsoluteUri, id = complaint.Ads.Id }, new { @class = "btn btn-danger" })</td>
-                        
+                        <td>@complaint.Ads.User.UserName <a href="#" class="btn btn-danger">Заблокировать</a></td>
+                        <td>@Html.ActionLink("Удалить", "Delete", "Ads", new { url = Request.Url.AbsoluteUri, id = complaint.Ads.Id }, new { @class = "btn btn-danger" })</td>                        
                     </tr>             
                   
                }

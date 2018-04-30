@@ -15,6 +15,7 @@ namespace Board.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext _context = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -50,10 +51,25 @@ namespace Board.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> UpdateFIO(string firstname, string lastname, string patr)
+        {
+            var user = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+
+            user.FirstName = firstname;
+            user.LastName = lastname;
+            user.Patronymic = patr;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Manage");
+        }
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            var user = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Ваш пароль изменен."
                 : message == ManageMessageId.SetPasswordSuccess ? "Пароль задан."
@@ -70,7 +86,10 @@ namespace Board.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Patronymic = user.Patronymic
             };
             return View(model);
         }
