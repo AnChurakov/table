@@ -33,6 +33,8 @@ namespace Board.Controllers
 
             var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);
 
+            var subCategoryId = new Guid(SubcatId);
+
             ViewBag.Category = selectCat.Name;
 
             if (SubcatId == null)
@@ -43,11 +45,17 @@ namespace Board.Controllers
             }
             else
             {
-                listAds = _context.Ads.Where(a => a.SubCategory.Id == new Guid(SubcatId) && a.Categorys.Id == selectCat.Id)
+                listAds = _context.Ads.Where(a => a.SubCategory.Id == subCategoryId && a.Categorys.Id == selectCat.Id)
                         .OrderByDescending(t => t.DateCreation)
                         .ToList();
             }
-        
+
+            ViewBag.Citys = _context.City.OrderBy(a => a.Name).ToList();
+
+            ViewBag.SubCategory = subCategoryId;
+
+            ViewBag.CategoryId = Id;
+
             return View(listAds);
         }
 
@@ -77,6 +85,24 @@ namespace Board.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Edit", new { id = AdsId});
+        }
+
+        [HttpPost]
+        public ActionResult SearchSingle (string Keyword, Guid CategoryId, Guid SubCatId)
+        {
+            var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                 .ToList();
+
+            return PartialView(selectAds);
+        }
+
+        [HttpPost]
+        public ActionResult SortCityAds(Guid CityId, Guid CategoryId, Guid SubCatId)
+        {
+            var selectAds = _context.Ads.Where(a => a.Citys.Id == CityId && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                .ToList();
+
+            return PartialView(selectAds);
         }
 
         [HttpPost]

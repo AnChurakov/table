@@ -311,6 +311,8 @@
     <Content Include="Views\Ads\GetAllAds.cshtml" />
     <Content Include="Views\Ads\AdsSearch.cshtml" />
     <Content Include="Views\Ads\Edit.cshtml" />
+    <Content Include="Views\Ads\SortCityAds.cshtml" />
+    <Content Include="Views\Ads\SearchSingle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

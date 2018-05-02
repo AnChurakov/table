@@ -12,7 +12,7 @@
 </div>
 
 
-    @foreach (var category in Model.Where(a => a.Special == false))
+    @foreach (var category in Model.Where(a => a.Special == false).OrderBy(a => a.Name))
     {
         <div class="col-md-4 col-lg-4 col-xs-12">
             <div class="card" style="width: 18rem; margin-top:50px;">
@@ -37,7 +37,7 @@
 
     <br /><br />
 
-    @foreach (var category in Model.Where(a => a.Special == true))
+    @foreach (var category in Model.Where(a => a.Special == true).OrderBy(a => a.Name))
     {
         <div class="col-md-4 col-lg-4 col-xs-12">
             <div class="card" style="width: 18rem; margin-top:50px;">

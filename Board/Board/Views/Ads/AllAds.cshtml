@@ -5,12 +5,27 @@
         <h4>@ViewBag.Category</h4>
         <br /><br />
         
-       @using (Ajax.BeginForm("AdsSearch","Ads", new AjaxOptions { HttpMethod = "Post",UpdateTargetId = "results"}))
+       @using (Ajax.BeginForm("SearchSingle", new AjaxOptions { HttpMethod = "post",UpdateTargetId = "results"}))
         {
-            <input type="text" name="name" />
+            <input type="text" name="Keyword" class="form-control" />
             <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
-            <input type="hidden" value="@ViewBag.Name" name="NameCategory"/>
-            <input type="submit" value="Поиск" />
+            <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
+            <input type="submit" class="btn btn-primary" value="Поиск" />
+        }
+
+        @using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
+        {
+            <select class="form-control" name="CityId">
+                @foreach (var city in ViewBag.Citys)
+                {
+                    <option value="@city.Id">@city.Name</option>
+                }
+            </select>
+            <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
+            <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
+            <input type="submit" class="btn btn-success" value="Выбрать" />
+
+              
         }
 
         <table class="table table-borderless">
@@ -32,9 +47,10 @@
                         <td>@ads.Citys.Name</td>
                         <td>@ads.User.UserName</td>
                     </tr>
-                    }
+                        }
                
             </tbody>
         </table>
+
     </div>
 </div>
