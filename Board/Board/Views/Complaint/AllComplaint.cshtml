@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<Board.Models.Complaint>
 @{
-    ViewBag.Title = "AllComplaint";
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+    ViewBag.Title = "Список жалоб на объявления";
 }
 
-<div class="row">
-    <div class="col-md-6 col-lg-6 col-xs-12">
         <h2>Жалобы на объявления</h2>
         <table class="table table-striped">
             <thead>
@@ -26,7 +25,5 @@
                }
             </tbody>
         </table>
-    </div>
-</div>
-
+ 
 

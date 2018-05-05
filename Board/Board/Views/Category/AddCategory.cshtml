@@ -1,5 +1,7 @@
 ﻿@model Board.Models.Category
-
+@{ 
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
 @if (ViewBag.Flag == "Success")
 {
     <div class="alert alert-success" role="alert">

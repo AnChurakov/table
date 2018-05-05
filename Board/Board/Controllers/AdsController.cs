@@ -165,24 +165,27 @@ namespace Board.Controllers
                 User = selectUser,
             };
 
-            string fileName = System.IO.Path.GetFileName(upload.FileName);
+            if (upload != null)
+            {
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
 
-            var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
+                var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
 
-            upload.SaveAs(pathFile);
+                upload.SaveAs(pathFile);
 
-            var splitPathFile = pathFile.Split('\\');
+                var splitPathFile = pathFile.Split('\\');
 
-            string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
+                string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
 
-            ImageAds image = new ImageAds
+                ImageAds image = new ImageAds
                 {
                     Id = Guid.NewGuid(),
                     Ads = ads,
                     Path = correctPathFile
-                };            
+                };
 
-            _context.ImageAds.Add(image);
+                _context.ImageAds.Add(image);
+            }
 
             _context.Ads.Add(ads);
 
