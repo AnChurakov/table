@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using Board.Models;
 using System.Web.Routing;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Board.Controllers
 {
@@ -22,9 +24,15 @@ namespace Board.Controllers
         }
 
         [Authorize]
-        public ActionResult GetAllAds()
+        public ActionResult GetAllAds(int? page)
         {
-            return View(_context.Ads.ToList());
+            int sizePage = 15;
+
+            int pageNumber = (page ?? 1);
+            
+            var selectAds = _context.Ads.ToList();
+
+            return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
         public ActionResult AllAds(Guid Id, string SubcatId)
@@ -32,8 +40,6 @@ namespace Board.Controllers
             List<Ads> listAds = new List<Ads>();
 
             var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);
-
-            var subCategoryId = new Guid(SubcatId);
 
             ViewBag.Category = selectCat.Name;
 
@@ -45,14 +51,14 @@ namespace Board.Controllers
             }
             else
             {
-                listAds = _context.Ads.Where(a => a.SubCategory.Id == subCategoryId && a.Categorys.Id == selectCat.Id)
+                listAds = _context.Ads.Where(a => a.SubCategory.Id == new Guid(SubcatId) && a.Categorys.Id == selectCat.Id)
                         .OrderByDescending(t => t.DateCreation)
                         .ToList();
             }
 
             ViewBag.Citys = _context.City.OrderBy(a => a.Name).ToList();
 
-            ViewBag.SubCategory = subCategoryId;
+            ViewBag.SubCategory = SubcatId;
 
             ViewBag.CategoryId = Id;
 
@@ -88,9 +94,9 @@ namespace Board.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchSingle (string Keyword, Guid CategoryId, Guid SubCatId)
+        public ActionResult SearchSingle (string Keyword, string CategoryId, string SubCatId)
         {
-            var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+            var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == new Guid(CategoryId) && a.SubCategory.Id == new Guid(SubCatId))
                  .ToList();
 
             return PartialView(selectAds);
@@ -113,7 +119,6 @@ namespace Board.Controllers
             string[] splitSearch = nameSearch.Split(' ');
 
             foreach (var search in splitSearch)
-
             {
                 resultSearch = _context.Ads.Where(a => a.Name.Contains(search)).ToList();
             }
@@ -130,22 +135,24 @@ namespace Board.Controllers
             ViewBag.ListImage = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
 
             return View(selectAds);
-        }
+        } 
 
 
         [Authorize]
         public ActionResult AddAds()
         {
             ViewBag.City = _context.City.ToList();
+
             ViewBag.Category = _context.Categorys.ToList();
+
             ViewBag.SubCat = _context.SubCategory.ToList();
             
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateNewAds(Ads model, Guid City, Guid Category, Guid SubCat,
-            HttpPostedFileBase upload)
+        public RedirectToRouteResult CreateNewAds(Ads model, Guid City, Guid Category, Guid? SubCat,
+            IEnumerable<HttpPostedFileBase> upload)
         {
 
             var selectCategory = _context.Categorys.FirstOrDefault(a => a.Id == Category);
@@ -165,26 +172,30 @@ namespace Board.Controllers
                 User = selectUser,
             };
 
-            if (upload != null)
+            foreach (var file in upload)
             {
-                string fileName = System.IO.Path.GetFileName(upload.FileName);
-
-                var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
-
-                upload.SaveAs(pathFile);
-
-                var splitPathFile = pathFile.Split('\\');
-
-                string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
-
-                ImageAds image = new ImageAds
+                if (file != null)
                 {
-                    Id = Guid.NewGuid(),
-                    Ads = ads,
-                    Path = correctPathFile
-                };
+                    string fileName = System.IO.Path.GetFileName(file.FileName);
 
-                _context.ImageAds.Add(image);
+                    var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
+
+                    file.SaveAs(pathFile);
+
+                    var splitPathFile = pathFile.Split('\\');
+
+                    string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
+
+                    ImageAds image = new ImageAds
+                    {
+                        Id = Guid.NewGuid(),
+                        Ads = ads,
+                        Path = correctPathFile
+                    };
+
+                    _context.ImageAds.Add(image);
+
+                }
             }
 
             _context.Ads.Add(ads);

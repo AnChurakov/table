@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<Board.Models.Ads>
 <div class="row">
-    
+
     <div class="col-lg-12 col-md-12 col-xs-12">
         <h4>@ViewBag.Category</h4>
         <br /><br />
-        
-       @using (Ajax.BeginForm("SearchSingle", new AjaxOptions { HttpMethod = "post",UpdateTargetId = "results"}))
-        {
-            <input type="text" name="Keyword" class="form-control" />
-            <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
-            <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
-            <input type="submit" class="btn btn-primary" value="Поиск" />
-        }
+
+        @*@using (Ajax.BeginForm("SearchSingle", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
+        {*@
+            <input type="text" name="Keyword" id="Keyword" class="form-control" />
+            <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" id="CategoryId" />
+            <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" id="SubCatId" />
+            <input type="button" id="searchbtn" class="btn btn-primary" value="Поиск" />
+      
 
         @using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
         {
@@ -25,8 +25,10 @@
             <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
             <input type="submit" class="btn btn-success" value="Выбрать" />
 
-              
+
         }
+
+       @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success" })     
 
         <table class="table table-borderless">
             <thead>
@@ -36,21 +38,68 @@
                     <th scope="col">Город</th>
                     <th scope="col">Пользователь</th>
                 </tr>
-          </thead>
+            </thead>
             <tbody id="results">
-               
-                    @foreach (var ads in Model)
-                    {
+
+                @foreach (var ads in Model)
+                {
                     <tr>
-                        <td><a href="~/Ads/SelectAds/@ads.Id">@ads.Name</a></td>
+                        <td><a href="~/Ads/SelectAds/@ads.Id" class="AdsName">@ads.Name</a></td>
                         <td>@ads.DateCreation</td>
                         <td>@ads.Citys.Name</td>
                         <td>@ads.User.UserName</td>
                     </tr>
-                        }
-               
+                }
+
             </tbody>
         </table>
 
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#searchbtn").click(function () {
+
+                keyword = $("#Keyword").val();
+                var subcat = $("#SubCatId").val();
+                var categoryid = $("#CategoryId").val();
+
+               
+                $.ajax({
+                    url: "http://localhost:63234/Ads/SearchSingle",
+                    type: "POST",
+                    dataType: "html",
+                    data: "Keyword=" + keyword + "&SubCatId=" + subcat + "&CategoryId=" + categoryid,
+                    success: function (data) {
+
+                        $("#results").html(data);
+
+                        alert("nezashel");
+
+                        $(".AdsName").each(function () {
+                                                       
+                            var valueAds = $(this).text();
+
+                            var arrStr = keyword.split(' ');
+
+                            $.each(arrStr, function (ind, txt) {
+
+                                var re = new RegExp(txt, "g");
+
+                                valueAds = valueAds.replace(re, "<span style='background:yellow;'>" + txt + "</span>");
+                                
+                            });
+
+                            $(".AdsName").html(valueAds);
+
+                        });
+                    }
+                });
+            });
+   
+        })
+    </script>
+}

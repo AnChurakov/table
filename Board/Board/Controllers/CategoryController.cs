@@ -59,5 +59,23 @@ namespace Board.Controllers
 
             return RedirectToAction("AllCategory");
         }
+
+        [HttpPost]
+        public bool CheckSpecialCategory(string CategoryId)
+        {
+            bool flag = false;
+
+            if (CategoryId != null)
+            {
+                var selectCategory = _context.Categorys.FirstOrDefault(a => a.Id == new Guid(CategoryId));
+
+                if (selectCategory.Special == true)
+                {
+                    flag = true;
+                }
+            }      
+
+            return flag;
+        }
     }
 }

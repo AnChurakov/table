@@ -18,7 +18,7 @@
 <h4>Добавление нового объявления</h4>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
         <div class="alert alert-primary" role="alert">
             Опасайтесь мошенников просящих пополнить баланс телефона якобы за найденную вещь
         </div>
@@ -45,7 +45,8 @@
 
                 <div class="form-group">
                     <label>Категория</label>
-                    <select class="form-control" name="Category">
+                    <select class="form-control" name="Category" id="Category">
+                        <option selected>Выберите категорию</option>
                         @foreach (Category cat in ViewBag.Category)
                         {
                             <option value="@cat.Id">@cat.Name</option>
@@ -53,9 +54,10 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group"  id="SubCat">
                     <label>Подкатегория</label>
                     <select class="form-control" name="SubCat">
+                        <option selected>Выберите подкатегорию</option>
                         @foreach (SubCategory cat in ViewBag.SubCat)
                         {
                             <option value="@cat.Id">@cat.Name</option>
@@ -66,6 +68,7 @@
                 <div class="form-group">
                     <label>Город</label>
                     <select class="form-control" name="City">
+                        <option selected>Выберите город</option>
                         @foreach (City city in ViewBag.City)
                         {
                             <option value="@city.Id">@city.Name</option>
@@ -74,9 +77,17 @@
                 </div>
 
                 <div class="form-group" id="file">
+                   <div class="col-xs-12 col-lg-4 col-md-4">
                     <input type="file" class="form-control" name="upload" />
-                    <input type="button" id="Add" class="btn btn-primary" value="+" />
+                    </div>
+
+                    <div class="col-xs-12 col-lg-6 col-md-6">
+                    <input type="button" id="Add" class="btn btn-primary" value="Добавить" />
+                    <input type="button" id="Delete" class="btn btn-danger" value="Удалить" />
+                   </div>
                 </div>
+
+                <div id="append"></div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -97,11 +108,50 @@
     <script>
         $(document).ready(function () {
 
-            $("body").on("click", "#Add", function () {
+            var subcat = $("#SubCat").hide();
 
-                alert(1);
+            $("body").on("click", "#Add", function (e) {
 
-            })
+                e.preventDefault();
+
+                var blockfile = $(this).parent().parent().clone();
+
+                blockfile.appendTo("#append");
+
+            });
+
+            $("body").on("click", "#Delete", function (e) {
+
+                e.preventDefault();
+
+                var blockfile = $(this).parent().parent();
+
+                blockfile.remove();
+
+            });
+
+            $("#Category").change(function () {
+
+                var CategoryId = $(this).val();
+
+                $.ajax({
+                    type: "POST",
+                    url:"http://localhost:63234/Category/CheckSpecialCategory",
+                    dataType: "text",
+                    data: "CategoryId="+CategoryId,
+                    success: function (data) {
+
+                        if (data == "True") {
+                            subcat.hide();
+                        }
+                        else {
+                            subcat.show();
+                        }
+                    }
+
+                });
+
+            });
 
         })
     </script>

@@ -6,10 +6,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Панель администратора</title>
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="~/Content/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/PagedList.css" />
 </head>
 <body>
 
@@ -51,9 +51,16 @@
                         </li>
                         <li class="nav-item">
                             @Html.ActionLink("Список жалоб", "AllComplaint", "Complaint", null, new { @class = "nav-link" })
-                            
                         </li>
-
+                        <li class="nav-item">
+                            @Html.ActionLink("Назначить роль пользователю", "AddRoleUser", "Role", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Добавить роль", "AddRole", "Role", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Список ролей", "AllRoles", "Role", null, new { @class = "nav-link" })
+                        </li>
                     </ul>
                 </div>
             </nav>

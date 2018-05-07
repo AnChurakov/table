@@ -13,6 +13,12 @@ namespace Board.Controllers
         ApplicationDbContext _context = new ApplicationDbContext();
 
         [Authorize]
+        public ActionResult AllSubCategory()
+        {
+            return View(_context.SubCategory.ToList());
+        }
+
+        [Authorize]
         public ActionResult AddSubCategory()
         {
             return View();

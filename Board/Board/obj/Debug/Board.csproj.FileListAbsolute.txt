@@ -285,3 +285,7 @@ D:\bw\table\Board\Board\obj\Debug\Board.Migrations.ImageAdsSubCat.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.UpSubCat.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.AddComplaint.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.SpecialCatDescAds.resources
+D:\bw\table\Board\Board\bin\PagedList.dll
+D:\bw\table\Board\Board\bin\PagedList.Mvc.dll
+D:\bw\table\Board\Board\bin\PagedList.xml
+D:\bw\table\Board\Board\bin\PagedList.Mvc.xml
