@@ -77,8 +77,6 @@
 
                         $("#results").html(data);
 
-                        alert("nezashel");
-
                         $(".AdsName").each(function () {
                                                        
                             var valueAds = $(this).text();
@@ -93,7 +91,7 @@
                                 
                             });
 
-                            $(".AdsName").html(valueAds);
+                            $(this).html(valueAds);
 
                         });
                     }
