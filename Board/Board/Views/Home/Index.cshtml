@@ -1,54 +1,56 @@
 ﻿@model IEnumerable<Board.Models.Category>
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AdsSearch", "Ads", FormMethod.Post))
+{
+    <div class="form-group mt-4 d-flex justify-content-center align-items-center">
+        <label for="adSearch" class="text-right">Поиск по всему сайту</label>
+        <input type="text" id="adSearch" placeholder="Введите ключевое слово" name="nameSearch" class="ml-3 mr-1 form-control col-7">
+        <button type="submit" class="btn btn-success">Найти</button>
+    </div>
+}
 
 <div class="row">
 
-<div class="col-lg-12 col-md-12 col-xs-12">
-    @using (Html.BeginForm("AdsSearch", "Ads", FormMethod.Post))
-    {
-        <label>Поиск объявления</label>
-        <input type="text" name="nameSearch" class="form-control" />
-        <input type="submit" class="btn btn-success" value="Найти" />
-    }
-</div>
-
-
     @foreach (var category in Model.Where(a => a.Special == false).OrderBy(a => a.Name))
     {
-        <div class="col-md-4 col-lg-4 col-xs-12">
-            <div class="card" style="width: 18rem; margin-top:50px;">
-                <div class="card-body">
-                    <h3 class="card-title text-center">@category.Name</h3>
+        <div class="col-xs-12 col-lg-4 col-md-4">
+        <div class="card mb-4 px-0">
+            <div class="card-body">
+                <h4 class="card-title text-center">@category.Name</h4>
+                <div class="d-flex justify-content-center">
 
                     @foreach (var subcat in ViewBag.SubCategory)
                     {
                         string nameSub = subcat.Name.ToString();
 
-                        @Html.ActionLink(nameSub, "AllAds", "Ads", new { subcatid = subcat.Id, id = category.Id }, new { @class = "btn btn-primary" });
+                        @Html.ActionLink(nameSub, "AllAds", "Ads", new { subcatid = subcat.Id, id = category.Id }, new { @class = "btn btn-primary mr-1" })
                     }
-
-                    @*@Html.ActionLink("Нашел", "AllAds", "Ads", new { name = "my", id = category.Id }, new { @class = "btn btn-primary btn-lg d-flex justify-content-center" })
-                    @Html.ActionLink("Ищу", "AllAds", "Ads", new { name = "search", id = category.Id }, new { @class = "btn btn-danger btn-lg d-flex justify-content-center" })*@
 
                 </div>
             </div>
-
         </div>
+       </div>
     }
 
-    <br /><br />
+
+
 
     @foreach (var category in Model.Where(a => a.Special == true).OrderBy(a => a.Name))
     {
-        <div class="col-md-4 col-lg-4 col-xs-12">
-            <div class="card" style="width: 18rem; margin-top:50px;">
-                <div class="card-body">
-                    <h3 class="card-title text-center">@category.Name</h3>
+        <div class="col-xs-12 col-lg-4 col-md-4">
+        <div class="card mb-4 px-0">
+            <div class="card-body">
+                <h4 class="card-title text-center">@category.Name</h4>
+                <div class="d-flex justify-content-center">
 
-                    @Html.ActionLink("Перейти", "AllAds", "Ads", new {id = category.Id }, new { @class = "btn btn-primary btn-lg d-flex justify-content-center" })
-                    
+                 @Html.ActionLink("Перейти", "AllAds", "Ads", new { id = category.Id }, new { @class = "btn btn-primary" })
+
                 </div>
             </div>
-
         </div>
+    </div>
     }
 </div>

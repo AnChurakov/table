@@ -1,60 +1,58 @@
 ﻿@model IEnumerable<Board.Models.Ads>
-<div class="row">
 
-    <div class="col-lg-12 col-md-12 col-xs-12">
-        <h4>@ViewBag.Category</h4>
-        <br /><br />
+<div class="form-group mt-4 d-flex justify-content-center align-items-center">
+    <label for="adSearch" class="text-right">Поиск в текущей категории</label>
+    <input type="text" id="Keyword" placeholder="Введите ключевое слово" name="Keyword" class="ml-3 mr-1 form-control col-7">
+    <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" id="CategoryId" />
+    <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" id="SubCatId" />
+    <button type="button" id="searchbtn" class="btn btn-primary">Найти</button>
+</div>
 
-        @*@using (Ajax.BeginForm("SearchSingle", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
-        {*@
-            <input type="text" name="Keyword" id="Keyword" class="form-control" />
-            <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" id="CategoryId" />
-            <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" id="SubCatId" />
-            <input type="button" id="searchbtn" class="btn btn-primary" value="Поиск" />
-      
+<div class="d-flex justify-content-between align-items-center py-4">
+    <h2 class="h2 text-secondary advert__header">@ViewBag.Category
+        <button type="button" class="btn btn-primary">
+            @ViewBag.SubCatName
+        </button>
+    </h2>
+    
+    @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success advert__btn" })
+</div>
 
-        @using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
-        {
-            <select class="form-control" name="CityId">
+<div class="filter">
+    @using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
+    {
+        <div class="d-flex">
+            <div class="form-group col-6 px-0 d-flex justify-content-around align-items-center">
+                <label for="adCity" class="text-center">Город</label>
+
+                <select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
+                <option selected>Выберите город</option>
                 @foreach (var city in ViewBag.Citys)
                 {
                     <option value="@city.Id">@city.Name</option>
                 }
-            </select>
-            <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
-            <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
-            <input type="submit" class="btn btn-success" value="Выбрать" />
+                 </select>
+                <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
+                <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
+                <button type="submit" class="btn btn-primary">Отсортировать по выбранному городу</button>
 
-
-        }
-
-       @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success" })     
-
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <th scope="col">Название</th>
-                    <th scope="col">Дата публикации</th>
-                    <th scope="col">Город</th>
-                    <th scope="col">Пользователь</th>
-                </tr>
-            </thead>
-            <tbody id="results">
-
-                @foreach (var ads in Model)
-                {
-                    <tr>
-                        <td><a href="~/Ads/SelectAds/@ads.Id" class="AdsName">@ads.Name</a></td>
-                        <td>@ads.DateCreation</td>
-                        <td>@ads.Citys.Name</td>
-                        <td>@ads.User.UserName</td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-
+            </div>
+        </div>
+    }
     </div>
+
+<div id="results">
+@foreach (var ads in Model)
+{
+        <div class="advert mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="~/Ads/SelectAds/@ads.Id" class="d-block AdsName advert__fontsize">@ads.Name</a>
+                        <div class="advert__city">@ads.Citys.Name</div>
+                        <div class="advert__date">@ads.DateCreation</div>
+                        <div class="advert__user">@ads.User.UserName</div>
+                    </div>
+                </div>
+}
 </div>
 
 @section Scripts {
@@ -67,7 +65,7 @@
                 var subcat = $("#SubCatId").val();
                 var categoryid = $("#CategoryId").val();
 
-               
+
                 $.ajax({
                     url: "http://localhost:63234/Ads/SearchSingle",
                     type: "POST",
@@ -78,7 +76,7 @@
                         $("#results").html(data);
 
                         $(".AdsName").each(function () {
-                                                       
+
                             var valueAds = $(this).text();
 
                             var arrStr = keyword.split(' ');
@@ -88,7 +86,7 @@
                                 var re = new RegExp(txt, "g");
 
                                 valueAds = valueAds.replace(re, "<span style='background:yellow;'>" + txt + "</span>");
-                                
+
                             });
 
                             $(this).html(valueAds);
@@ -97,7 +95,7 @@
                     }
                 });
             });
-   
+
         })
     </script>
 }

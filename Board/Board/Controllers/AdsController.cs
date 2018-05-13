@@ -60,6 +60,8 @@ namespace Board.Controllers
 
             ViewBag.SubCategory = SubcatId;
 
+            ViewBag.SubCatName = _context.SubCategory.FirstOrDefault(a => a.Id == new Guid(SubcatId)).Name;
+
             ViewBag.CategoryId = Id;
 
             return View(listAds);
@@ -116,16 +118,11 @@ namespace Board.Controllers
         {
             List<Ads> resultSearch = new List<Ads>();
 
-            string[] splitSearch = nameSearch.Split(' ');
-
-            foreach (var search in splitSearch)
-            {
-                resultSearch = _context.Ads.Where(a => a.Name.Contains(search)).ToList();
-            }
+            var searchResult = _context.Ads.Where(a => a.Name.Contains(nameSearch)).ToList();
 
             ViewBag.NameSearch = nameSearch;
 
-            return View(resultSearch);
+            return View(searchResult);
         }
         
         public ActionResult SelectAds(Guid Id)

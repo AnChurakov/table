@@ -1,76 +1,72 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    @Scripts.Render("~/bundles/modernizr")
-
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/fontawesome-all.css">
+    <link rel="stylesheet" href="~/Content/style.css">
 </head>
+
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Мир-Находок.рф</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ">
-                    @Html.ActionLink("Главная", "Index", "Home", null, new { @class = "nav-link" })
-                </li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item ">
-                        @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "nav-link" })
-                    </li>
-                }
-
-                @if (User.IsInRole("Admin"))
-                {
-                    <li class="nav-item ">
-                        @Html.ActionLink("Панель Администратора", "GetAllAds", "Ads", null, new { @class = "nav-link" })
-                    </li>
-                }
-            </ul>
-            @Html.Partial("_LoginPartial")
-        </div>
-    </div>
-    </nav>
-
-    @*<div class="navbar navbar-default navbar-fixed-top">
+    <div class="page">
+        <header class="header">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-
-                    </ul>
-                    @Html.Partial("_LoginPartial")
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="navbar">
+                        <a class="navbar-brand text-secondary h2 font-weight-bold text-uppercase" href="#">Мир-находок.рф</a>
+                        <ul class="nav header__nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Главная</a>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                               <li>
+                                   @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "nav-link" })
+                               </li>
+                            }
+                        </ul>
+                    </div>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                    <div class="auth">
+                        <a href="/Account/Register">
+                            <i class="fa fa-user-alt mr-2"></i>Регистрация
+                        </a>
+                        <a href="/Account/Login">
+                            <i class="fa fa-sign-in-alt mr-2"></i>Авторизация
+                        </a>
+                    </div>
+                    }
+                    else
+                    {
+                       @Html.Partial("_LoginPartial")
+                    }
                 </div>
             </div>
-        </div>*@
-    <div class="container body-content">
-        @RenderBody()
-
-
+        </header>
+        <div class="content">
+            <div class="container">
+               
+                    @RenderBody()
+               
+            </div>
+        </div>
+        @*<footer class="footer">
+            <div class="container">
+                <div class="py-4 text-center text-secondary">Название сайта. Все права защищены 2018 год.</div>
+            </div>
+        </footer>*@
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/index.js"></script>
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     @RenderSection("scripts", required: false)
+
 </body>
+
 </html>
+
