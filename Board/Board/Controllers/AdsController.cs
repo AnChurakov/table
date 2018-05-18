@@ -25,7 +25,7 @@ namespace Board.Controllers
             return View(selectAds);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Администратор")]
         public ActionResult GetAllAds(int? page)
         {
             int sizePage = 15;
@@ -69,6 +69,8 @@ namespace Board.Controllers
             ViewBag.SubCatName = _context.SubCategory.FirstOrDefault(a => a.Id == new Guid(SubcatId)).Name;
 
             ViewBag.CategoryId = Id;
+
+            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false).ToList();
 
             return View(listAds.ToPagedList(pageNumber, sizePage));
         }

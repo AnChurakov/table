@@ -12,17 +12,20 @@ namespace Board.Controllers
     {
         ApplicationDbContext _context = new ApplicationDbContext();
 
+        [Authorize(Roles = "Администратор")]
         public ActionResult AllCity()
         {
             return View(_context.City.ToList());
         }
 
+        [Authorize(Roles = "Администратор")]
         public ActionResult AddCity()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<ActionResult> CreateNewCity(City model)
         {
             if (ModelState.IsValid)
@@ -47,6 +50,7 @@ namespace Board.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public async Task<ActionResult> Delete(Guid Id)
         {
             var selectCity = _context.City.FirstOrDefault(a => a.Id == Id);

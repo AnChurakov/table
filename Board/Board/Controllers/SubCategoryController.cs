@@ -12,13 +12,13 @@ namespace Board.Controllers
     {
         ApplicationDbContext _context = new ApplicationDbContext();
 
-        [Authorize]
+        [Authorize(Roles = "Администратор")]
         public ActionResult AllSubCategory()
         {
             return View(_context.SubCategory.ToList());
         }
 
-        [Authorize]
+        [Authorize(Roles = "Администратор")]
         public ActionResult AddSubCategory()
         {
             return View();

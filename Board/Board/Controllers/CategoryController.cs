@@ -11,18 +11,45 @@ namespace Board.Controllers
     public class CategoryController : Controller
     {
         ApplicationDbContext _context = new ApplicationDbContext();
-        
+
+        [Authorize(Roles = "Администратор")]
         public ActionResult AllCategory()
         {
             return View(_context.Categorys.ToList());
         }
 
+        [Authorize(Roles = "Администратор")]
+        public ActionResult Edit(Guid Id)
+        {
+            var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);
+
+            return View(selectCat);
+        }
+
+        [Authorize(Roles = "Администратор")]
+        [HttpPost]
+        public async Task<ActionResult> Edit(Category model)
+        {
+            if (ModelState.IsValid)
+            {
+                var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == model.Id);
+
+                selectCat.Name = model.Name;
+
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("AllCategory");
+        }
+
+        [Authorize(Roles = "Администратор")]
         public ActionResult AddCategory()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<ActionResult> CreateNewCat(Category model)
         {
          
@@ -50,6 +77,7 @@ namespace Board.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public async Task<ActionResult> Delete(Guid Id)
         {
             var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);

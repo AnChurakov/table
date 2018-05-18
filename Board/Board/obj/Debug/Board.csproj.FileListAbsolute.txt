@@ -292,3 +292,4 @@ D:\bw\table\Board\Board\bin\PagedList.Mvc.xml
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.AddBanners.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.UpdateBannerModel.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.AddNameBanner.resources
+D:\bw\table\Board\Board\obj\Debug\Board.Migrations.AddPathBannerImg.resources

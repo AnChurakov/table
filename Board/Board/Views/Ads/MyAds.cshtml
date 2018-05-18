@@ -16,7 +16,7 @@
                 @foreach (var ads in Model)
                 {  
                     <tr>
-                        <td>@ads.Name</td>
+                        <td><a href="~/Ads/SelectAds/@ads.Id">@ads.Name</a></td>
                         <td>@ads.DateCreation</td>
                         <td>@Html.ActionLink("Редактировать", "Edit", "Ads", new { id = ads.Id}, new { @class = "btn btn-warning"} )</td>
                         <td>@Html.ActionLink("Удалить","Delete", "Ads", new {url = Request.Url.AbsoluteUri,id = ads.Id}, new { @class = "btn btn-danger"})</td>

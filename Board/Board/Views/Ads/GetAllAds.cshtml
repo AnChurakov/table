@@ -18,13 +18,13 @@
             </thead>
             <tbody>
                 @foreach (var ads in Model)
-            {
+                 {
                 <tr>
-                    <th>@ads.Name</th>
+                    <th><a href="~/Ads/SelectAds/@ads.Id">@ads.Name</a></th>
                     <td>@ads.User.UserName</td>
                     <td>@Html.ActionLink("Удалить", "Delete", "Ads", new { url = Request.Url.AbsoluteUri, id = ads.Id }, new { @class = "btn btn-danger" })</td>
                 </tr>
-        }
+                }
 
             </tbody>
         </table>

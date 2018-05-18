@@ -1,4 +1,5 @@
 ﻿@using PagedList.Mvc;
+@using Board.Models
 @model PagedList.IPagedList<Board.Models.Ads>
 
 <div class="form-group mt-4 d-flex justify-content-center align-items-center">
@@ -50,7 +51,7 @@
             {
                 <div class="advert mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <a href="~/Ads/SelectAds/@ads.Id" class="d-block col-lg-3 text-center px-0 AdsName advert__fontsize">@ads.Name</a>
+                        <a href="~/Ads/SelectAds/@ads.Id" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>
                         <div class="col-lg-9 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5">
                             <div class="advert__city col  px-0">@ads.Citys.Name</div>
                             <div class="advert__date col px-0">@ads.DateCreation</div>
@@ -61,21 +62,17 @@
             }
         </div>
 
-        @*Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
     </div>
     <div class="col-lg-3 col-md-12 px-0 text-center flex-column">
-        <div class="d-inline-block bg-white p-5 mb-4 w-100">
-            Реклама
-        </div>
-        <div class="d-inline-block bg-white p-5 mb-4 w-100">
-            Реклама
-        </div>
-        <div class="d-inline-block bg-white  p-5 mb-4 w-100">
-            Реклама
-        </div>
+        @foreach (var banner in ViewBag.Banner)
+        {
+            <img src="@Url.Content(banner.Path)" class="d-inline-block bg-white p-5 mb-4 w-100"/>
+        }
+
     </div>
 </div>
 

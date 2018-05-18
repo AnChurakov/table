@@ -11,7 +11,7 @@ namespace Board.Controllers
     {
         ApplicationDbContext _context = new ApplicationDbContext();
 
-        [Authorize]
+        [Authorize(Roles = "Администратор")]
         public ActionResult AllComplaint()
         {
             var listComplaint = _context.Complaints.ToList();
@@ -19,7 +19,7 @@ namespace Board.Controllers
             return View(listComplaint);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Администратор")]
         [HttpGet]
         public RedirectToRouteResult AddComplaint(Guid Id)
         {
