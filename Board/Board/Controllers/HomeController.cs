@@ -10,15 +10,21 @@ namespace Board.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext _context = new ApplicationDbContext();
 
         public ActionResult Index()
         {
+            ApplicationDbContext _context = new ApplicationDbContext();
+
             var selectCategorys = _context.Categorys.ToList();
 
             ViewBag.SubCategory = _context.SubCategory.ToList();
 
             return View(selectCategorys);
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
         }
     }
 }

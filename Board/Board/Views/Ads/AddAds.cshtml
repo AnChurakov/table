@@ -19,35 +19,43 @@
 
 <div class="row">
     <div class="col-md-6">
-        <div class="alert alert-primary" role="alert">
+        <div class="alert alert-danger" role="alert">
             Опасайтесь мошенников просящих пополнить баланс телефона якобы за найденную вещь
         </div>
-
+        
+        @if (ViewBag.CheckPhoneUser == null)
+        {
+            <div class="alert alert-danger" role="alert">
+                Вы не указали свои контактные данные! <a href="~/Manage/AddPhoneNumber" class="btn btn-primary">Указать</a>
+            </div>
+        }
+        else
+        { 
         <section id="loginForm">
             @using (Html.BeginForm("CreateNewAds", "Ads", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-6 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "Name" })
                         @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-6 control-label" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Desc" })
                         @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Категория</label>
+                    <label class="col-md-6 control-label">Категория <sup class="text-danger">*</sup></label>
                     <div class="col-md-10">
-                    <select class="form-control" name="Category" id="Category">
+                    <select class="form-control" required name="Category" id="Category">
                         <option selected>Выберите категорию</option>
                         @foreach (Category cat in ViewBag.Category)
                         {
@@ -58,9 +66,9 @@
                 </div>
 
                 <div class="form-group"  id="SubCat">
-                    <label class="col-md-2 control-label">Подкатегория</label>
+                    <label class="col-md-6 control-label">Подкатегория <sup class="text-danger">*</sup></label>
                     <div class="col-md-10">
-                    <select class="form-control" name="SubCat">
+                    <select class="form-control" required id="SubCat" name="SubCat">
                         <option selected>Выберите подкатегорию</option>
                         @foreach (SubCategory cat in ViewBag.SubCat)
                         {
@@ -71,9 +79,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Город</label>
+                    <label class="col-md-2 control-label">Город<sup class="text-danger">*</sup></label>
                     <div class="col-md-10">
-                    <select class="form-control" name="City">
+                    <select class="form-control" required id="City" name="City">
                         <option selected>Выберите город</option>
                         @foreach (City city in ViewBag.City)
                         {
@@ -83,30 +91,33 @@
                     </div>
                 </div>
 
+
                 <div class="form-group" id="file">
-                   <div class="col-xs-12 col-lg-10 col-md-10">
-                    <input type="file" class="form-control" name="upload" />
+                    <span>Выберите фотографию</span>
+                    <div class="col-xs-12 col-lg-10 col-md-10">
+                        <input type="file" required class="form-control" name="upload" />
                     </div>
 
                     <div class="col-xs-12 col-lg-2 col-md-2">
-                    <input type="button" id="Add" class="btn btn-primary" value="Добавить" />
-                    <input type="button" id="Delete" class="btn btn-danger" value="Удалить" />
-                   </div>
+                        <input type="button" id="Add" class="btn btn-primary" value="Добавить" />
+                        <input type="button" id="Delete" class="btn btn-danger" value="Удалить" />
+                    </div>
                 </div>
 
                 <div id="append"></div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Добавить объявление" class="btn btn-primary" />
+                        <input type="submit" value="Добавить объявление" id="AddAds" class="btn btn-primary" />
                     </div>
                 </div>
 
             }
         </section>
+        }
     </div>
+     
 
-   
 
 </div>
 @Scripts.Render("~/bundles/jqueryval")
@@ -116,6 +127,11 @@
         $(document).ready(function () {
 
             var subcat = $("#SubCat").hide();
+            var category = $("#Category");
+            var name = $("#Name");
+            var city = $("#City");
+            var desc = $("#Desc");
+
 
             $("body").on("click", "#Add", function (e) {
 
@@ -159,6 +175,9 @@
                 });
 
             });
+
+
+
 
         })
     </script>

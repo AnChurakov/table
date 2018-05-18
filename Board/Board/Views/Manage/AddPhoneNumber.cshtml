@@ -5,21 +5,35 @@
 
 <h2>@ViewBag.Title.</h2>
 
+@if (ViewBag.PhoneNumberResult == "success")
+{
+    <div class="alert alert-success">
+        Номер телефона успешно добавлен. Теперь вы можете добавить свое объявление
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        Укажите свой номер телефона
+    </div>
+}
+
 @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Добавление номера телефона</h4>
-    <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.Number, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+        <div class="col-md-4">
+            <span>Введите номер в формате 8-ххх-ххх-хх-хх</span>
+            <input type="tel" class="form-control" name="Number"  pattern="[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"/>
+            @*@Html.TextBoxFor(m => m.Number, new { @class = "form-control" })*@
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Отправить" />
+            <input type="submit" class="btn btn-success" value="Добавить" />
         </div>
     </div>
 }

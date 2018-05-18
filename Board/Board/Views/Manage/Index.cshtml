@@ -1,12 +1,17 @@
 ﻿@model Board.Models.IndexViewModel
-@{
-    ViewBag.Title = "Управление";
-}
+
 
 <div class="row">
     <div class="col-md-6 col-lg-6">
 
         <h3>Личный кабинет</h3>
+        @if (Model.HasPassword)
+        {
+             @Html.ActionLink("Смена пароля", "ChangePassword")
+        }
+
+        @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage")
+
         @using (Html.BeginForm("UpdateFIO", "Manage", FormMethod.Post))
         {
          <div class="form-group">
@@ -30,10 +35,6 @@
 
         }
 
-        @if (Model.HasPassword)
-        {
-             @Html.ActionLink("Смена пароля", "ChangePassword")
-            }
 
     </div>
 </div>

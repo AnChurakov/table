@@ -26,7 +26,7 @@
                     {
                         string nameSub = subcat.Name.ToString();
 
-                        @Html.ActionLink(nameSub, "AllAds", "Ads", new { subcatid = subcat.Id, id = category.Id }, new { @class = "btn btn-primary mr-1" })
+                        @Html.ActionLink(nameSub, "AllAds", "Ads", new { subcatid = subcat.Id, id = category.Id }, new { @class = "btn btn-primary mr-1 advert__widthbtn" })
                     }
 
                 </div>
@@ -46,7 +46,7 @@
                 <h4 class="card-title text-center">@category.Name</h4>
                 <div class="d-flex justify-content-center">
 
-                 @Html.ActionLink("Перейти", "AllAds", "Ads", new { id = category.Id }, new { @class = "btn btn-primary" })
+                 @Html.ActionLink("Перейти", "AllAds", "Ads", new { id = category.Id }, new { @class = "btn btn-primary advert__widthbtn" })
 
                 </div>
             </div>

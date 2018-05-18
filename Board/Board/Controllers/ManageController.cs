@@ -125,29 +125,51 @@ namespace Board.Controllers
             return View();
         }
 
-        //
-        // POST: /Manage/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
+        public async Task<ActionResult> AddPhoneNumber(string Number)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var selectUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+
+                selectUser.PhoneNumber = Number;
+
+                _context.SaveChanges();
+
+                ViewBag.PhoneNumberResult = "success";
             }
-            // Создание и отправка маркера
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-            if (UserManager.SmsService != null)
+            else
             {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Ваш код безопасности: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
+                ViewBag.PhoneNumberResult = "fail";
             }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+
+            return RedirectToAction("AddPhoneNumber");
         }
+
+        //
+        // POST: /Manage/AddPhoneNumber
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    // Создание и отправка маркера
+        //    var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+        //    if (UserManager.SmsService != null)
+        //    {
+        //        var message = new IdentityMessage
+        //        {
+        //            Destination = model.Number,
+        //            Body = "Ваш код безопасности: " + code
+        //        };
+        //        await UserManager.SmsService.SendAsync(message);
+        //    }
+        //    return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+        //}
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication

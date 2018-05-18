@@ -35,9 +35,13 @@ namespace Board.Controllers
             return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
-        public ActionResult AllAds(Guid Id, string SubcatId)
+        public ActionResult AllAds(Guid Id, string SubcatId, int? page)
         {
             List<Ads> listAds = new List<Ads>();
+
+            int sizePage = 40;
+
+            int pageNumber = (page ?? 1);
 
             var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);
 
@@ -64,7 +68,7 @@ namespace Board.Controllers
 
             ViewBag.CategoryId = Id;
 
-            return View(listAds);
+            return View(listAds.ToPagedList(pageNumber, sizePage));
         }
 
         [Authorize]
@@ -143,7 +147,9 @@ namespace Board.Controllers
             ViewBag.Category = _context.Categorys.ToList();
 
             ViewBag.SubCat = _context.SubCategory.ToList();
-            
+
+            ViewBag.CheckPhoneUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).PhoneNumber;
+                        
             return View();
         }
 
