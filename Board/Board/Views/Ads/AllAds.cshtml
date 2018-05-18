@@ -9,7 +9,7 @@
     <button type="button" id="searchbtn" class="btn btn-primary">Найти</button>
 </div>
 
-<div class="d-flex justify-content-between align-items-center py-4">
+<div class="d-lg-flex justify-content-between align-items-center py-4 text-center">
     <h2 class="h2 text-secondary advert__header">
         @ViewBag.Category
         <button type="button" class="btn btn-primary">
@@ -20,88 +20,106 @@
     @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success advert__btn" })
 </div>
 
-<div class="filter">
-    @using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
-    {
-        <div class="d-flex">
-            <div class="form-group col-6 px-0 d-flex justify-content-around align-items-center">
-                <label for="adCity" class="text-center">Город</label>
+<div class="d-lg-flex justify-content-between">
+    <div class="col px-0">
+        <div class="filter">
+            @using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
+            {
+                <div class="d-flex">
+                    <div class="form-group col-lg-6 col-xs-12  px-0 d-flex justify-content-around align-items-center">
+                        <label for="adCity" class="text-center">Город</label>
 
-                <select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
-                    <option selected>Выберите город</option>
-                    @foreach (var city in ViewBag.Citys)
-                    {
-                        <option value="@city.Id">@city.Name</option>
-                    }
-                </select>
-                <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
-                <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
-                <button type="submit" class="btn btn-primary">Применить</button>
+                        <select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
+                            <option selected>Выберите город</option>
+                            @foreach (var city in ViewBag.Citys)
+                            {
+                                <option value="@city.Id">@city.Name</option>
+                            }
+                        </select>
+                        <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
+                        <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
+                        <button type="submit" class="btn btn-primary">Применить</button>
 
-            </div>
+                    </div>
+                </div>
+            }
         </div>
-    }
+
+        <div id="results">
+            @foreach (var ads in Model)
+            {
+                <div class="advert mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="~/Ads/SelectAds/@ads.Id" class="d-block col-lg-3 text-center px-0 AdsName advert__fontsize">@ads.Name</a>
+                        <div class="col-lg-9 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5">
+                            <div class="advert__city col  px-0">@ads.Citys.Name</div>
+                            <div class="advert__date col px-0">@ads.DateCreation</div>
+                            <div class="advert__user col px-0">@ads.User.UserName</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @*Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+
+    </div>
+    <div class="col-lg-3 col-md-12 px-0 text-center flex-column">
+        <div class="d-inline-block bg-white p-5 mb-4 w-100">
+            Реклама
+        </div>
+        <div class="d-inline-block bg-white p-5 mb-4 w-100">
+            Реклама
+        </div>
+        <div class="d-inline-block bg-white  p-5 mb-4 w-100">
+            Реклама
+        </div>
+    </div>
 </div>
 
-<div id="results">
-    @foreach (var ads in Model)
-    {
-        <div class="advert mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <a href="~/Ads/SelectAds/@ads.Id" class="d-block AdsName advert__fontsize">@ads.Name</a>
-                <div class="advert__city">@ads.Citys.Name</div>
-                <div class="advert__date">@ads.DateCreation</div>
-                <div class="advert__user">@ads.User.UserName</div>
-            </div>
-        </div>
-    }
-</div>
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
 
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+                $("#searchbtn").click(function () {
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-
-            $("#searchbtn").click(function () {
-
-                keyword = $("#Keyword").val();
-                var subcat = $("#SubCatId").val();
-                var categoryid = $("#CategoryId").val();
+                    keyword = $("#Keyword").val();
+                    var subcat = $("#SubCatId").val();
+                    var categoryid = $("#CategoryId").val();
 
 
-                $.ajax({
-                    url: "http://localhost:63234/Ads/SearchSingle",
-                    type: "POST",
-                    dataType: "html",
-                    data: "Keyword=" + keyword + "&SubCatId=" + subcat + "&CategoryId=" + categoryid,
-                    success: function (data) {
+                    $.ajax({
+                        url: "http://localhost:63234/Ads/SearchSingle",
+                        type: "POST",
+                        dataType: "html",
+                        data: "Keyword=" + keyword + "&SubCatId=" + subcat + "&CategoryId=" + categoryid,
+                        success: function (data) {
 
-                        $("#results").html(data);
+                            $("#results").html(data);
 
-                        $(".AdsName").each(function () {
+                            $(".AdsName").each(function () {
 
-                            var valueAds = $(this).text();
+                                var valueAds = $(this).text();
 
-                            var arrStr = keyword.split(' ');
+                                var arrStr = keyword.split(' ');
 
-                            $.each(arrStr, function (ind, txt) {
+                                $.each(arrStr, function (ind, txt) {
 
-                                var re = new RegExp(txt, "g");
+                                    var re = new RegExp(txt, "g");
 
-                                valueAds = valueAds.replace(re, "<span style='background:yellow;'>" + txt + "</span>");
+                                    valueAds = valueAds.replace(re, "<span style='background:yellow;'>" + txt + "</span>");
+
+                                });
+
+                                $(this).html(valueAds);
 
                             });
-
-                            $(this).html(valueAds);
-
-                        });
-                    }
+                        }
+                    });
                 });
-            });
 
-        })
-    </script>
-}
+            })
+        </script>
+    }

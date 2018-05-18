@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using Board.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Routing;
 using PagedList.Mvc;
 using PagedList;
@@ -142,6 +144,7 @@ namespace Board.Controllers
         [Authorize]
         public ActionResult AddAds()
         {
+            
             ViewBag.City = _context.City.ToList();
 
             ViewBag.Category = _context.Categorys.ToList();
@@ -149,7 +152,11 @@ namespace Board.Controllers
             ViewBag.SubCat = _context.SubCategory.ToList();
 
             ViewBag.CheckPhoneUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).PhoneNumber;
-                        
+
+            ViewBag.FirstName = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).FirstName;
+
+            ViewBag.FirstName = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).LastName;
+
             return View();
         }
 

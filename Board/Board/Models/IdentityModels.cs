@@ -40,6 +40,8 @@ namespace Board.Models
         public DbSet<SubCategory> SubCategory { get; set; }
         public DbSet<ImageAds> ImageAds { get; set; }
         public DbSet<Complaint> Complaints { get; set; }
+        public DbSet<ImageBanner> ImageBanners { get; set; }
+        public DbSet<Banner> Banners { get; set; }
 
         public static ApplicationDbContext Create()
         {

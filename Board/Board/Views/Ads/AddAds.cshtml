@@ -23,10 +23,10 @@
             Опасайтесь мошенников просящих пополнить баланс телефона якобы за найденную вещь
         </div>
         
-        @if (ViewBag.CheckPhoneUser == null)
+        @if (ViewBag.CheckPhoneUser == null && ViewBag.FirstName == null && ViewBag.LastName)
         {
             <div class="alert alert-danger" role="alert">
-                Вы не указали свои контактные данные! <a href="~/Manage/AddPhoneNumber" class="btn btn-primary">Указать</a>
+                Вы не указали свои данные! <a href="~/Manage/Index" class="btn btn-primary">Указать</a>
             </div>
         }
         else

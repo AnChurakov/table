@@ -81,15 +81,8 @@ namespace Board.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Имя")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Фамилия")]
-        public string LastName { get; set; }
-
-        [Display(Name ="Отчество")]
-        public string Patronymic { get; set; }
+        [Display(Name = "Номер телефона")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ResetPasswordViewModel

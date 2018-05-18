@@ -4,50 +4,38 @@
 }
 
 <h2>@ViewBag.Title</h2>
-
+<p>Поля отмеченные <sup class="text-danger">*</sup> являются обязательными для заполнения</p>
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-5">
+        <label class="col-md-5 control-label">Адрес электронной почты<sup class="text-danger">*</sup></label>
+        <div class="col-md-8">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-5">
+        <label class="col-md-5 control-label">Номер телефона<sup class="text-danger">*</sup></label>
+        <div class="col-md-8">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-5 control-label">Пароль<sup class="text-danger">*</sup></label>
+        <div class="col-md-8">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-5">
+        <label class="col-md-5 control-label">Подтверждение пароля<sup class="text-danger">*</sup></label>
+        <div class="col-md-8">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-5">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-5">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Patronymic, new { @class = "col-md-2 control-label" })
-        <div class="col-md-5">
-            @Html.TextBoxFor(m => m.Patronymic, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Регистрация" />
+            <input type="submit" class="btn btn-success" value="Регистрация" />
         </div>
     </div>
 }
