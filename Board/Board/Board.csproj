@@ -248,6 +248,10 @@
     <Compile Include="Migrations\201805181507564_AddPathBannerImg.Designer.cs">
       <DependentUpon>201805181507564_AddPathBannerImg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805190523114_DescBanner.cs" />
+    <Compile Include="Migrations\201805190523114_DescBanner.Designer.cs">
+      <DependentUpon>201805190523114_DescBanner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ads.cs" />
@@ -414,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805181507564_AddPathBannerImg.resx">
       <DependentUpon>201805181507564_AddPathBannerImg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805190523114_DescBanner.resx">
+      <DependentUpon>201805190523114_DescBanner.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

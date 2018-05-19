@@ -29,13 +29,13 @@
                          @if (User.Identity.IsAuthenticated)
                          {
                             <li>
-                                @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "nav-link" })
+                                @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "nav-link text-primary" })
                             </li>
 
                             if (User.IsInRole("Администратор"))
                             {
                              <li>
-                                @Html.ActionLink("Панель администратора", "GetAllAds", "Ads", null, new { @class = "nav-link" })
+                                @Html.ActionLink("Панель администратора", "GetAllAds", "Ads", null, new { @class = "nav-link text-primary" })
                             </li>
                             }
                          }   

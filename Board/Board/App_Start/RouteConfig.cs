@@ -14,6 +14,12 @@ namespace Board
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "Contact",
+               url: "Contact",
+               defaults: new { controller = "Home", action = "Contact" }
+           );
+
+            routes.MapRoute(
                 name: "AddBanner",
                 url: "AddBanner",
                 defaults: new { controller = "Banner", action = "Index" }
