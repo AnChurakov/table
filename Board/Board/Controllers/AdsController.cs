@@ -139,6 +139,8 @@ namespace Board.Controllers
 
             ViewBag.ListImage = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
 
+            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == true).ToList();
+
             return View(selectAds);
         } 
 

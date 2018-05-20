@@ -1,77 +1,164 @@
 ﻿@model Board.Models.Ads
 
 
-
 <div class="advert">
     <h2 class="h2 advert__header">@Model.Name</h2>
     <p class="py-2">Добавлено: @Model.DateCreation</p>
 
     @if (User.Identity.IsAuthenticated && !Model.Complaints.Select(a => a.User.UserName == User.Identity.Name).FirstOrDefault()
-           && !Model.Complaints.Select(a => a.Ads.Id == Model.Id).FirstOrDefault())
+              && !Model.Complaints.Select(a => a.Ads.Id == Model.Id).FirstOrDefault())
     {
         @Html.ActionLink("Отправить жалобу", "AddComplaint", "Complaint", new { id = Model.Id }, new { @class = "text-danger", id = "complaint" });
     }
     <br />
-
-    <div class="d-flex justify-content-between align-items-start">
-        <div class="col-lg-7 pl-0">
-            <div class="advert__photos">
-                <div class="advert__photo advert__photo--current mb-1">
-                    <img class="advert__curent-img" src="#" alt="photo">
-                </div>
-                <div id="carouselControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="d-flex justify-content-center align-items-center">
-                            @foreach (var image in ViewBag.ListImage)
-                            { 
-                            <div class="advert__photo">
-                                <img class="w-100 advert__img" src="@Url.Content(image.Path)" alt="photo">
-                            </div>
-                            }
-                            </div>
+    <div class="d-lg-flex justify-content-between align-items-start">
+        <div class="col-lg col-md-12 px-0">
+            <div class="d-lg-flex justify-content-between align-items-start">
+                <div class="col-lg-7 pl-0">
+                    <div class="advert__photos">
+                        <div class="advert__photo advert__photo--current mb-1">
+                            <img class="advert__curent-img" src="#" alt="photo">
                         </div>
-                       
+                        <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        @foreach (var image in ViewBag.ListImage)
+                                        {
+                                            <div class="advert__photo">
+                                                <img class="w-100 advert__img" src="@Url.Content(image.Path)" alt="photo">
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev text-dark" href="#carouselControls" role="button" data-slide="prev">
+                                <span class="fa fa-2x fa-angle-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next text-dark" href="#carouselControls" role="button" data-slide="next">
+                                <span class="fa fa-2x fa-angle-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
-                    <a class="carousel-control-prev text-dark" href="#carouselControls" role="button" data-slide="prev">
-                        <span class="fa fa-2x fa-angle-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next text-dark" href="#carouselControls" role="button" data-slide="next">
-                        <span class="fa fa-2x fa-angle-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-5 pr-0">
-            <div class="advert__info info">
-                <div class="pb-2 advert__face">
-                    <p class="text-secondary font-weight-bold info__header">Контактное лицо</p>
-                    <p class="info__text">@Model.User.FirstName @Model.User.LastName</p>
-                </div>
-                <div class="pb-2 advert__face">
-                    <p class="text-secondary font-weight-bold info__header">Номер телефона</p>
-                    @if (Model.User.PhoneNumber == null)
-                    {
-                        <p class="info__text">Данные не указаны</p>
-                    }
-                    else
-                    {
-                        <p class="info__text">@Model.User.PhoneNumber</p>
-                    }
+                    <div class="col-lg-5 pr-0">
+                <div class="advert__info info">
+                    <div class="pb-2 advert__face">
+                        <p class="text-secondary font-weight-bold info__header">Контактное лицо</p>
+                        <p class="info__text">@Model.User.FirstName @Model.User.LastName</p>
+                    </div>
+                    <div class="pb-2 advert__face">
+                        <p class="text-secondary font-weight-bold info__header">Номер телефона</p>
+                        @if (Model.User.PhoneNumber == null)
+                        {
+                            <p class="info__text">Данные не указаны</p>
+                        }
+                        else
+                        {
+                            <p class="info__text">@Model.User.PhoneNumber</p>
+                        }
+
+                    </div>
 
                 </div>
-                
+            </div>
+            </div>
+            <div class="advert__desc">
+                <p class="py-4 w-75 h4">
+                    @Model.Description
+                </p>
             </div>
         </div>
-    </div>
-    <div class="advert__desc">
-        <p class="py-4 w-75 h4">
-            @Model.Description
-        </p>
+        <div class="col-lg-3 col-md-12 px-0 text-center flex-column">
+            @foreach (var banner in ViewBag.Banner)
+             {
+            <div class="card mb-4" style="width: 18rem;">
+            <img class="card-img-top" src="@Url.Content(banner.Path)">
+            <div class="card-body">
+            <p class="card-text">@banner.Banners.Description</p>
+            </div>
+            </div>
+            }
+        </div>
     </div>
 </div>
+
+
+
+
+
+@*<div class="advert">
+        <h2 class="h2 advert__header">@Model.Name</h2>
+        <p class="py-2">Добавлено: @Model.DateCreation</p>
+
+        @if (User.Identity.IsAuthenticated && !Model.Complaints.Select(a => a.User.UserName == User.Identity.Name).FirstOrDefault()
+               && !Model.Complaints.Select(a => a.Ads.Id == Model.Id).FirstOrDefault())
+        {
+            @Html.ActionLink("Отправить жалобу", "AddComplaint", "Complaint", new { id = Model.Id }, new { @class = "text-danger", id = "complaint" });
+        }
+        <br />
+
+        <div class="d-flex justify-content-between align-items-start">
+            <div class="col-lg-7 pl-0">
+                <div class="advert__photos">
+                    <div class="advert__photo advert__photo--current mb-1">
+                        <img class="advert__curent-img" src="#" alt="photo">
+                    </div>
+                    <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="d-flex justify-content-center align-items-center">
+                                @foreach (var image in ViewBag.ListImage)
+                                {
+                                <div class="advert__photo">
+                                    <img class="w-100 advert__img" src="@Url.Content(image.Path)" alt="photo">
+                                </div>
+                                }
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev text-dark" href="#carouselControls" role="button" data-slide="prev">
+                            <span class="fa fa-2x fa-angle-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next text-dark" href="#carouselControls" role="button" data-slide="next">
+                            <span class="fa fa-2x fa-angle-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 pr-0">
+                <div class="advert__info info">
+                    <div class="pb-2 advert__face">
+                        <p class="text-secondary font-weight-bold info__header">Контактное лицо</p>
+                        <p class="info__text">@Model.User.FirstName @Model.User.LastName</p>
+                    </div>
+                    <div class="pb-2 advert__face">
+                        <p class="text-secondary font-weight-bold info__header">Номер телефона</p>
+                        @if (Model.User.PhoneNumber == null)
+                        {
+                            <p class="info__text">Данные не указаны</p>
+                        }
+                        else
+                        {
+                            <p class="info__text">@Model.User.PhoneNumber</p>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="advert__desc">
+            <p class="py-4 w-75 h4">
+                @Model.Description
+            </p>
+        </div>
+    </div>*@
 
 
 
