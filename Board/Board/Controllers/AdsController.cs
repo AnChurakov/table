@@ -100,7 +100,7 @@ namespace Board.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Edit", new { id = AdsId});
+            return RedirectToAction("MyAds");
         }
 
         [HttpPost]
@@ -146,18 +146,17 @@ namespace Board.Controllers
         [Authorize]
         public ActionResult AddAds()
         {
-            
-            ViewBag.City = _context.City.ToList();
+            ViewBag.City = _context.City.OrderBy(a => a.Name).ToList();
 
-            ViewBag.Category = _context.Categorys.ToList();
+            ViewBag.Category = _context.Categorys.OrderBy(a => a.Name).ToList();
 
-            ViewBag.SubCat = _context.SubCategory.ToList();
+            ViewBag.SubCat = _context.SubCategory.OrderBy(a => a.Name).ToList();
 
             ViewBag.CheckPhoneUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).PhoneNumber;
 
             ViewBag.FirstName = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).FirstName;
 
-            ViewBag.FirstName = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).LastName;
+            ViewBag.LastName = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).LastName;
 
             return View();
         }
@@ -172,49 +171,59 @@ namespace Board.Controllers
             var selectSubCat = _context.SubCategory.FirstOrDefault(a => a.Id == SubCat);
             var selectUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
 
-            Ads ads = new Ads
+            if (selectCategory != null && selectCity != null && selectSubCat != null && selectUser != null)
             {
-                Id = Guid.NewGuid(),
-                Name = model.Name,
-                Description = model.Description,
-                DateCreation = DateTime.Now,
-                Categorys = selectCategory,
-                SubCategory = selectSubCat,
-                Citys = selectCity,
-                User = selectUser,
-            };
-
-            foreach (var file in upload)
-            {
-                if (file != null)
+                Ads ads = new Ads
                 {
-                    string fileName = System.IO.Path.GetFileName(file.FileName);
+                    Id = Guid.NewGuid(),
+                    Name = model.Name,
+                    Description = model.Description,
+                    DateCreation = DateTime.Now,
+                    Categorys = selectCategory,
+                    SubCategory = selectSubCat,
+                    Citys = selectCity,
+                    User = selectUser,
+                };
 
-                    var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
-
-                    file.SaveAs(pathFile);
-
-                    var splitPathFile = pathFile.Split('\\');
-
-                    string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
-
-                    ImageAds image = new ImageAds
+                foreach (var file in upload)
+                {
+                    if (file != null)
                     {
-                        Id = Guid.NewGuid(),
-                        Ads = ads,
-                        Path = correctPathFile
-                    };
+                        string fileName = System.IO.Path.GetFileName(file.FileName);
 
-                    _context.ImageAds.Add(image);
+                        var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
+
+                        file.SaveAs(pathFile);
+
+                        var splitPathFile = pathFile.Split('\\');
+
+                        string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
+
+                        ImageAds image = new ImageAds
+                        {
+                            Id = Guid.NewGuid(),
+                            Ads = ads,
+                            Path = correctPathFile
+                        };
+
+                        _context.ImageAds.Add(image);
+
+                    }
 
                 }
+
+                _context.Ads.Add(ads);
+
+                _context.SaveChanges();
+
+                ViewBag.Flag = "Success";
+            }
+            else
+            {
+                ViewBag.Flag = "Fail";
             }
 
-            _context.Ads.Add(ads);
-
-            _context.SaveChanges();
-
-            return RedirectToAction("SelectAds", new { id = ads.Id});
+            return RedirectToAction("AddAds");
         }
 
         [HttpGet]

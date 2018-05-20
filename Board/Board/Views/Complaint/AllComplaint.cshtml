@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_AdminPanel.cshtml";
     ViewBag.Title = "Список жалоб на объявления";
 }
-
+<div class="col-xs-12 col-lg-12 col-md-12">
         <h2>Жалобы на объявления</h2>
         <table class="table">
             <thead>
@@ -15,10 +15,12 @@
             </thead>
             <tbody>
                @foreach (var complaint in Model)
-               {                   
-                    <tr>
-                        <td><a href="~/Ads/SelectAds/@complaint.Ads.Id">@complaint.Ads.Name</a></td>
-                        <td>@complaint.Ads.User.UserName <a href="#" class="btn btn-danger">Заблокировать</a></td>
+               {
+                   var nameAds = complaint.Ads.Name.ToString();
+
+                    <tr>                        
+                        <td>@Html.ActionLink(nameAds, "SelectAds", "Ads", new { id = complaint.Ads.Id })</td>
+                        <td>@complaint.Ads.User.UserName @Html.ActionLink("Заблокировать", "Delete", "Manage", new { id = complaint.Ads.User.Id}, new { @class = "btn btn-danger"})</td>
                         <td>@Html.ActionLink("Удалить", "Delete", "Ads", new { url = Request.Url.AbsoluteUri, id = complaint.Ads.Id }, new { @class = "btn btn-danger" })</td>                        
                     </tr>             
                   
@@ -26,4 +28,4 @@
             </tbody>
         </table>
  
-
+</div>

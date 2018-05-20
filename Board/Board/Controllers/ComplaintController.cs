@@ -19,7 +19,7 @@ namespace Board.Controllers
             return View(listComplaint);
         }
 
-        [Authorize(Roles = "Администратор")]
+        [Authorize]
         [HttpGet]
         public RedirectToRouteResult AddComplaint(Guid Id)
         {

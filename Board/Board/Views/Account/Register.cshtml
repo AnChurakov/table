@@ -10,26 +10,26 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        <label class="col-md-5 control-label">Адрес электронной почты<sup class="text-danger">*</sup></label>
-        <div class="col-md-8">
+        <label class="col-md-4 control-label">Адрес электронной почты<sup class="text-danger">*</sup></label>
+        <div class="col-md-4">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-5 control-label">Номер телефона<sup class="text-danger">*</sup></label>
-        <div class="col-md-8">
-            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        <label class="col-md-4 control-label">Номер телефона<sup class="text-danger">*</sup> (формат х-ххх-ххх-хх-хх)</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @type = "tel", @pattern = "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" })
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-5 control-label">Пароль<sup class="text-danger">*</sup></label>
-        <div class="col-md-8">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        <label class="col-md-4 control-label">Пароль<sup class="text-danger">*</sup></label>
+        <div class="col-md-4">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control"})
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-5 control-label">Подтверждение пароля<sup class="text-danger">*</sup></label>
-        <div class="col-md-8">
+        <label class="col-md-4 control-label">Подтверждение пароля<sup class="text-danger">*</sup></label>
+        <div class="col-md-4">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>

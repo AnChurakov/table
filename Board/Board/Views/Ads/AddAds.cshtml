@@ -1,29 +1,30 @@
 ﻿@using Board.Models
 @model Ads
 
-@if (ViewBag.Flag == "Success")
-{
-    <div class="alert alert-success" role="alert">
-        Объявление успешно добавлено
-    </div>
-}
-
-@if (ViewBag.Flag == "Fail")
-{
-    <div class="alert alert-danger" role="alert">
-        Объявление не добавлено
-    </div>
-}
-
-<h4>Добавление нового объявления</h4>
-
 <div class="row">
     <div class="col-md-6">
+
+        <h4>Добавление нового объявления</h4>
+
+            @if (ViewBag.Flag == "Success")
+            {
+                <div class="alert alert-success" role="alert">
+                    Объявление успешно добавлено
+                </div>
+            }
+
+            @if (ViewBag.Flag == "Fail")
+            {
+                <div class="alert alert-danger" role="alert">
+                    Объявление не добавлено
+                </div>
+            }
+
         <div class="alert alert-danger" role="alert">
             Опасайтесь мошенников просящих пополнить баланс телефона якобы за найденную вещь
         </div>
         
-        @if (ViewBag.CheckPhoneUser == null && ViewBag.FirstName == null && ViewBag.LastName)
+        @if (ViewBag.FirstName == null || ViewBag.LastName == null || ViewBag.CheckPhoneUser == null)
         {
             <div class="alert alert-danger" role="alert">
                 Вы не указали свои данные! <a href="~/Manage/Index" class="btn btn-primary">Указать</a>
@@ -93,15 +94,17 @@
 
 
                 <div class="form-group" id="file">
-                    <span>Выберите фотографию</span>
+                    <label class="control-label col-md-6">Выберите фотографию</label>
                     <div class="col-xs-12 col-lg-10 col-md-10">
                         <input type="file" required class="form-control" name="upload" />
-                    </div>
-
-                    <div class="col-xs-12 col-lg-2 col-md-2">
                         <input type="button" id="Add" class="btn btn-primary" value="Добавить" />
                         <input type="button" id="Delete" class="btn btn-danger" value="Удалить" />
                     </div>
+
+                    @*<div class="col-xs-12 col-lg-2 col-md-2">
+                        <input type="button" id="Add" class="btn btn-primary" value="Добавить" />
+                        <input type="button" id="Delete" class="btn btn-danger" value="Удалить" />
+                    </div>*@
                 </div>
 
                 <div id="append"></div>

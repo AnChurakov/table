@@ -374,6 +374,40 @@ namespace Board.Controllers
             base.Dispose(disposing);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Администратор")]
+        public async Task<ActionResult> Delete(string Id)
+        {
+            var selectUser = _context.Users.FirstOrDefault(a => a.Id == Id);
+
+            var selectAllAdsUser = _context.Ads.Where(a => a.User.Id == Id).ToList();
+
+            var selectAllImageAds = _context.ImageAds.Where(a => a.Ads.User.Id == Id).ToList();
+
+            var selectComplaint = _context.Complaints.Where(a => a.User.Id == Id).ToList();
+
+            foreach (var deleteAds in selectAllAdsUser)
+            {
+                _context.Ads.Remove(deleteAds);
+            }
+
+            foreach(var deleteImgAds in selectAllImageAds)
+            {
+                _context.ImageAds.Remove(deleteImgAds);
+            }
+
+            foreach (var deleteComplaint in selectComplaint)
+            {
+                _context.Complaints.Remove(deleteComplaint);
+            }
+
+            _context.Users.Remove(selectUser);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("AllComplaint", "Complaint");
+        }
+
 #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         private const string XsrfKey = "XsrfId";
