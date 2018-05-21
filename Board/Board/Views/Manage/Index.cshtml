@@ -1,32 +1,48 @@
 ﻿@model Board.Models.IndexViewModel
 
-
 <div class="row">
     <div class="col-md-6 col-lg-6">
 
         <h3>Личный кабинет</h3>
         @if (Model.HasPassword)
         {
-             @Html.ActionLink("Смена пароля", "ChangePassword")
+             @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning"})
         }
 
-        @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage")
+        @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage", null, new { @class = "btn btn-warning"})
+        @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning" })
+        <br />
+
+         @if (TempData["Flag"] == "Success")
+            { 
+            <div class="alert alert-success" role="alert">
+                Данные успешно изменены
+            </div>
+            }
+
+            @if (TempData["Flag"] == "Fail")
+            {
+                <div class="alert alert-danger" role="alert">
+                    Данные не изменены
+                </div>
+            }
 
         @using (Html.BeginForm("UpdateFIO", "Manage", FormMethod.Post))
         {
-         <div class="form-group">
-             <label>Фамилия</label>
-             <input type="text" class="form-control" name="lastname" value="@Model.LastName" />
+            <p>Поля отмеченные <sup class="text-danger">*</sup> обязательны для заполнения</p>
+            <div class="form-group">
+             <label>Имя<sup class="text-danger">*</sup></label>
+             <input type="text" required class="form-control" name="firstname" value="@Model.FirstName" />
          </div>
 
          <div class="form-group">
-             <label>Имя</label>
-             <input type="text" class="form-control" name="firstname" value="@Model.FirstName" />
+             <label>Фамилия</label>
+             <input type="text" placeholder="По желанию" class="form-control" name="lastname" value="@Model.LastName" />
          </div>
 
          <div class="form-group">
              <label>Отчество</label>
-             <input type="text" class="form-control" name="patr" value="@Model.Patronymic" />
+             <input type="text" placeholder="По желанию" class="form-control" name="patr" value="@Model.Patronymic" />
          </div>
 
          <div class="form-group">

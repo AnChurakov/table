@@ -98,8 +98,8 @@
                     var categoryid = $("#CategoryId").val();
 
                     $.ajax({
-                        url:@Url.Action("SearchSingle", "Ads")
-                        //url: "http://localhost:63234/Ads/SearchSingle",
+                        @*url:"~/@Url.Action("SearchSingle", "Ads")",*@
+                        url: '@Url.Action("SearchSingle", "Ads")',
                         type: "POST",
                         dataType: "html",
                         data: "Keyword=" + keyword + "&SubCatId=" + subcat + "&CategoryId=" + categoryid,

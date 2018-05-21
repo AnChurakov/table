@@ -52,17 +52,27 @@ namespace Board.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> UpdateFIO(string firstname, string lastname, string patr)
         {
             var user = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
 
-            user.FirstName = firstname;
-            user.LastName = lastname;
-            user.Patronymic = patr;
+            if (firstname != null || firstname != string.Empty)
+            {
+                user.FirstName = firstname;
+                user.LastName = lastname;
+                user.Patronymic = patr;
 
-            _context.SaveChanges();
+                _context.SaveChanges();
 
-            return RedirectToAction("Index", "Manage");
+                TempData["Flag"] = "Success";
+            }
+            else
+            {
+                TempData["Flag"] = "Fail";
+            }
+
+            return RedirectToAction("Index");
         }
         //
         // GET: /Manage/Index
@@ -120,28 +130,29 @@ namespace Board.Controllers
 
         //
         // GET: /Manage/AddPhoneNumber
+        [Authorize]
         public ActionResult AddPhoneNumber()
         {
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddPhoneNumber(string Number)
+        [Authorize]
+        public async Task<ActionResult> UpdatePhoneUser(AddPhoneNumberViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var selectUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
 
-                selectUser.PhoneNumber = Number;
+                selectUser.PhoneNumber = model.Number;
 
                 _context.SaveChanges();
 
-                ViewBag.PhoneNumberResult = "success";
+                TempData["Flag"] = "Success";
             }
             else
             {
-                ViewBag.PhoneNumberResult = "fail";
+                TempData["Flag"] = "Fail";
             }
 
             return RedirectToAction("AddPhoneNumber");

@@ -5,6 +5,7 @@
 
 <h2>@ViewBag.Title</h2>
 <p>Поля отмеченные <sup class="text-danger">*</sup> являются обязательными для заполнения</p>
+
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -16,21 +17,22 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-4 control-label">Номер телефона<sup class="text-danger">*</sup> (формат х-ххх-ххх-хх-хх)</label>
-        <div class="col-md-4">
-            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @type = "tel", @pattern = "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" })
-        </div>
-    </div>
-    <div class="form-group">
         <label class="col-md-4 control-label">Пароль<sup class="text-danger">*</sup></label>
         <div class="col-md-4">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control"})
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         <label class="col-md-4 control-label">Подтверждение пароля<sup class="text-danger">*</sup></label>
         <div class="col-md-4">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">Номер телефона<sup class="text-danger">*</sup> (формат х-ххх-ххх-хх-хх)</label>
+        <div class="col-md-4">
+            <input type="tel" class="form-control" required pattern="[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="PhoneNumber" />
+            @*@Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @type = "tel", @pattern = "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" })*@
         </div>
     </div>
     <div class="form-group">
