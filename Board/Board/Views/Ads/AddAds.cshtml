@@ -162,7 +162,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url:"http://localhost:63234/Category/CheckSpecialCategory",
+                    url:'@Url.Action("CheckSpecialCategory", "Category")',
                     dataType: "text",
                     data: "CategoryId="+CategoryId,
                     success: function (data) {

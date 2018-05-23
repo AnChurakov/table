@@ -1,0 +1,37 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Board.Models.Ads>
+@{ 
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <h2>Все объявления</h2>
+
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Пользователь</th>
+                    <th scope="col">Удаление</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ads in Model)
+                 {
+                <tr>
+                    <th><a href="~/Ads/SelectAds/@ads.Id">@ads.Name</a></th>
+                    <td>@ads.User.UserName</td>
+                    <td>@Html.ActionLink("Удалить", "Delete", "Ads", new { url = Request.Url.AbsoluteUri, id = ads.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+
+        @Html.PagedListPager(Model, page => Url.Action("GetAllAds", new { page }))
+
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+    </div>
+</div>
+

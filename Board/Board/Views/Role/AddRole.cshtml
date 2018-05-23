@@ -1,0 +1,19 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
+<div class="row">
+    <div class="col-lg-7 col-md-7 col-xs-12">
+        <h2>Добавление новой роли</h2>
+        @using (Html.BeginForm("CreateNewRole", "Role", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label>Название роли</label>
+                <input type="text" class="form-control" name="NameRole" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-success" />
+            </div>
+        }
+    </div>
+</div>

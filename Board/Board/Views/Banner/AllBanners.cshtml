@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Board.Models.Banner>
+@{
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <h2>Все баннеры</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Редактирование</th>
+                    <th scope="col">Удаление</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var banner in Model)
+                {
+                <tr>
+                    <th>@banner.Name</th>
+                    <td>@Html.ActionLink("Редактировать", "Edit", "Banner", new { id = banner.Id }, new { @class = "btn btn-warning" })</td>
+                    <td>@Html.ActionLink("Удалить", "Delete", "Banner", new { id = banner.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

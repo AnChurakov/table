@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Board.Models.Ads>
+
+
+@foreach (var ads in Model)
+{
+
+    <div class="advert mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="~/Ads/SelectAds/@ads.Id" class="d-block AdsName" id="results">@ads.Name</a>
+            <div class="advert__city">@ads.Citys.Name</div>
+            <div class="advert__date">@ads.DateCreation</div>
+            <div class="advert__user">@ads.User.UserName</div>
+        </div>
+    </div>
+
+}

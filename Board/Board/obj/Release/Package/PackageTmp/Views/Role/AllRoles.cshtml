@@ -1,0 +1,27 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <h4>Список всех ролей</h4>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Название роли</th>
+                    <th scope="col">Удаление</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var roles in ViewBag.Roles)
+                {
+                <tr>
+                    <td>@roles.Name</td>
+                    <td>@Html.ActionLink("Удалить", "Delete", "Role", new { id = roles.Id}, new { @class= "btn btn-danger"})</td>
+               </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

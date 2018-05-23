@@ -1,0 +1,76 @@
+﻿@model Board.Models.Banner
+@{ 
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
+<div class="row">
+    <div class="col-md-8">
+
+        @if (ViewBag.Flag == "Success")
+         {
+        <div class="alert alert-success" role="alert">
+            Баннер успешно добавлен
+        </div>
+        }
+
+        @if (ViewBag.Flag == "Fail")
+        {
+        <div class="alert alert-danger" role="alert">
+            Баннер не добавлен!
+        </div>
+        }
+
+        <h2>Добавление нового баннера</h2>
+        <div class="alert alert-primary" role="alert">
+            При указании "На странице объявления", добавленый баннер будет расположен на странице отдельного объявления, автоматически.
+            Если данный пункт не будет выбран, то добавленный баннер, будет расположен на странице, где выводятся все объявления, выбранной категории
+        </div>
+        <section id="loginForm">
+            @using (Html.BeginForm("AddBanner", "Banner", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-6 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-7 control-label" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.SinglePage, new { @class = "col-md-7 control-label" })
+                <div class="col-md-6">
+                    <input type="checkbox" name="SinglePage" />
+                </div>
+            </div>
+
+            <div class="form-group" id="file">
+                <label class="control-label col-md-5">Выберите фотографию</label>
+                <div class="col-xs-12 col-lg-10 col-md-10">
+                    <input type="file" required class="form-control" name="upload" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Добавить" class="btn btn-success" />
+                </div>
+            </div>
+
+    }
+        </section>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Board.Models.Ads>
+
+<div class="d-lg-flex justify-content-between align-items-center py-4 text-center">
+    @Html.ActionLink("Добавить объявление", "AddAds", "Ads", new { slug = "advertisment" }, new { @class = "btn btn-success advert__btn" })
+</div>
+<h2>Мои объявления</h2>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <table class="table table-borderless">
+          <thead>
+              <tr>
+                  <th scope="col">Название</th>
+                  <th scope="col">Дата публикации</th>
+                  <th scope="col">Редактирование</th>
+                  <th scope="col">Удаление</th>
+              </tr>
+          </thead>
+            <tbody>
+                @foreach (var ads in Model)
+                {  
+                    <tr>
+                        <td><a href="~/Ads/SelectAds/@ads.Id">@ads.Name</a></td>
+                        <td>@ads.DateCreation</td>
+                        <td>@Html.ActionLink("Редактировать", "Edit", "Ads", new { id = ads.Id}, new { @class = "btn btn-warning"} )</td>
+                        <td>@Html.ActionLink("Удалить","Delete", "Ads", new {url = Request.Url.AbsoluteUri,id = ads.Id}, new { @class = "btn btn-danger"})</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

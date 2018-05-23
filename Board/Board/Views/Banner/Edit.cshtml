@@ -1,0 +1,58 @@
+﻿@model Board.Models.Banner
+@{
+    Layout = "~/Views/Shared/_AdminPanel.cshtml";
+}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Рекдатирование баннера</h2>
+        <section id="loginForm">
+            @using (Html.BeginForm("Update", "Banner", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Name, new { @value = Model.Name, @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(m => m.Id, new { @value = Model.Id, @type = "hidden"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-7 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(m => m.Description, new {@value = Model.Description, @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SinglePage, new { @class = "col-md-7 control-label" })
+                    <div class="col-md-6">
+                        <input type="checkbox" name="SinglePage" />
+                    </div>
+                </div>
+
+                <div class="form-group" id="file">
+                    <label class="control-label col-md-5">Выберите фотографию</label>
+                    <div class="col-xs-12 col-lg-10 col-md-10">
+                        <input type="file" class="form-control" name="upload" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Добавить" class="btn btn-success" />
+                    </div>
+                </div>
+
+            }
+        </section>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

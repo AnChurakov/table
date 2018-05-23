@@ -1,0 +1,88 @@
+@font-face {
+  font-family: "Century Gothic";
+  src: url("../fonts/GOTHIC.TTF");
+}
+.advert__widthbtn{
+    width:100px;
+}
+/*.page {
+  font-family: "Century Gothic";
+}*/
+/* nav menu */
+.header__nav .nav-link {
+  padding: 1.4rem 1.5rem;
+}
+.nav_border {
+    border-bottom: 5px solid #0090ff;
+    font-size: 25px;
+    line-height: 25px;
+}
+/* advert */
+.advert {
+  color: #6e6e6e;
+}
+.advert__fontsize{
+    font-size:20px;
+}
+.advert__header {
+  font-weight: bold;
+}
+.advert__photos .carousel-control-prev-icon,
+.advert__photos .carousel-control-next-icon {
+  background-color: #6e6e6e;
+  border-radius: 50%;
+}
+.advert__photo.advert__photo--current {
+  width: inherit;
+}
+.advert__photo.advert__photo--current {
+  filter: none;
+}
+.advert__photo:not(.advert__photo--current) {
+  width: 17%;
+  margin-right: 1.5rem;
+  cursor: pointer;
+}
+.advert__photo--current {
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.advert__photo--current img {
+  max-width: 100%;
+  height: auto;
+}
+.advert__photo:not(.advert__photo--current) img {
+  filter: opacity(55%);
+  transform: scale(1);
+  transition: all ease-in-out 0.3s;
+}
+.advert__photo:not(.advert__photo--current) img.advert__photo--now {
+  filter: none;
+  transform: scale(1.1);
+}
+.advert__photo:not(.advert__photo--current) img:hover {
+  filter: none;
+}
+.advert__photo:not(.advert__photo--current):last-child {
+  margin-right: 0;
+}
+
+.AdsName:visited{
+    color:black;
+}
+
+.info__header {
+  font-size: 0.9rem;
+}
+.info__text {
+  color: #333;
+  font-size: 1.2rem;
+}
+
+/* footer */
+.footer {
+  background-color: #f0f0f0;
+}
