@@ -294,3 +294,6 @@ D:\bw\table\Board\Board\obj\Debug\Board.Migrations.UpdateBannerModel.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.AddNameBanner.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.AddPathBannerImg.resources
 D:\bw\table\Board\Board\obj\Debug\Board.Migrations.DescBanner.resources
+D:\bw\table\Board\Board\bin\NLog.dll
+D:\bw\table\Board\Board\bin\System.Web.dll
+D:\bw\table\Board\Board\bin\NLog.xml

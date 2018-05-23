@@ -64,10 +64,15 @@ namespace Board.Controllers
 
             ViewBag.Citys = _context.City.OrderBy(a => a.Name).ToList();
 
-            ViewBag.SubCategory = SubcatId;
+            if (SubcatId != null)
+            {
+                ViewBag.SubCategory = SubcatId;
 
-            ViewBag.SubCatName = _context.SubCategory.FirstOrDefault(a => a.Id == new Guid(SubcatId)).Name;
+                var selectNameSubcat = _context.SubCategory.FirstOrDefault(a => a.Id == new Guid(SubcatId)).Name;
 
+                ViewBag.SubCatName = selectNameSubcat;
+            }
+ 
             ViewBag.CategoryId = Id;
 
             ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false).ToList();
@@ -225,7 +230,7 @@ namespace Board.Controllers
                 ViewBag.Flag = "Fail";
             }
 
-            return RedirectToAction("AddAds");
+            return RedirectToAction("MyAds");
         }
 
         [HttpGet]

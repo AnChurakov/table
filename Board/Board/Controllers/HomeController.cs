@@ -15,11 +15,22 @@ namespace Board.Controllers
         {
             ApplicationDbContext _context = new ApplicationDbContext();
 
-            var selectCategorys = _context.Categorys.ToList();
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-            ViewBag.SubCategory = _context.SubCategory.ToList();
+            try
+            {
+                var selectCategorys = _context.Categorys.ToList();
 
-            return View(selectCategorys);
+                ViewBag.SubCategory = _context.SubCategory.ToList();
+
+                return View(selectCategorys);
+
+            }
+            catch(Exception e)
+            {
+                logger.Error(e);
+            }
+            return View();
         }
 
         public ActionResult Contact()

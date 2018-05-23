@@ -15,9 +15,13 @@
 <div class="d-lg-flex justify-content-between align-items-center py-4 text-center">
     <h2 class="h2 text-secondary advert__header">
         @ViewBag.Category
-        <button type="button" class="btn btn-primary">
-            @ViewBag.SubCatName
-        </button>
+
+         @if (ViewBag.SubCatName != null)
+         {
+            <button type="button" class="btn btn-primary">
+              @ViewBag.SubCatName
+            </button>
+         }
     </h2>
 
     @Html.ActionLink("Добавить объявление", "AddAds", "Ads", new { slug = "advertisment"}, new { @class = "btn btn-success advert__btn" })

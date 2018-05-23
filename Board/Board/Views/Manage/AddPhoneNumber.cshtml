@@ -3,8 +3,6 @@
     ViewBag.Title = "Изменение номера телефона";
 }
 
-<h2>@ViewBag.Title</h2>
-
 <div class="col-xs-12 col-lg-6 col-md-6">
     @if (ViewBag.Flag == "Success")
     {
@@ -21,24 +19,13 @@
     }
 </div>
 
+<h2>@ViewBag.Title</h2>
+
 @Html.ActionLink("Личные данные", "Index", "Manage", null, new { @class = "btn btn-warning" })
 @Html.ActionLink("Смена пароль", "ChangePassword", "Manage", null, new { @class = "btn btn-warning" })
 @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning" })
-<br />
+@Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success" })
 
-@if (TempData["Flag"] == "Success")
-{
-    <div class="alert alert-success" role="alert">
-        Номер телефона успешно изменен
-    </div>
-}
-
-@if (TempData["Flag"] == "Fail")
-{
-    <div class="alert alert-danger" role="alert">
-        Номер телефона не изменен
-    </div>
-}
 
 @using (Html.BeginForm("UpdatePhoneUser", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

@@ -3,16 +3,6 @@
 <div class="row">
     <div class="col-md-6 col-lg-6">
 
-        <h3>Личный кабинет</h3>
-        @if (Model.HasPassword)
-        {
-             @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning"})
-        }
-
-        @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage", null, new { @class = "btn btn-warning"})
-        @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning" })
-        <br />
-
          @if (TempData["Flag"] == "Success")
             { 
             <div class="alert alert-success" role="alert">
@@ -26,6 +16,16 @@
                     Данные не изменены
                 </div>
             }
+
+        <h3>Личный кабинет</h3>
+        @if (Model.HasPassword)
+        {
+             @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning"})
+        }
+
+        @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage", null, new { @class = "btn btn-warning"})
+        @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning" })
+           
 
         @using (Html.BeginForm("UpdateFIO", "Manage", FormMethod.Post))
         {
