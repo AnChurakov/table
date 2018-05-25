@@ -5,11 +5,11 @@
     ViewBag.Title = ViewBag.Category;
 }
 <div class="form-group mt-4 d-flex justify-content-center align-items-center">
-    <label for="adSearch" class="text-right">Поиск в текущей категории</label>
+    <label for="adSearch" class="text-right mobileHide">Поиск в текущей категории</label>
     <input type="text" id="Keyword" placeholder="Введите ключевое слово" name="Keyword" class="ml-3 mr-1 form-control col-7">
     <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" id="CategoryId" />
     <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" id="SubCatId" />
-    <button type="button" id="searchbtn" class="btn btn-primary">Найти</button>
+    <button type="button" id="searchbtn" class="btn btn-primary mobileFull">Найти</button>
 </div>
 
 <div class="d-lg-flex justify-content-between align-items-center py-4 text-center">
@@ -59,9 +59,12 @@
 
                 <div class="advert mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id}, new { @class = "d-block col-lg-3 px-0 AdsName advert__fontsize" })
-                        @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
-                        <div class="col-lg-9 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5">
+                       
+                            @Html.ActionLink(name, "SelectAds", "Ads", new { name = ads.Name, id = ads.Id }, 
+                           new { @class = "d-block col-lg-3 px-0 AdsName advert__fontsize" })
+                        
+                            @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
+                        <div class="col-lg-9 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
                             <div class="advert__city col  px-0">@ads.Citys.Name</div>
                             <div class="advert__date col px-0">@ads.DateCreation</div>
                             <div class="advert__user col px-0">@ads.User.FirstName  @ads.User.LastName</div>

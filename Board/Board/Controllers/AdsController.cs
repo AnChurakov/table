@@ -37,6 +37,7 @@ namespace Board.Controllers
             return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
+        [HttpPost]
         public ActionResult AllAds(Guid Id, string SubcatId, int? page)
         {
             List<Ads> listAds = new List<Ads>();
@@ -138,7 +139,7 @@ namespace Board.Controllers
             return View(searchResult);
         }
         
-        public ActionResult SelectAds(Guid Id)
+        public ActionResult SelectAds(Guid Id, string name)
         {
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
 

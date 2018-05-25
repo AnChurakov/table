@@ -6,9 +6,9 @@
 @using (Html.BeginForm("AdsSearch", "Ads", FormMethod.Post))
 {
     <div class="form-group mt-4 d-flex justify-content-center align-items-center">
-        <label for="adSearch" class="text-right">Поиск по всему сайту</label>
+        <label for="adSearch" class="text-right mobileHide">Поиск по всему сайту</label>
         <input type="text" id="adSearch" placeholder="Введите ключевое слово" name="nameSearch" class="ml-3 mr-1 form-control col-7">
-        <button type="submit" class="btn btn-success">Найти</button>
+        <button type="submit" class="btn btn-success mobileFull">Найти</button>
     </div>
 }
 
@@ -26,7 +26,16 @@
                     {
                         string nameSub = subcat.Name.ToString();
 
-                        @Html.ActionLink(nameSub, "AllAds", "Ads", new { subcatid = subcat.Id, id = category.Id }, new { @class = "btn btn-primary mr-1 advert__widthbtn" })
+                        @*@Html.ActionLink(nameSub, "AllAds", "Ads", new { subcatid = subcat.Id, id = category.Id }, 
+                       new { @class = "btn btn-primary mr-1 advert__widthbtn" })*@
+
+                        using (Html.BeginForm("AllAds", "Ads", FormMethod.Post))
+                        {
+                            <input type="hidden" value="@subcat.Id" name="SubCatId" />
+                            <input type="hidden" value="@category.Id" name="Id"/>
+                            <input type="hidden" value="@category.Name" name="name" />
+                            <input type="submit" value="@nameSub" class="btn btn-primary mr-1 advert__widthbtn mobileLgBtn"/>
+                        }
                     }
 
                 </div>
@@ -46,7 +55,13 @@
                 <h4 class="card-title text-center">@category.Name</h4>
                 <div class="d-flex justify-content-center">
 
-                 @Html.ActionLink("Перейти", "AllAds", "Ads", new { id = category.Id }, new { @class = "btn btn-primary advert__widthbtn" })
+                    @*@Html.ActionLink("Перейти", "AllAds", "Ads", new { id = category.Id }, new { @class = "btn btn-primary advert__widthbtn" })*@
+
+                    @using (Html.BeginForm("AllAds", "Ads", FormMethod.Post))
+                    {
+                    <input type="hidden" value="@category.Id" name="Id" />
+                    <input type="submit" value="Перейти" class="btn btn-primary mr-1 advert__widthbtn" />
+                    }
 
                 </div>
             </div>

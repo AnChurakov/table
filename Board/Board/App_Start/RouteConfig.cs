@@ -13,12 +13,48 @@ namespace Board
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(
+              name: "CreateAds",
+              url: "Create",
+              defaults: new { controller = "Ads", action = "AddAds" }
+          );
 
             routes.MapRoute(
-               name: "Ads",
-               url: "ads",
-               defaults: new { controller = "Ads", action = "SelectAds" }
-           );
+              name: "AllAds",
+              url: "Category",
+              defaults: new { controller = "Ads", action = "AllAds" }
+          );
+
+            routes.MapRoute(
+              name: "SingleAds",
+              url: "Category/{name}/{id}",
+              defaults: new { controller = "Ads", action = "SelectAds", name = UrlParameter.Optional, id = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
+             name: "Register",
+             url: "Registration",
+             defaults: new { controller = "Account", action = "Register" }
+         );
+            routes.MapRoute(
+             name: "Auth",
+             url: "Auth",
+             defaults: new { controller = "Account", action = "Login" }
+         );
+
+            routes.MapRoute(
+            name: "MyAds",
+            url: "My",
+            defaults: new { controller = "Ads", action = "MyAds" }
+        );
+
+
+
+            routes.MapRoute(
+              name: "Search",
+              url: "Search",
+              defaults: new { controller = "Ads", action = "AdsSearch" }
+          );
 
             routes.MapRoute(
                name: "Contact",

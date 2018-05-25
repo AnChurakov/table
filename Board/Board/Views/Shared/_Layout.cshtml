@@ -21,6 +21,9 @@
             <div class="container">
                 <div class="navbar navbar navbar-expand-lg navbar-light">
                     <a class="navbar-brand text-secondary font-weight-bold text-uppercase nav_border" href="http://мир-находок.рф">МИР-НАХОДОК.РФ</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto nav header__nav">
                             <li class="nav-item">
@@ -47,12 +50,15 @@
                            @if (!User.Identity.IsAuthenticated)
                             {
                             <div class="auth">
-                                <a href="/Account/Register">
+                                @Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "d-inline-block mobileBlock" })
+                                @*<a href="/Account/Register">
                                     <i class="fa fa-user-alt mr-2"></i>Регистрация
-                                </a>
-                                <a href="/Account/Login">
+                                </a>*@
+
+                                @Html.ActionLink("Вход в личный кабинет", "Login", "Account", null, new { @class = "d-inline-block mobileBlock"})
+                                @*<a href="/Account/Login">
                                     <i class="fa fa-sign-in-alt mr-2"></i>Вход в личный кабинет
-                                </a>
+                                </a>*@
                             </div>
                             }
                             else
@@ -61,61 +67,12 @@
                             }
                         </div>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    
                 </div>
             </div>
         </header>
 
-        @*<header class="header">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="navbar">
-                        <a class="navbar-brand text-secondary font-weight-bold text-uppercase nav_border" href="#">Мир-находок.рф</a>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav header__nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/Home/Index">Главная</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/Home/Contact">Контакты</a>
-                            </li>
-                         @if (User.Identity.IsAuthenticated)
-                         {
-                            <li>
-                                @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "nav-link" })
-                            </li>
-
-                            if (User.IsInRole("Администратор"))
-                            {
-                             <li>
-                                @Html.ActionLink("Панель администратора", "GetAllAds", "Ads", null, new { @class = "nav-link" })
-                            </li>
-                            }
-                         }                        
-
-                        </ul>
-                    </div>
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                    <div class="auth">
-                        <a href="/Account/Register">
-                            <i class="fa fa-user-alt mr-2"></i>Регистрация
-                        </a>
-                        <a href="/Account/Login">
-                            <i class="fa fa-sign-in-alt mr-2"></i>Авторизация
-                        </a>
-                    </div>
-                    }
-                    else
-                    {
-                       @Html.Partial("_LoginPartial")
-                    }
-                     </div>
-                </div>
-            </div>
-        </header>*@
+ 
         <div class="content">
             <div class="container">
                
@@ -123,11 +80,7 @@
                
             </div>
         </div>
-        @*<footer class="footer">
-            <div class="container">
-                <div class="py-4 text-center text-secondary">Название сайта. Все права защищены 2018 год.</div>
-            </div>
-        </footer>*@
+        
     </div>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
