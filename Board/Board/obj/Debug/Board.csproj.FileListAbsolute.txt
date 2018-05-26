@@ -455,3 +455,4 @@ D:\cs\table\Board\Board\obj\Debug\Board.csproj.CoreCompileInputs.cache
 D:\cs\table\Board\Board\obj\Debug\Board.csproj.CopyComplete
 D:\cs\table\Board\Board\obj\Debug\Board.dll
 D:\cs\table\Board\Board\obj\Debug\Board.pdb
+D:\cs\table\Board\Board\obj\Debug\Board.Migrations.AddFieldDateCreate.resources

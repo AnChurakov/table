@@ -37,8 +37,9 @@ namespace Board.Controllers
             return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
+     
         [HttpPost]
-        public ActionResult AllAds(Guid Id, string SubcatId, int? page)
+        public ActionResult AllAds(Guid Id, Guid? SubcatId, int? page)
         {
             List<Ads> listAds = new List<Ads>();
 
@@ -58,7 +59,7 @@ namespace Board.Controllers
             }
             else
             {
-                listAds = _context.Ads.Where(a => a.SubCategory.Id == new Guid(SubcatId) && a.Categorys.Id == selectCat.Id)
+                listAds = _context.Ads.Where(a => a.SubCategory.Id == SubcatId && a.Categorys.Id == selectCat.Id)
                         .OrderByDescending(t => t.DateCreation)
                         .ToList();
             }
@@ -69,7 +70,7 @@ namespace Board.Controllers
             {
                 ViewBag.SubCategory = SubcatId;
 
-                var selectNameSubcat = _context.SubCategory.FirstOrDefault(a => a.Id == new Guid(SubcatId)).Name;
+                var selectNameSubcat = _context.SubCategory.FirstOrDefault(a => a.Id == SubcatId).Name;
 
                 ViewBag.SubCatName = selectNameSubcat;
             }
@@ -97,33 +98,54 @@ namespace Board.Controllers
             if (NameAds != null || NameAds != string.Empty)
             {
                 selectAds.Name = NameAds;
+
+                TempData["Flag"] = "Success";
+            }
+            else
+            {
+                TempData["Flag"] = "Fail";
             }
 
             if (DescAds != null || DescAds != string.Empty)
             {
                 selectAds.Description = DescAds;
+
+                TempData["Flag"] = "Success";
+            }
+            else
+            {
+                TempData["Flag"] = "Fail";
             }
 
             _context.SaveChanges();
 
-            return RedirectToAction("MyAds");
+            return RedirectToAction("Edit", new { id = selectAds.Id});
         }
 
         [HttpPost]
-        public ActionResult SearchSingle (string Keyword, string CategoryId, string SubCatId)
+        public ActionResult SearchSingle (string Keyword, Guid CategoryId, Guid? SubCatId)
         {
-            var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == new Guid(CategoryId) && a.SubCategory.Id == new Guid(SubCatId))
+            var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
                  .ToList();
 
             return PartialView(selectAds);
         }
 
         [HttpPost]
-        public ActionResult SortCityAds(Guid CityId, Guid CategoryId, Guid SubCatId)
+        public ActionResult SortCityAds(string CityId, Guid CategoryId, Guid? SubCatId)
         {
-            var selectAds = _context.Ads.Where(a => a.Citys.Id == CityId && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
-                .ToList();
+            List<Ads> selectAds = new List<Ads>();
 
+            if (CityId != "AllCity")
+            {
+                 selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                    .ToList();
+            }
+            else
+            {
+                selectAds = _context.Ads.Where(a => a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                    .ToList();
+            }
             return PartialView(selectAds);
         }
 
@@ -142,6 +164,8 @@ namespace Board.Controllers
         public ActionResult SelectAds(Guid Id, string name)
         {
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
+
+            ViewBag.CheckImg = selectAds.ImageAds.Count;
 
             ViewBag.ListImage = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
 
@@ -179,7 +203,7 @@ namespace Board.Controllers
             var selectSubCat = _context.SubCategory.FirstOrDefault(a => a.Id == SubCat);
             var selectUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
 
-            if (selectCategory != null && selectCity != null && selectSubCat != null && selectUser != null)
+            if (selectCategory != null && selectCity != null && selectUser != null)
             {
                 Ads ads = new Ads
                 {
@@ -239,9 +263,7 @@ namespace Board.Controllers
         {
             string[] dataPath = url.Split('/');
 
-            string controller = dataPath[3];
-
-            string action = dataPath[4];
+            string action = dataPath[3];
 
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
 
@@ -269,7 +291,7 @@ namespace Board.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction(action, controller);
+            return RedirectToAction("MyAds", "Ads");
         }
         
     }

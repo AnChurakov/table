@@ -17,16 +17,18 @@
                 </div>
             }
 
-        <h3>Личный кабинет</h3>
-        @if (Model.HasPassword)
-        {
-             @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning"})
-        }
+</div>
+       
 
+       <div class="col-xs-12 col-lg-12 col-md-12">
+        <h2>Личный кабинет</h2>  
+        @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning"})
         @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage", null, new { @class = "btn btn-warning"})
         @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning" })
-           
+        @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success" })
+        </div>  
 
+    <div class="col-xs-12 col-lg-6 col-md-6">
         @using (Html.BeginForm("UpdateFIO", "Manage", FormMethod.Post))
         {
             <p>Поля отмеченные <sup class="text-danger">*</sup> обязательны для заполнения</p>
@@ -50,9 +52,9 @@
          </div>
 
         }
-
-
     </div>
+
+
 </div>
 
 

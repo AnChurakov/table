@@ -1,13 +1,11 @@
-﻿@{ 
-    ViewBag.Title = "Главная";
-}
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Мир-Находок.рф | @ViewBag.Title </title>
+    <title>@ViewBag.Title МИР-НАХОДОК</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/fontawesome-all.css">
     <link rel="stylesheet" href="~/Content/style.css">
@@ -20,68 +18,101 @@
         <header class="header">
             <div class="container">
                 <div class="navbar navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand text-secondary font-weight-bold text-uppercase nav_border" href="http://мир-находок.рф">МИР-НАХОДОК.РФ</a>
+
+                    <div class="link-logo">
+                        <a class="navbar-brand text-secondary font-weight-bold text-uppercase nav_border" href="http://mir-nahodok.ru">МИР-НАХОДОК</a>
+                        <div class="text-left h4" style="margin-left:12px;">mir-nahodok.ru</div>
+                    </div>
+
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto nav header__nav">
                             <li class="nav-item">
-                                <a class="nav-link text-primary" href="http://мир-находок.рф">Главная</a>
+                                <a class="nav-link text-primary" href="http://mir-nahodok.ru">Главная</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-primary" href="~/Contact">Контакты</a>
                             </li>
-                         @if (User.Identity.IsAuthenticated)
-                         {
-                            <li>
-                                @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "nav-link text-primary" })
-                            </li>
-
-                            if (User.IsInRole("Администратор"))
+                            @if (User.Identity.IsAuthenticated)
                             {
-                             <li>
-                                @Html.ActionLink("Панель администратора", "GetAllAds", "Ads", null, new { @class = "nav-link text-primary" })
-                            </li>
+                                <li>
+                                    @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "nav-link text-primary" })
+                                </li>
+
+                                if (User.IsInRole("Администратор"))
+                                {
+                                    <li>
+                                        @Html.ActionLink("Панель администратора", "GetAllAds", "Ads", null, new { @class = "nav-link text-primary" })
+                                    </li>
+                                }
                             }
-                         }   
                         </ul>
                         <div class="auth py-xl-4 text-center">
-                           @if (!User.Identity.IsAuthenticated)
+                            @if (!User.Identity.IsAuthenticated)
                             {
-                            <div class="auth">
-                                @Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "d-inline-block mobileBlock" })
-                                @*<a href="/Account/Register">
-                                    <i class="fa fa-user-alt mr-2"></i>Регистрация
-                                </a>*@
+                                <div class="auth">
+                                    @Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "d-inline-block mobileBlock" })
+                                    @*<a href="/Account/Register">
+                                            <i class="fa fa-user-alt mr-2"></i>Регистрация
+                                        </a>*@
 
-                                @Html.ActionLink("Вход в личный кабинет", "Login", "Account", null, new { @class = "d-inline-block mobileBlock"})
-                                @*<a href="/Account/Login">
-                                    <i class="fa fa-sign-in-alt mr-2"></i>Вход в личный кабинет
-                                </a>*@
-                            </div>
+                                    @Html.ActionLink("Вход в личный кабинет", "Login", "Account", null, new { @class = "d-inline-block mobileBlock" })
+                                    @*<a href="/Account/Login">
+                                            <i class="fa fa-sign-in-alt mr-2"></i>Вход в личный кабинет
+                                        </a>*@
+                                </div>
                             }
                             else
                             {
-                               @Html.Partial("_LoginPartial")
+                                @Html.Partial("_LoginPartial")
                             }
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </header>
 
- 
+
         <div class="content">
             <div class="container">
-               
-                    @RenderBody()
-               
+
+                @RenderBody()
+
             </div>
         </div>
-        
+
     </div>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter49014737 = new Ya.Metrika({
+                        id: 49014737,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
+                    });
+                } catch (e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/49014737" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/index.js"></script>

@@ -33,13 +33,18 @@ namespace Board.Controllers
                 _context.SaveChanges();
             }
 
-            return View("AllRoles");
+            return RedirectToAction("AllRoles");
         }
 
         [Authorize(Roles = "Администратор")]
         public ActionResult AddRoleUser()
         {
-            ViewBag.User = _context.Users.ToList();
+            var users = _context.Users.ToList();
+
+            if (users != null)
+            {
+                ViewBag.User = users;
+            }
 
             ViewBag.Roles = _context.Roles.ToList();
 
@@ -48,7 +53,7 @@ namespace Board.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Администратор")]
-        public async Task<ActionResult> AddUserRole(string RoleId, string UserId)
+        public async Task<ActionResult> AddUserRoles(string RoleId, string UserId)
         {
             var selectUser = _context.Users.FirstOrDefault(a => a.Id == UserId);
 
@@ -61,9 +66,15 @@ namespace Board.Controllers
             if (selectUser != null && selectRole != null)
             {
                 userManager.AddToRole(selectUser.Id, selectRole.Name);
+
+                TempData["Flag"] = "Success";
+            }
+            else
+            {
+                TempData["Flag"] = "Fail";
             }
 
-            return View("AddRoleUser");
+            return RedirectToAction("AddRoleUser");
         }
 
         [Authorize(Roles = "Администратор")]
@@ -83,9 +94,15 @@ namespace Board.Controllers
                 var role = new IdentityRole { Name = NameRole };
 
                 roleManager.Create(role);
+
+                TempData["Flag"] = "Success";
+            }
+            else
+            {
+                TempData["Flag"] = "Fail";
             }
 
-            return View("AddRole");
+            return RedirectToAction("AddRole");
         }
     }
 }

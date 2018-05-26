@@ -58,6 +58,7 @@ namespace Board.Controllers
                 Category cat = new Category
                 {
                     Id = Guid.NewGuid(),
+                    DateCreate = DateTime.Now,
                     Name = model.Name,
                     Special = model.Special
                 };
@@ -93,7 +94,7 @@ namespace Board.Controllers
         {
             bool flag = false;
 
-            if (CategoryId != null)
+            if (CategoryId != null || CategoryId != string.Empty)
             {
                 var selectCategory = _context.Categorys.FirstOrDefault(a => a.Id == new Guid(CategoryId));
 

@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Board.Models.Ads>
-
+@{
+    ViewBag.Title = "Мои объявления";
+}
 <div class="d-lg-flex justify-content-between align-items-center py-4 text-center">
     @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success advert__btn" })
 </div>

@@ -1,11 +1,14 @@
 ﻿@using Board.Models
 @model Ads
-
+@{ 
+    ViewBag.Title = "Добавление нового объявления";
+}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-xs-12 col-lg-12 col-md-12">
 
         <h4>Добавление нового объявления</h4>
 
+        <div class="col-xs-12 col-lg-6 col-md-6">
             @if (ViewBag.Flag == "Success")
             {
                 <div class="alert alert-success" role="alert">
@@ -21,13 +24,17 @@
             }
 
         <div class="alert alert-danger" role="alert">
-            Опасайтесь мошенников просящих пополнить баланс телефона якобы за найденную вещь
+            Опасайтесь мошенников просящих пополнить баланс телефона или банковскую карту якобы за найденную вещь
         </div>
-        
+       </div>
+  
+
         @if (ViewBag.FirstName == null || ViewBag.CheckPhoneUser == null)
         {
+            <div class="col-xs-12 col-lg-6 col-md-6">
             <div class="alert alert-danger" role="alert">
                 Вы не указали свои данные! <a href="~/Manage/Index" class="btn btn-primary">Указать</a>
+            </div>
             </div>
         }
         else
@@ -37,27 +44,30 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <p>
+                    Поля отмеченные <sup class="text-danger">*</sup> являются обязательными для заполнения
+                </p>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Name, new { @class = "col-md-6 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "Name" })
+                    <label class="control-label col-xs-12 col-lg-6 col-md-6">Название объявления<sup class="text-danger">*</sup></label>
+                    <div class="col-xs-12 col-lg-6 col-md-6">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "Name", required = "required" })
                         @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Description, new { @class = "col-md-6 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Desc" })
+                    <label class="control-label col-xs-12 col-lg-6 col-md-6">Описание объявления<sup class="text-danger">*</sup></label>
+                    <div class="col-xs-12 col-lg-6 col-md-6">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Desc", required = "required" })
                         @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-6 control-label">Категория <sup class="text-danger">*</sup></label>
-                    <div class="col-md-10">
+                    <div class="col-xs-12 col-lg-6 col-md-6">
                     <select class="form-control" required name="Category" id="Category">
-                        <option selected>Выберите категорию</option>
+                        <option selected value="" disabled>Выберите категорию</option>
                         @foreach (Category cat in ViewBag.Category)
                         {
                             <option value="@cat.Id">@cat.Name</option>
@@ -68,9 +78,9 @@
 
                 <div class="form-group"  id="SubCat">
                     <label class="col-md-6 control-label">Подкатегория <sup class="text-danger">*</sup></label>
-                    <div class="col-md-10">
-                    <select class="form-control" required id="SubCat" name="SubCat">
-                        <option selected>Выберите подкатегорию</option>
+                    <div class=" col-xs-12 col-lg-6 col-md-6">
+                    <select class="form-control"  name="SubCat">
+                        <option selected value="" disabled>Выберите подкатегорию</option>
                         @foreach (SubCategory cat in ViewBag.SubCat)
                         {
                             <option value="@cat.Id">@cat.Name</option>
@@ -81,9 +91,9 @@
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">Город<sup class="text-danger">*</sup></label>
-                    <div class="col-md-10">
+                    <div class="col-md-6">
                     <select class="form-control" required id="City" name="City">
-                        <option selected>Выберите город</option>
+                        <option selected value="" disabled>Выберите город</option>
                         @foreach (City city in ViewBag.City)
                         {
                             <option value="@city.Id">@city.Name</option>
@@ -95,16 +105,14 @@
 
                 <div class="form-group" id="file">
                     <label class="control-label col-md-6">Выберите фотографию</label>
-                    <div class="col-xs-12 col-lg-10 col-md-10">
-                        <input type="file" required class="form-control" name="upload" />
+                    <div class="col-xs-12 col-lg-4 col-md-4">
+                        <input type="file" class="form-control" name="upload" />
+                        
+                    </div>
+                    <div class="col-xs-12 col-lg-12 col-md-12">
                         <input type="button" id="Add" class="btn btn-primary" value="Добавить" />
                         <input type="button" id="Delete" class="btn btn-danger" value="Удалить" />
                     </div>
-
-                    @*<div class="col-xs-12 col-lg-2 col-md-2">
-                        <input type="button" id="Add" class="btn btn-primary" value="Добавить" />
-                        <input type="button" id="Delete" class="btn btn-danger" value="Удалить" />
-                    </div>*@
                 </div>
 
                 <div id="append"></div>
@@ -129,12 +137,14 @@
     <script>
         $(document).ready(function () {
 
-            var subcat = $("#SubCat").hide();
+            var subcat = $("#SubCat");
             var category = $("#Category");
             var name = $("#Name");
             var city = $("#City");
             var desc = $("#Desc");
-
+            var required = $("#SubCatRequired");
+            $("#file").first().find("#Delete").hide();
+            subcat.hide();
 
             $("body").on("click", "#Add", function (e) {
 
@@ -144,6 +154,7 @@
 
                 blockfile.appendTo("#append");
 
+                blockfile.find("#Delete").show();
             });
 
             $("body").on("click", "#Delete", function (e) {
@@ -162,20 +173,23 @@
 
                 $.ajax({
                     type: "POST",
-                    url:"http://localhost:63234/Category/CheckSpecialCategory",
+                    url: '@Url.Action("CheckSpecialCategory", "Category")',
                     dataType: "text",
-                    data: "CategoryId="+CategoryId,
+                    data: "CategoryId=" + CategoryId,
                     success: function (data) {
 
                         if (data == "True") {
                             subcat.hide();
+                            subcat.find("select").removeAttr("required");
+
                         }
                         else {
                             subcat.show();
+                            subcat.find("select").attr("required", true);
                         }
                     }
 
-                });
+                    });
 
             });
 

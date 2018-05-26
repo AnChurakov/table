@@ -3,8 +3,24 @@
     ViewBag.Title = "Редактирование объявления";
 }
 <div class="row">
-    <div class="col-xs-12 col-lg-6 col-md-6">
+    <div class="col-xs-12 col-lg-12 col-md-12">
         <h2>Редактирование объявления @Model.Name</h2>
+
+        @if (TempData["Flag"] == "Success")
+        {
+            <div class="alert alert-success" role="alert">
+                Ваше объявление успешно обновлено
+            </div>
+        }
+
+        @if (TempData["Flag"] == "Fail")
+        {
+            <div class="alert alert-danger" role="alert">
+                Объявление не обновлено
+            </div>
+        }
+
+
         @using (Html.BeginForm("UpdateAds", "Ads", FormMethod.Post))
         {
             <div class="form-group">
@@ -14,9 +30,8 @@
 
             <div class="form-group">
             <lable>Описание</lable>
-            <textarea class="form-control" name="DescAds">
-               @Model.Description
-            </textarea>
+            @Html.TextArea("DescAds", Model.Description, new { @class = "form-control", @cols = "10", @rows = "10"})
+            
              <input type="hidden" value="@Model.Id" name="AdsId"/>
              </div>
            

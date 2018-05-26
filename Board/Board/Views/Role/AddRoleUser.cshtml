@@ -4,9 +4,24 @@
 }
 <div class="row">
     <div class="col-lg-6 col-md-6 col-xs-12">
+
+         @if (TempData["Flag"] == "Success")
+            { 
+            <div class="alert alert-success" role="alert">
+                Роль успешно назначена пользователю
+            </div>
+            }
+
+            @if (TempData["Flag"] == "Fail")
+            {
+                <div class="alert alert-danger" role="alert">
+                    Роль не назначена!
+                </div>
+            }
+
         <h2>Назначение роли пользователю</h2>
 
-        @using (Html.BeginForm("AddUserRole", "Role", FormMethod.Post))
+        @using (Html.BeginForm("AddUserRoles", "Role", FormMethod.Post))
         {
             <div class="form-group">
                 <select class="form-control" name="UserId">
@@ -21,7 +36,7 @@
                 <select class="form-control" name="RoleId">
                     @foreach(var role in ViewBag.Roles)
                     {
-                        <option value="@role.Name">@role.Name</option>
+                        <option value="@role.Id">@role.Name</option>
                     }
                 </select>
             </div>

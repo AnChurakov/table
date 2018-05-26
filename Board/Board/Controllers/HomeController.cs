@@ -19,7 +19,7 @@ namespace Board.Controllers
 
             try
             {
-                var selectCategorys = _context.Categorys.ToList();
+                var selectCategorys = _context.Categorys.OrderBy(a => a.DateCreate).ToList();
 
                 ViewBag.SubCategory = _context.SubCategory.ToList();
 

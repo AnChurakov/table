@@ -21,14 +21,31 @@ namespace Board
 
             routes.MapRoute(
               name: "AllAds",
-              url: "Category",
-              defaults: new { controller = "Ads", action = "AllAds" }
+              url: "cat/{id}",
+              defaults: new { controller = "Ads", action = "AllAds", id = UrlParameter.Optional}
           );
 
             routes.MapRoute(
+             name: "User",
+             url: "User",
+             defaults: new { controller = "Manage", action = "Index" }
+         );
+
+            routes.MapRoute(
+             name: "Password",
+             url: "Passwrod",
+             defaults: new { controller = "Manage", action = "ChangePassword" }
+         );
+
+            routes.MapRoute(
+             name: "Phone",
+             url: "Phone",
+             defaults: new { controller = "Manage", action = "AddPhoneNumber" }
+         );
+            routes.MapRoute(
               name: "SingleAds",
-              url: "Category/{name}/{id}",
-              defaults: new { controller = "Ads", action = "SelectAds", name = UrlParameter.Optional, id = UrlParameter.Optional }
+              url: "cat/{id}",
+              defaults: new { controller = "Ads", action = "SelectAds", id = UrlParameter.Optional }
           );
 
             routes.MapRoute(

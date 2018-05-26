@@ -4,6 +4,21 @@
 <div class="row">
     <div class="col-lg-7 col-md-7 col-xs-12">
         <h2>Добавление новой роли</h2>
+
+           @if (ViewBag.Flag == "Success")
+            {
+                <div class="alert alert-success" role="alert">
+                   Нова роль успешно добавлена
+                </div>
+            }
+
+            @if (ViewBag.Flag == "Fail")
+            {
+                <div class="alert alert-danger" role="alert">
+                    Новая роль не добавлена!
+                </div>
+            }
+
         @using (Html.BeginForm("CreateNewRole", "Role", FormMethod.Post))
         {
             <div class="form-group">

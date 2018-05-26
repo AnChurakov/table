@@ -14,7 +14,7 @@
 
 <div class="row">
 
-    @foreach (var category in Model.Where(a => a.Special == false).OrderBy(a => a.Name))
+    @foreach (var category in Model.Where(a => a.Special == false))
     {
         <div class="col-xs-12 col-lg-4 col-md-4">
         <div class="card mb-4 px-0">
@@ -27,13 +27,12 @@
                         string nameSub = subcat.Name.ToString();
 
                         @*@Html.ActionLink(nameSub, "AllAds", "Ads", new { subcatid = subcat.Id, id = category.Id }, 
-                       new { @class = "btn btn-primary mr-1 advert__widthbtn" })*@
+                         new { @class = "btn btn-primary mr-1 advert__widthbtn" })*@
 
                         using (Html.BeginForm("AllAds", "Ads", FormMethod.Post))
                         {
                             <input type="hidden" value="@subcat.Id" name="SubCatId" />
                             <input type="hidden" value="@category.Id" name="Id"/>
-                            <input type="hidden" value="@category.Name" name="name" />
                             <input type="submit" value="@nameSub" class="btn btn-primary mr-1 advert__widthbtn mobileLgBtn"/>
                         }
                     }

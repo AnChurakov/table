@@ -6,8 +6,8 @@
         @Html.AntiForgeryToken()
 
         <div class="auth">
-              @Html.ActionLink("Личный кабинет", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+              @Html.ActionLink("Личный кабинет", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class ="d-inline-block mobileBlock" })
+            <a href="javascript:document.getElementById('logoutForm').submit()" class="d-inline-block mobileBlock">Выйти</a>
         </div>
 
     }

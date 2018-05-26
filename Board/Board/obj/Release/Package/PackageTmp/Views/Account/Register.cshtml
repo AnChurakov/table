@@ -14,25 +14,27 @@
         <label class="col-md-4 control-label">Адрес электронной почты<sup class="text-danger">*</sup></label>
         <div class="col-md-4">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         <label class="col-md-4 control-label">Пароль<sup class="text-danger">*</sup></label>
         <div class="col-md-4">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         <label class="col-md-4 control-label">Подтверждение пароля<sup class="text-danger">*</sup></label>
         <div class="col-md-4">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-4 control-label">Номер телефона<sup class="text-danger">*</sup> (формат х-ххх-ххх-хх-хх)</label>
+        <label class="col-md-4 control-label">Номер телефона<sup class="text-danger">*</sup> (11 чисел)</label>
         <div class="col-md-4">
-            <input type="tel" class="form-control" required pattern="[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="PhoneNumber" />
-            @*@Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @type = "tel", @pattern = "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" })*@
+            <input type="tel" class="form-control" maxlength="11" required name="PhoneNumber" pattern="[0-9]{11}" />
         </div>
     </div>
     <div class="form-group">

@@ -133,6 +133,8 @@ namespace Board.Controllers
         [Authorize]
         public ActionResult AddPhoneNumber()
         {
+            ViewBag.PhoneNumber = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).PhoneNumber;
+
             return View();
         }
 
