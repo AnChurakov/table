@@ -14,6 +14,8 @@ namespace Board.Models
         [Display(Name = "Название подкатегории")]
         public string Name { get; set; }
 
+        public string Transliteration { get; set; }
+
         public virtual ICollection<Ads> Ads { get; set; }
     }
 }

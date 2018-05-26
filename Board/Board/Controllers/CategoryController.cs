@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Board.Models;
 using System.Threading.Tasks;
+using Board.Common;
 
 namespace Board.Controllers
 {
@@ -54,13 +55,15 @@ namespace Board.Controllers
         {
          
            if (ModelState.IsValid)
-            {             
+            {
+                var translit = Transliteration.Front(model.Name);
                 Category cat = new Category
                 {
                     Id = Guid.NewGuid(),
                     DateCreate = DateTime.Now,
                     Name = model.Name,
-                    Special = model.Special
+                    Special = model.Special,
+                    Transliteration = translit
                 };
 
                 _context.Categorys.Add(cat);

@@ -204,6 +204,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\Translit.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdsController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
@@ -264,6 +265,10 @@
     <Compile Include="Migrations\201805250525149_AddFieldDateCreate.cs" />
     <Compile Include="Migrations\201805250525149_AddFieldDateCreate.Designer.cs">
       <DependentUpon>201805250525149_AddFieldDateCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805261943426_TranslitAdsCatSubCat.cs" />
+    <Compile Include="Migrations\201805261943426_TranslitAdsCatSubCat.Designer.cs">
+      <DependentUpon>201805261943426_TranslitAdsCatSubCat.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -439,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805250525149_AddFieldDateCreate.resx">
       <DependentUpon>201805250525149_AddFieldDateCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805261943426_TranslitAdsCatSubCat.resx">
+      <DependentUpon>201805261943426_TranslitAdsCatSubCat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

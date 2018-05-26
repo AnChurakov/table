@@ -61,7 +61,7 @@
                 <div class="advert mb-3">
                     <div class="d-flex justify-content-between align-items-center">
                        
-                            @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id }, 
+                            @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration @*subcattrans = ads.SubCategory.Transliteration*@ }, 
                            new { @class = "d-block col-lg-3 px-0 AdsName advert__fontsize" })
                         
                             @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@

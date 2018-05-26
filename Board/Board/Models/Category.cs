@@ -16,6 +16,8 @@ namespace Board.Models
 
         public DateTime DateCreate { get; set; }
 
+        public string Transliteration { get; set; }
+
         [Display(Name = "Специальная категория")]
         public bool Special { get; set; }
 

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Routing;
 using PagedList.Mvc;
 using PagedList;
+using Board.Common;
 
 namespace Board.Controllers
 {
@@ -37,9 +38,7 @@ namespace Board.Controllers
             return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
-     
-        [HttpPost]
-        public ActionResult AllAds(Guid Id, Guid? SubcatId, int? page)
+        public ActionResult AllAds(string translitCat, int? page, string subcattrans = null)
         {
             List<Ads> listAds = new List<Ads>();
 
@@ -47,35 +46,35 @@ namespace Board.Controllers
 
             int pageNumber = (page ?? 1);
 
-            var selectCat = _context.Categorys.FirstOrDefault(a => a.Id == Id);
+            var selectCat = _context.Categorys.FirstOrDefault(a => a.Transliteration == translitCat);
 
             ViewBag.Category = selectCat.Name;
 
-            if (SubcatId == null)
+            if (subcattrans == null)
             {
-                listAds = _context.Ads.Where(a => a.Categorys.Special == true && a.Categorys.Id == selectCat.Id)
+                listAds = _context.Ads.Where(a => a.Categorys.Special == true && a.Categorys.Transliteration == selectCat.Transliteration)
                         .OrderByDescending(t => t.DateCreation)
                         .ToList();
             }
             else
             {
-                listAds = _context.Ads.Where(a => a.SubCategory.Id == SubcatId && a.Categorys.Id == selectCat.Id)
+                listAds = _context.Ads.Where(a => a.SubCategory.Transliteration == subcattrans && a.Categorys.Transliteration == selectCat.Transliteration)
                         .OrderByDescending(t => t.DateCreation)
                         .ToList();
             }
 
             ViewBag.Citys = _context.City.OrderBy(a => a.Name).ToList();
 
-            if (SubcatId != null)
+            if (subcattrans != null)
             {
-                ViewBag.SubCategory = SubcatId;
+                ViewBag.SubCategory = _context.SubCategory.FirstOrDefault(a => a.Transliteration == subcattrans).Id;
 
-                var selectNameSubcat = _context.SubCategory.FirstOrDefault(a => a.Id == SubcatId).Name;
+                var selectNameSubcat = _context.SubCategory.FirstOrDefault(a => a.Transliteration == subcattrans).Name;
 
                 ViewBag.SubCatName = selectNameSubcat;
             }
- 
-            ViewBag.CategoryId = Id;
+
+            ViewBag.CategoryId = selectCat.Id;
 
             ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false).ToList();
 
@@ -161,7 +160,7 @@ namespace Board.Controllers
             return View(searchResult);
         }
         
-        public ActionResult SelectAds(Guid Id, string name)
+        public ActionResult SelectAds(Guid? Id, string adstrans, string catTrans, string subcattrans = null)
         {
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
 
@@ -205,6 +204,8 @@ namespace Board.Controllers
 
             if (selectCategory != null && selectCity != null && selectUser != null)
             {
+                var translit = Transliteration.Front(model.Name);
+
                 Ads ads = new Ads
                 {
                     Id = Guid.NewGuid(),
@@ -215,6 +216,7 @@ namespace Board.Controllers
                     SubCategory = selectSubCat,
                     Citys = selectCity,
                     User = selectUser,
+                    Transliteration = translit
                 };
 
                 foreach (var file in upload)

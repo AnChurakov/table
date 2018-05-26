@@ -16,6 +16,8 @@ namespace Board.Models
 
         public DateTime? DateCreation { get; set; }
 
+        public string Transliteration { get; set; }
+
         [Display(Name = "Описание")]
         public string Description { get; set; }
 

@@ -19,11 +19,33 @@ namespace Board
               defaults: new { controller = "Ads", action = "AddAds" }
           );
 
+
             routes.MapRoute(
               name: "AllAds",
-              url: "cat/{id}",
-              defaults: new { controller = "Ads", action = "AllAds", id = UrlParameter.Optional}
+              url: "c/{translitCat}/{subcattrans}",
+              defaults: new { controller = "Ads", action = "AllAds", translitCat = UrlParameter.Optional, subcattrans = UrlParameter.Optional}
           );
+
+            routes.MapRoute(
+            name: "SpecSingleAds",
+            url: "c/{catTrans}/{adstrans}/{id}",
+            defaults: new
+            {
+                controller = "Ads",
+                action = "SelectAds",
+                id = UrlParameter.Optional,
+                catTrans = UrlParameter.Optional,
+                adstrans = UrlParameter.Optional
+            }
+        );
+
+            routes.MapRoute(
+            name: "SingleAds",
+            url: "c/{catTrans}/{subcattrans}/{adstrans}/{id}",
+            defaults: new { controller = "Ads", action = "SelectAds", id = UrlParameter.Optional, catTrans = UrlParameter.Optional,
+            subcattrans = UrlParameter.Optional, adstrans = UrlParameter.Optional}
+        );
+            
 
             routes.MapRoute(
              name: "User",
@@ -42,11 +64,7 @@ namespace Board
              url: "Phone",
              defaults: new { controller = "Manage", action = "AddPhoneNumber" }
          );
-            routes.MapRoute(
-              name: "SingleAds",
-              url: "cat/{id}",
-              defaults: new { controller = "Ads", action = "SelectAds", id = UrlParameter.Optional }
-          );
+          
 
             routes.MapRoute(
              name: "Register",

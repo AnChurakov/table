@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using Board.Models;
+using Board.Common;
 
 namespace Board.Controllers
 {
@@ -29,10 +30,13 @@ namespace Board.Controllers
         {
             if (ModelState.IsValid)
             {
+                var translit = Transliteration.Front(model.Name);
+
                 SubCategory sub = new SubCategory
                 {
                     Id = Guid.NewGuid(),
-                    Name = model.Name
+                    Name = model.Name,
+                    Transliteration = translit
                 };
 
                 _context.SubCategory.Add(sub);
