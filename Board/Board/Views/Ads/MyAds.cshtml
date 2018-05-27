@@ -22,7 +22,7 @@
                 {
                     string name = ads.Name;
                     <tr>
-                        <td>@Html.ActionLink(name, "SelectAds", "Ads", new {id = ads.Id}, null)</td>
+                        <td>@Html.ActionLink(name, "SelectAds", "Ads", new {id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration}, null)</td>
                         <td>@ads.DateCreation</td>
                         <td>@Html.ActionLink("Редактировать", "Edit", "Ads", new { id = ads.Id}, new { @class = "btn btn-warning"} )</td>
                         <td>@Html.ActionLink("Удалить","Delete", "Ads", new {url = Request.Url.AbsoluteUri,id = ads.Id}, new { @class = "btn btn-danger"})</td>

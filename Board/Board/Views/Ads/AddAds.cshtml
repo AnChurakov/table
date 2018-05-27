@@ -44,9 +44,12 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <p>
+
+                <div class="form-group">
                     Поля отмеченные <sup class="text-danger">*</sup> являются обязательными для заполнения
-                </p>
+             
+                </div>
+
                 <div class="form-group">
                     <label class="control-label col-xs-12 col-lg-6 col-md-6">Название объявления<sup class="text-danger">*</sup></label>
                     <div class="col-xs-12 col-lg-6 col-md-6">
@@ -152,7 +155,7 @@
 
                 var blockfile = $(this).parent().parent().clone();
 
-                blockfile.appendTo("#append");
+                blockfile.appendTo("#append").attr("value", "");
 
                 blockfile.find("#Delete").show();
             });

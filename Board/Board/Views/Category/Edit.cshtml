@@ -3,6 +3,26 @@
     Layout = "~/Views/Shared/_AdminPanel.cshtml";
 }
 
+@if (TempData["Flag"] == "Success")
+{
+    <div class="alert alert-success col-xs-12 col-lg-6 col-md-6" role="alert">
+        Категория успешно изменена
+    </div>
+}
+
+@if (TempData["Flag"] == "Fail")
+{
+    <div class="alert alert-danger col-xs-12 col-lg-6 col-md-6" role="alert">
+        Категория не изменена!
+    </div>
+}
+
+@if (TempData["Danger"] == "Danger")
+{
+    <div class="alert alert-danger col-xs-12 col-lg-6 col-md-6" role="alert">
+        Категория с таким названием уже существует!
+    </div>
+}
 
 <h2>Редактирование категории</h2>
 

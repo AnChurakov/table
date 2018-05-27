@@ -44,9 +44,12 @@
                                     <div class="d-flex justify-content-center align-items-center">
                                         @foreach (var image in ViewBag.ListImage)
                                         {
+                                            
                                             <div class="advert__photo">
                                                 <img class="w-100 advert__img" src="@Url.Content(image.Path)" alt="photo">
                                             </div>
+                                            
+                                            
                                         }
                                     </div>
                                 </div>

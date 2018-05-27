@@ -61,16 +61,17 @@ namespace Board.Controllers
         [Authorize(Roles = "Администратор")]
         public async Task<ActionResult> AddBanner(Banner model, HttpPostedFileBase upload, string SinglePage)
         {
-                Banner banner = new Banner
-                {
-                    Id = Guid.NewGuid(),
-                    Name = model.Name,
-                    SinglePage = CheckSinglePageBanner(SinglePage),
-                    Description = model.Description
-                };
-
                 if (upload != null)
                 {
+
+                    Banner banner = new Banner
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = model.Name,
+                        SinglePage = CheckSinglePageBanner(SinglePage),
+                        Description = model.Description
+                    };
+
                     string fileName = System.IO.Path.GetFileName(upload.FileName);
 
                     var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
@@ -90,12 +91,19 @@ namespace Board.Controllers
 
                     _context.ImageBanners.Add(imgban);
 
+                    TempData["Flag"] = "Success";
+
+                    _context.Banners.Add(banner);
+
+                    _context.SaveChanges();
+
+                     TempData["Flag"] = "Success";
+                }
+                else
+                {
+                    TempData["Flag"] = "Fail";
                 }
 
-                _context.Banners.Add(banner);
-
-                _context.SaveChanges();
-           
 
             return RedirectToAction("Index");
         }

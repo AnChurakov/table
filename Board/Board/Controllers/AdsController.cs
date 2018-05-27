@@ -98,6 +98,8 @@ namespace Board.Controllers
             {
                 selectAds.Name = NameAds;
 
+                selectAds.Transliteration = Transliteration.Front(selectAds.Name);
+
                 TempData["Flag"] = "Success";
             }
             else
@@ -243,6 +245,18 @@ namespace Board.Controllers
                         _context.ImageAds.Add(image);
 
                     }
+                    else
+                    {
+                        ImageAds img = new ImageAds
+                        {
+                            Id = Guid.NewGuid(),
+                            Ads = ads,
+                            Path = "/Files/no-photo.png"
+                        };
+
+                        _context.ImageAds.Add(img);
+                        
+                    }
 
                 }
 
@@ -265,7 +279,9 @@ namespace Board.Controllers
         {
             string[] dataPath = url.Split('/');
 
-            string action = dataPath[3];
+            string action = dataPath[4];
+
+            string controller = dataPath[3];
 
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
 
@@ -275,7 +291,7 @@ namespace Board.Controllers
 
             if (selectImages != null)
             {
-                foreach(var deleteImages in selectImages)
+                foreach (var deleteImages in selectImages)
                 {
                     _context.ImageAds.Remove(deleteImages);
                 }
@@ -293,8 +309,8 @@ namespace Board.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("MyAds", "Ads");
+            return RedirectToAction(action, controller);
         }
-        
+
     }
 }

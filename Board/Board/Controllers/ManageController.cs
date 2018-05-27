@@ -399,12 +399,7 @@ namespace Board.Controllers
 
             var selectComplaint = _context.Complaints.Where(a => a.User.Id == Id).ToList();
 
-            foreach (var deleteAds in selectAllAdsUser)
-            {
-                _context.Ads.Remove(deleteAds);
-            }
-
-            foreach(var deleteImgAds in selectAllImageAds)
+            foreach (var deleteImgAds in selectAllImageAds)
             {
                 _context.ImageAds.Remove(deleteImgAds);
             }
@@ -413,6 +408,13 @@ namespace Board.Controllers
             {
                 _context.Complaints.Remove(deleteComplaint);
             }
+
+            foreach (var deleteAds in selectAllAdsUser)
+            {
+                _context.Ads.Remove(deleteAds);
+            }
+
+            
 
             _context.Users.Remove(selectUser);
 

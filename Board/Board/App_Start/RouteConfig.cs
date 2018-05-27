@@ -19,6 +19,12 @@ namespace Board
               defaults: new { controller = "Ads", action = "AddAds" }
           );
 
+            routes.MapRoute(
+              name: "EditAds",
+              url: "Edit",
+              defaults: new { controller = "Ads", action = "Edit" }
+          );
+
 
             routes.MapRoute(
               name: "AllAds",
@@ -77,14 +83,7 @@ namespace Board
              defaults: new { controller = "Account", action = "Login" }
          );
 
-            routes.MapRoute(
-            name: "MyAds",
-            url: "My",
-            defaults: new { controller = "Ads", action = "MyAds" }
-        );
-
-
-
+    
             routes.MapRoute(
               name: "Search",
               url: "Search",
