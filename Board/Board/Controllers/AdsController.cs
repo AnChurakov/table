@@ -63,7 +63,9 @@ namespace Board.Controllers
                         .ToList();
             }
 
-            ViewBag.Citys = _context.City.OrderBy(a => a.Name).ToList();
+            ViewBag.Citys = _context.City.Where(t => t.Name != "Ижевск").OrderBy(a => a.Name).ToList();
+
+            ViewBag.Izh = _context.City.FirstOrDefault(a => a.Name == "Ижевск");
 
             if (subcattrans != null)
             {
@@ -179,7 +181,9 @@ namespace Board.Controllers
         [Authorize]
         public ActionResult AddAds()
         {
-            ViewBag.City = _context.City.OrderBy(a => a.Name).ToList();
+            ViewBag.City = _context.City.Where(t => t.Name != "Ижевск").OrderBy(a => a.Name).ToList();
+
+            ViewBag.Izh = _context.City.FirstOrDefault(a => a.Name == "Ижевск");
 
             ViewBag.Category = _context.Categorys.OrderBy(a => a.Name).ToList();
 

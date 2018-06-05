@@ -64,12 +64,12 @@ namespace Board.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Адрес почты является обязательным полем")]
+        [EmailAddress(ErrorMessage = "Введите адрес электронной почты")]
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Пароль является обязательным полем")]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
@@ -78,8 +78,10 @@ namespace Board.Models
         [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Номер телефона является обязательным полем")]
+        [RegularExpression("^[0-9]{11}$", ErrorMessage = "Номер телефона должен содержать только цифры")]
         [Display(Name = "Номер телефона")]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "Номер должен содержать 11 цифр")]
         public string PhoneNumber { get; set; }
     }
 

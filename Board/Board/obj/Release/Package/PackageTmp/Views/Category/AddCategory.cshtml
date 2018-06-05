@@ -2,17 +2,24 @@
 @{ 
     Layout = "~/Views/Shared/_AdminPanel.cshtml";
 }
-@if (ViewBag.Flag == "Success")
+@if (TempData["Flag"] == "Success")
 {
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success col-xs-12 col-lg-6 col-md-6" role="alert">
         Категория успешно добавлена
     </div>
 }
 
-@if (ViewBag.Flag == "Fail")
+@if (TempData["Flag"] == "Fail")
 {
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger col-xs-12 col-lg-6 col-md-6" role="alert">
         Категория не добавлена!
+    </div>
+}
+
+@if (TempData["Danger"] == "Danger")
+{
+    <div class="alert alert-danger col-xs-12 col-lg-6 col-md-6" role="alert">
+        Категория с таким названием уже существует!
     </div>
 }
 
@@ -20,7 +27,7 @@
 
 <div class="row">
     <div class="col-md-10">
-        <div class="alert alert-primary" role="alert">
+        <div class="alert alert-primary col-xs-12 col-lg-6 col-md-6" role="alert">
            При указании, что категория специальная(ставится галочка), то у нее не будет подкатегории(к примеру: Нашел,Ищу и тд)
         </div>
         <section id="loginForm">

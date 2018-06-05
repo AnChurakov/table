@@ -5,14 +5,14 @@
 <div class="row">
     <div class="col-md-8">
 
-        @if (ViewBag.Flag == "Success")
+        @if (TempData["Flag"] == "Success")
          {
         <div class="alert alert-success" role="alert">
             Баннер успешно добавлен
         </div>
         }
 
-        @if (ViewBag.Flag == "Fail")
+        @if (TempData["Flag"] == "Fail")
         {
         <div class="alert alert-danger" role="alert">
             Баннер не добавлен!

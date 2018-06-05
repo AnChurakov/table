@@ -97,6 +97,7 @@
                     <div class="col-md-6">
                     <select class="form-control" required id="City" name="City">
                         <option selected value="" disabled>Выберите город</option>
+                        <option value="@ViewBag.Izh.Id">@ViewBag.Izh.Name</option>
                         @foreach (City city in ViewBag.City)
                         {
                             <option value="@city.Id">@city.Name</option>

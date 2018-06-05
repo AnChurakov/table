@@ -39,6 +39,7 @@
                         <select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
                             <option selected disabled>Выберите город</option>
                             <option value="AllCity">По всем городам</option>
+                            <option value="@ViewBag.Izh.Id">@ViewBag.Izh.Name</option>
                             @foreach (var city in ViewBag.Citys)
                             {
                                 <option value="@city.Id">@city.Name</option>
