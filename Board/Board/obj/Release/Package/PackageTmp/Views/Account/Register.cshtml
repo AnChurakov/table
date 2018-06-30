@@ -34,14 +34,20 @@
     <div class="form-group">
         <label class="col-md-4 control-label">Номер телефона<sup class="text-danger">*</sup> (11 чисел)</label>
         <div class="col-md-4">
-            <input type="tel" class="form-control" id="PhoneNumber"  maxlength="11" name="PhoneNumber" pattern="[0-9]{11}" />
+            <input type="tel" class="form-control" id="PhoneNumber" maxlength="11" name="PhoneNumber" pattern="[0-9]{11}" />
             @*@Html.PasswordFor(m => m.PhoneNumber, new { @class = "form-control", maxlength = 11 })
-            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })*@
         </div>
     </div>
+
     <div class="form-group">
+    <span class="text-muted">Нажимая кнопку "Регистрация", Вы соглашаетесь с условиями нашей <a href="~/pconf">политикой конфиденацильности</a></span>
+    </div>
+    
+        <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" id="btnReg" class="btn btn-success" value="Регистрация" />
+
+            <input type="submit" id="btnReg" class="btn btn-success mb-4" value="Зарегистрироваться" />
         </div>
     </div>
 }
@@ -50,24 +56,24 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     @*<script>
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $("#PhoneNumber").change(function () {
+                $("#PhoneNumber").change(function () {
 
-                var value = $(this).val();
-                var mask = /^[0-9]{11}$/i;
+                    var value = $(this).val();
+                    var mask = /^[0-9]{11}$/i;
 
-                if (mask.test(value)) {
-                    $("#btnReg").removeAttr("disabled");
-                    //$(this).css({ "border": "1px solid green", "color":"green" });
-                }
-                else {
-                    $(this).css({ "border": "1px solid red", "color": "red" });
-                    //$("#btnReg").attr("disabled", true);
-                }
+                    if (mask.test(value)) {
+                        $("#btnReg").removeAttr("disabled");
+                        //$(this).css({ "border": "1px solid green", "color":"green" });
+                    }
+                    else {
+                        $(this).css({ "border": "1px solid red", "color": "red" });
+                        //$("#btnReg").attr("disabled", true);
+                    }
+
+                });
 
             });
-
-        });
-    </script>*@
+        </script>*@
 }

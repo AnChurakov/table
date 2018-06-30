@@ -4,12 +4,12 @@
 @foreach (var ads in Model)
 {
 
-    var name = ads.Name.ToString();
+    var nameAds = ads.Name.ToString();
 
     <div class="advert mb-3">
         <div class="d-flex justify-content-between align-items-center">
 
-            @Html.ActionLink(name, "SelectAds", "Ads", new { name = ads.Name, id = ads.Id },
+            @Html.ActionLink(nameAds, "SelectAds", "Ads", new { name = ads.Name, id = ads.Id },
                      new { @class = "d-block col-lg-3 px-0 AdsName advert__fontsize" })
 
             @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
@@ -30,6 +30,7 @@
             var keyword = $("#name").text();
 
             var subcat = $("#SubCatId").val();
+
             var categoryid = $("#CategoryId").val();
 
             $(".AdsName").each(function () {
@@ -40,7 +41,7 @@
 
                 $.each(arrStr, function (ind, txt) {
 
-                    var re = new RegExp(txt, "g");
+                    var re = new RegExp(txt, "gi");
 
                     valueAds = valueAds.replace(re, "<span style='background:yellow;'>" + txt + "</span>");
 

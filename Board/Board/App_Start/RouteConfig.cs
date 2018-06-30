@@ -14,6 +14,12 @@ namespace Board
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+              name: "Politic",
+              url: "pconf",
+              defaults: new { controller = "Home", action = "Politic" }
+          );
+
+            routes.MapRoute(
               name: "CreateAds",
               url: "Create",
               defaults: new { controller = "Ads", action = "AddAds" }

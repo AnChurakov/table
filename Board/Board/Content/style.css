@@ -2,12 +2,35 @@
   font-family: "Century Gothic";
   src: url("../fonts/GOTHIC.TTF");
 }
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
+
 .advert__widthbtn{
     width:100px;
 }
 /*.page {
   font-family: "Century Gothic";
 }*/
+
 /* nav menu */
 .header__nav .nav-link {
   padding: 1.4rem 1.5rem;
@@ -93,6 +116,13 @@
         justify-content: space-between;
     }
 
+    .footer {
+        text-align:center;
+        bottom:-30px;
+        height:auto;
+        line-height:40px;
+    }
+
     .mobileBlock {
         display:block;
         width:100%;
@@ -100,6 +130,10 @@
         padding-top:1.5rem;
         padding-bottom:1rem;
         padding-left:1.5rem;
+    }
+
+    .mobile-full {
+        width:100%;
     }
 
     .mobileLgBtn {
@@ -118,6 +152,12 @@
     }
     .advert__info {
         padding: 2rem 0 0;
+    }
+    .navbar-brand {
+        font-size:18px;
+    }
+    .link-site {
+        font-size:15px;
     }
 }
 

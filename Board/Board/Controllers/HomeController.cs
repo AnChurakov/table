@@ -37,5 +37,10 @@ namespace Board.Controllers
         {
             return View();
         }
+
+        public ActionResult Politic()
+        {
+            return View();
+        }
     }
 }

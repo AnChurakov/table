@@ -91,8 +91,27 @@ namespace Board.Controllers
             return View(selectAds);
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task<ActionResult> UpdateAds(string NameAds, string DescAds, Guid AdsId)
+        public ActionResult DeleteImage(Guid ImageId, Guid AdsId)
+        {
+            var selectAds = _context.Ads.FirstOrDefault(t => t.Id == AdsId);
+
+            if (ImageId != null)
+            {
+                var selectImage = _context.ImageAds.FirstOrDefault(a => a.Id == ImageId);
+
+                _context.ImageAds.Remove(selectImage);
+
+                _context.SaveChanges();
+            }
+
+            return PartialView(selectAds);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateAds(string NameAds, string DescAds, Guid AdsId,
+            IEnumerable<HttpPostedFileBase> upload)
         {
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == AdsId);
 
@@ -120,18 +139,78 @@ namespace Board.Controllers
                 TempData["Flag"] = "Fail";
             }
 
+            foreach (var file in upload)
+            {
+                if (file != null)
+                {
+                    string fileName = System.IO.Path.GetFileName(file.FileName);
+
+                    var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
+
+                    file.SaveAs(pathFile);
+
+                    var splitPathFile = pathFile.Split('\\');
+
+                    string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
+
+                    ImageAds image = new ImageAds
+                    {
+                        Id = Guid.NewGuid(),
+                        Ads = selectAds,
+                        Path = correctPathFile
+                    };
+
+                    _context.ImageAds.Add(image);
+
+                }
+                else
+                {
+                    ImageAds img = new ImageAds
+                    {
+                        Id = Guid.NewGuid(),
+                        Ads = selectAds,
+                        Path = "/Files/no-photo.png"
+                    };
+
+                    _context.ImageAds.Add(img);
+
+                }
+
+            }
+
             _context.SaveChanges();
 
-            return RedirectToAction("Edit", new { id = selectAds.Id});
+            return RedirectToAction("SelectAds", new {adstrans = selectAds.Transliteration,
+                catTrans = selectAds.Categorys.Transliteration,id = selectAds.Id});
         }
 
         [HttpPost]
         public ActionResult SearchSingle (string Keyword, Guid CategoryId, Guid? SubCatId)
         {
-            var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
-                 .ToList();
+            List<Ads> listAds = new List<Ads>();
 
-            return PartialView(selectAds);
+            //var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+            //     .ToList();
+
+            string[] arrayKeywords = Keyword.Split(' ', '!', '\'', ',', '.');
+
+            foreach (var singleKeyword in arrayKeywords)
+            {
+                var select = _context.Ads.Where(a => a.Name.Contains(singleKeyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId).ToList();
+
+                foreach(var addAds in select)
+                {
+
+                    var checkListAds = listAds.FirstOrDefault(a => a.Name.Contains(addAds.Name));
+
+                    if (checkListAds == null)
+                    {
+                        listAds.Add(addAds);
+                    }
+                }
+            }
+
+            return PartialView(listAds);
         }
 
         [HttpPost]
@@ -155,13 +234,33 @@ namespace Board.Controllers
         [HttpPost]
         public ActionResult AdsSearch(string nameSearch)
         {
-            List<Ads> resultSearch = new List<Ads>();
+            //List<Ads> resultSearch = new List<Ads>();
 
-            var searchResult = _context.Ads.Where(a => a.Name.Contains(nameSearch)).ToList();
+            //var searchResult = _context.Ads.Where(a => a.Name.Contains(nameSearch)).ToList();
+
+            List<Ads> listAds = new List<Ads>();
+
+            string[] arrayKeywords = nameSearch.Split(' ', '!', '\'', ',', '.');
+
+            foreach (var singleKeyword in arrayKeywords)
+            {
+                var select = _context.Ads.Where(a => a.Name.Contains(singleKeyword)).ToList();
+
+                foreach (var addAds in select)
+                {
+
+                    var checkListAds = listAds.FirstOrDefault(a => a.Name.Contains(addAds.Name));
+
+                    if (checkListAds == null)
+                    {
+                        listAds.Add(addAds);
+                    }
+                }
+            }
 
             ViewBag.NameSearch = nameSearch;
 
-            return View(searchResult);
+            return View(listAds);
         }
         
         public ActionResult SelectAds(Guid? Id, string adstrans, string catTrans, string subcattrans = null)

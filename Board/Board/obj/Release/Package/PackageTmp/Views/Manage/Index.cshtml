@@ -22,16 +22,16 @@
 
        <div class="col-xs-12 col-lg-12 col-md-12">
         <h2>Личный кабинет</h2>  
-        @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning"})
-        @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage", null, new { @class = "btn btn-warning"})
-        @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning col-xs-12 mt-2 mobile-full" })
+        @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage", null, new { @class = "btn btn-warning col-xs-12 mt-2 mobile-full" })
+        @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning col-xs-12 mt-2 mobile-full" })
+        @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success  col-xs-12 mt-2 mobile-full" })
         </div>  
 
     <div class="col-xs-12 col-lg-6 col-md-6">
         @using (Html.BeginForm("UpdateFIO", "Manage", FormMethod.Post))
         {
-            <p>Поля отмеченные <sup class="text-danger">*</sup> обязательны для заполнения</p>
+            <p class="mt-2">Поля отмеченные <sup class="text-danger">*</sup> обязательны для заполнения</p>
             <div class="form-group">
              <label>Имя<sup class="text-danger">*</sup></label>
              <input type="text" required class="form-control" name="firstname" value="@Model.FirstName" />

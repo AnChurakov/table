@@ -124,7 +124,7 @@
 
                                 $.each(arrStr, function (ind, txt) {
 
-                                    var re = new RegExp(txt, "g");
+                                    var re = new RegExp(txt, "gi");
 
                                     valueAds = valueAds.replace(re, "<span style='background:yellow;'>" + txt + "</span>");
 

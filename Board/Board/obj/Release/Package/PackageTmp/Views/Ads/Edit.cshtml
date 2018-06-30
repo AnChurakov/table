@@ -1,12 +1,13 @@
 ﻿@model Board.Models.Ads
-@{ 
+@{
     ViewBag.Title = "Редактирование объявления";
 }
 <div class="row">
     <div class="col-xs-12 col-lg-12 col-md-12">
+        <div class="col-xs-12 col-lg-10 col-md-10">
         <h2>Редактирование объявления @Model.Name</h2>
 
-        @if (TempData["Flag"] == "Success")
+        @*@if (TempData["Flag"] == "Success")
         {
             <div class="alert alert-success" role="alert">
                 Ваше объявление успешно обновлено
@@ -18,30 +19,182 @@
             <div class="alert alert-danger" role="alert">
                 Объявление не обновлено
             </div>
-        }
+        }*@
 
 
-        @using (Html.BeginForm("UpdateAds", "Ads", FormMethod.Post))
+        @using (Html.BeginForm("UpdateAds", "Ads", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", id = "AddForm" }))
         {
             <div class="form-group">
-            <lable>Название</lable>
-            <input type="text" class="form-control" name="NameAds" value="@Model.Name" />
+                <lable>Название</lable>
+                <input type="text" class="form-control" name="NameAds" value="@Model.Name" />
             </div>
 
             <div class="form-group">
-            <lable>Описание</lable>
-            @Html.TextArea("DescAds", Model.Description, new { @class = "form-control", @cols = "10", @rows = "10"})
-            
-             <input type="hidden" value="@Model.Id" name="AdsId"/>
-             </div>
-           
-            <div class="form-group">
-                <input type="submit" class="btn btn-success" value="Изменить" />
+                <lable>Описание</lable>
+                @Html.TextArea("DescAds", Model.Description, new { @class = "form-control", @cols = "10", @rows = "10" })
+                <input type="hidden" value="@Model.Id" name="AdsId" />
             </div>
 
+            //using (Ajax.BeginForm("DeleteImage", "Ads", new AjaxOptions { UpdateTargetId = "AllImages" }))
+            //{
+             <div class="row" id="AllImages">             
+                  @foreach (var images in Model.ImageAds)
+                  {
+
+                        <div class="col-xs-12 col-lg-4 col-md-4">
+                            <div class="card ml-1 mt-1" style="width: 18rem;">
+                                <img class="card-img-top" width="200" height="200" src="@images.Path">
+                                <div class="card-body">
+                                    <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
+                                    <input type="hidden" class="ImageId" value="@images.Id" name="ImageId"/>
+                                    <input type="button"  class="btn btn-danger DeleteImageBtn" value="Удалить фотографию" />
+                                </div>
+                            </div>
+                        </div>
+                  }
+
+            </div>
+              
+
+
+            <div class="form-group mt-3" id="file">
+                    <label class="control-label col-md-6">Выберите фотографию (расширение .png, .jpg, .jpeg)</label>
+                    <div class="col-xs-12 col-lg-4 col-md-4">
+                        <input type="file" class="form-control" name="upload" />
+                        
+                    </div>
+                    <div class="col-xs-12 col-lg-12 col-md-12">
+                        <input type="button" id="Add" class="btn btn-primary" value="Добавить еще фотографию" />
+                        @*<input type="button" id="Delete" class="btn btn-danger" value="Удалить текущую фотографию" />*@
+                    </div>
+                </div>
+
+                <div id="append"></div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Обновить объявление" />
+            </div>
         }
 
+        </div>
     </div>
 </div>
+@Scripts.Render("~/bundles/jqueryval")
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#file").first().find("#Delete").hide();
+
+            $("body").on("click", "#Add", function (e) {
+
+                e.preventDefault();
+
+                var blockfile = $(this).parent().parent().clone();
+
+                var filename = blockfile.find("input[type='file']").val();
+
+                var extension = filename.replace(/^.*\./, '');
+
+                if (extension == "jpeg" || extension == "png" || extension == "jpg" || extension == '') {
+
+                    blockfile.appendTo("#append");
+
+                    //blockfile.find("#Delete").show();
+
+                    var valFile = blockfile.find("input[type='file']").val("");
+
+                }
+                else {
+
+
+                    submitEvent.preventDefault();
+
+                }
+
+            });
+
+
+            $("#AddForm").submit(function (submitEvent) {
+
+                flag = false;
+
+                count = 0;
+
+                countImage = $("input[type='file']").length;
+
+                $("input[type='file']").each(function () {
+
+                    var filename = $(this).val();
+
+                    var extension = filename.replace(/^.*\./, '');
+
+                    if (extension == "jpeg" || extension == "png" || extension == "jpg" || extension == '') {
+
+                        flag = true;
+
+                        count++;
+                    }
+                    else {
+                
+                        submitEvent.preventDefault();
+
+                        flag = false;
+                    }
+
+                    if (extension == filename) {
+
+                        extension = '';
+
+                    } else {
+
+                        extension = extension.toLowerCase();
+                    }
+
+                });
+
+                if (count == countImage) {
+
+                    $(this).unbind("submit").submit();
+
+                }
+
+            });
+
+
+            $("body").on("click", "#Delete", function (e) {
+
+                e.preventDefault();
+
+                var blockfile = $(this).parent().parent();
+
+                blockfile.remove();
+
+            });
+
+
+             $("body").on("click", ".DeleteImageBtn", function () {
+
+                 var adsid = $(".ImageAdsId").val();
+                 var imageid = $(this).parent().parent().find(".ImageId").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteImage", "Ads")',
+                    dataType: "text",
+                    data: "ImageId=" + imageid + "&AdsId=" + adsid,
+                    success: function (data) {
+                        $("#AllImages").html(data);
+                    }
+
+                    });
+
+            });
+
+           
+
+        })
+    </script>
+}
 

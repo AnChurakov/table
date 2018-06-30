@@ -297,7 +297,6 @@ D:\cs\table\Board\Board\bin\ru\Microsoft.Owin.Security.Facebook.resources.dll
 D:\cs\table\Board\Board\bin\ru\Microsoft.Owin.Security.Google.resources.dll
 D:\cs\table\Board\Board\bin\ru\Microsoft.Owin.Security.Twitter.resources.dll
 D:\cs\table\Board\Board\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-D:\cs\table\Board\Board\obj\Release\Board.csprojResolveAssemblyReference.cache
 D:\cs\table\Board\Board\obj\Release\Board.Migrations.AdsCatCityFIO.resources
 D:\cs\table\Board\Board\obj\Release\Board.Migrations.test.resources
 D:\cs\table\Board\Board\obj\Release\Board.Migrations.ImageAdsSubCat.resources
@@ -316,3 +315,4 @@ D:\cs\table\Board\Board\obj\Release\Board.csproj.CopyComplete
 D:\cs\table\Board\Board\obj\Release\Board.dll
 D:\cs\table\Board\Board\obj\Release\Board.pdb
 D:\cs\table\Board\Board\obj\Release\Board.Migrations.TranslitAdsCatSubCat.resources
+D:\cs\table\Board\Board\obj\Release\Board.csprojAssemblyReference.cache

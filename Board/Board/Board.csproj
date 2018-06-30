@@ -333,7 +333,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -390,6 +392,8 @@
     <Content Include="Views\Banner\AllBanners.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Banner\Edit.cshtml" />
+    <Content Include="Views\Ads\DeleteImage.cshtml" />
+    <Content Include="Views\Home\Politic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

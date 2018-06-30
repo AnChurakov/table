@@ -28,11 +28,9 @@
         @Html.ActionLink("Отправить жалобу", "AddComplaint", "Complaint", new { id = Model.Id }, new { @class = "text-danger", id = "complaint" });
     }
     <br />
-    <div class="d-lg-flex justify-content-between align-items-start">
+    <div class="d-lg-flex justify-content-between mt-2 align-items-start">
         <div class="col-lg col-md-12 px-0">
             <div class="d-lg-flex justify-content-between align-items-start">
-
-
                 <div class="col-lg-7 pl-0">
                     <div class="advert__photos">
                         <div class="advert__photo advert__photo--current mb-1">
@@ -89,7 +87,7 @@
                 </div>
             </div>
             <div class="advert__desc">
-                <p class="py-4 w-75 h4">
+                <p class="py-4 w-100 h5">
                     @Model.Description
                 </p>
             </div>

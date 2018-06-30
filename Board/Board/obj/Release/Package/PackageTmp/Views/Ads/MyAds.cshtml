@@ -7,12 +7,12 @@
 </div>
 <h2>Мои объявления</h2>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-xs-12">
+    <div class="table-responsive-sm table-responsive-md">
         <table class="table table-borderless">
           <thead>
               <tr>
                   <th scope="col">Название</th>
-                  <th scope="col">Дата публикации</th>
+                  <th scope="col">Дата</th>
                   <th scope="col">Редактирование</th>
                   <th scope="col">Удаление</th>
               </tr>
@@ -23,7 +23,7 @@
                     string name = ads.Name;
                     <tr>
                         <td>@Html.ActionLink(name, "SelectAds", "Ads", new {id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration}, null)</td>
-                        <td>@ads.DateCreation</td>
+                        <td>@ads.DateCreation.Value.Day.@ads.DateCreation.Value.Month.@ads.DateCreation.Value.Year</td>
                         <td>@Html.ActionLink("Редактировать", "Edit", "Ads", new { id = ads.Id}, new { @class = "btn btn-warning"} )</td>
                         <td>@Html.ActionLink("Удалить","Delete", "Ads", new {url = Request.Url.AbsoluteUri,id = ads.Id}, new { @class = "btn btn-danger"})</td>
                     </tr>
