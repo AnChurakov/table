@@ -92,7 +92,9 @@ body {
 .advert__photo:not(.advert__photo--current):last-child {
   margin-right: 0;
 }
-
+.AdsName {
+    text-decoration:underline;
+}
 .AdsName:visited{
     color:black;
 }

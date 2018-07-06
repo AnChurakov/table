@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Board.Models.Category>
-@{ 
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,29 +12,32 @@
     </div>
 }
 
-<div class="row">
+<div class="form-group mt-4 d-flex justify-content-left align-items-left">
+    @Html.ActionLink("Все объявления", "AllAdsInProject", "Ads", null, new { @class = "btn btn-primary mobileFull" })
+</div>
 
+<div class="row">
     @foreach (var category in Model.Where(a => a.Special == false))
     {
         <div class="col-xs-12 col-lg-4 col-md-4">
-        <div class="card mb-4 px-0">
-            <div class="card-body">
-                <h4 class="card-title text-center">@category.Name</h4>
-                <div class="d-flex justify-content-center">
+            <div class="card mb-4 px-0">
+                <div class="card-body">
+                    <h4 class="card-title text-center">@category.Name</h4>
+                    <div class="d-flex justify-content-center">
 
-                    @foreach (var subcat in ViewBag.SubCategory)
-                    {
-                        string nameSub = subcat.Name.ToString();
+                        @foreach (var subcat in ViewBag.SubCategory)
+                        {
+                            string nameSub = subcat.Name.ToString();
 
-                        @Html.ActionLink(nameSub, "AllAds", "Ads", new { translitCat = category.Transliteration, subcattrans = subcat.Transliteration, @*id = category.Id*@ }, 
-                        new { @class = "btn btn-primary mr-1 advert__widthbtn" })
-                        
-                    }
+                            @Html.ActionLink(nameSub, "AllAds", "Ads", new { translitCat = category.Transliteration, subcattrans = subcat.Transliteration, @*id = category.Id*@},
+                             new { @class = "btn btn-primary mr-1 advert__widthbtn" })
 
+                        }
+
+                    </div>
                 </div>
             </div>
         </div>
-       </div>
     }
 
 
@@ -43,18 +46,18 @@
     @foreach (var category in Model.Where(a => a.Special == true).OrderBy(a => a.Name))
     {
         <div class="col-xs-12 col-lg-4 col-md-4">
-        <div class="card mb-4 px-0">
-            <div class="card-body">
-                <h4 class="card-title text-center">@category.Name</h4>
-                <div class="d-flex justify-content-center">
+            <div class="card mb-4 px-0">
+                <div class="card-body">
+                    <h4 class="card-title text-center">@category.Name</h4>
+                    <div class="d-flex justify-content-center">
 
-                    @Html.ActionLink("Перейти", "AllAds", "Ads", new { translitCat = category.Transliteration @*id = category.Id*@ }, new { @class = "btn btn-primary advert__widthbtn" })
+                        @Html.ActionLink("Перейти", "AllAds", "Ads", new { translitCat = category.Transliteration @*id = category.Id*@}, new { @class = "btn btn-primary advert__widthbtn" })
 
-                   
 
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     }
 </div>

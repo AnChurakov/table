@@ -9,13 +9,13 @@
         <div class="d-flex justify-content-between align-items-center">
 
             @Html.ActionLink(name, "SelectAds", "Ads", new { name = ads.Name, id = ads.Id },
-                new { @class = "d-block col-lg-3 px-0 AdsName advert__fontsize" })
+                new { @class = "d-block col-lg-7 px-0 AdsName advert__fontsize" })
 
             @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
-            <div class="col-lg-9 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
+            <div class="col-lg-5 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
                 <div class="advert__city col  px-0">@ads.Citys.Name</div>
-                <div class="advert__date col px-0">@ads.DateCreation</div>
-                <div class="advert__user col px-0">@ads.User.FirstName  @ads.User.LastName</div>
+                <div class="advert__date col px-0">@ads.DateCreation.Value.Day.@ads.DateCreation.Value.Month.@ads.DateCreation.Value.Year</div>
+                <div class="advert__user col px-0">@ads.User.FirstName</div>
             </div>
         </div>
     </div>

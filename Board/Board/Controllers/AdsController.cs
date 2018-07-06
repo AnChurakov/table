@@ -38,6 +38,23 @@ namespace Board.Controllers
             return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
+        public ActionResult AllAdsInProject(int? page)
+        {
+            int sizePage = 30;
+
+            int pageNumber = (page ?? 1);
+
+            var _selectAds = _context.Ads.OrderByDescending(a => a.DateCreation).ToList();
+
+            ViewBag.Citys = _context.City.Where(t => t.Name != "Ижевск").OrderBy(a => a.Name).ToList();
+
+            ViewBag.Izh = _context.City.FirstOrDefault(a => a.Name == "Ижевск");
+
+            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false).ToList();
+
+            return View(_selectAds.ToPagedList(pageNumber, sizePage));
+        }
+
         public ActionResult AllAds(string translitCat, int? page, string subcattrans = null)
         {
             List<Ads> listAds = new List<Ads>();
@@ -185,18 +202,31 @@ namespace Board.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchSingle (string Keyword, Guid CategoryId, Guid? SubCatId)
+        public ActionResult SearchSingle (string Keyword, Guid? CategoryId, Guid? SubCatId)
         {
             List<Ads> listAds = new List<Ads>();
+
+            List<Ads> select = new List<Ads>();
 
             //var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
             //     .ToList();
 
-            string[] arrayKeywords = Keyword.Split(' ', '!', '\'', ',', '.');
+            string[] arrayKeywords = Keyword.Split(' ', '!', '\'', ',', '.', '-');
 
             foreach (var singleKeyword in arrayKeywords)
             {
-                var select = _context.Ads.Where(a => a.Name.Contains(singleKeyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId).ToList();
+                if (CategoryId != null && SubCatId != null)
+                {
+                     select = _context.Ads.Where(a => a.Name.Contains(singleKeyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                        .OrderByDescending(t => t.DateCreation)
+                        .ToList();
+                }
+                else
+                {
+                     select = _context.Ads.Where(a => a.Name.Contains(singleKeyword))
+                        .OrderByDescending(t => t.DateCreation)
+                        .ToList();
+                }
 
                 foreach(var addAds in select)
                 {
@@ -214,20 +244,37 @@ namespace Board.Controllers
         }
 
         [HttpPost]
-        public ActionResult SortCityAds(string CityId, Guid CategoryId, Guid? SubCatId)
+        public ActionResult SortCityAds(string CityId, Guid? CategoryId, Guid? SubCatId)
         {
             List<Ads> selectAds = new List<Ads>();
 
-            if (CityId != "AllCity")
+            if (CityId == "AllCity")
             {
-                 selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                if (CategoryId != null && SubCatId != null)
+                {
+                    selectAds = _context.Ads.Where(a => a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                        .OrderByDescending(y => y.DateCreation)
+                        .ToList();
+                }
+                else
+                {
+                    selectAds = _context.Ads.OrderByDescending(y => y.DateCreation)
+                        .ToList();
+                }
+            }
+            else if(CityId != "AllCity" && CategoryId != null && SubCatId != null)
+            {
+                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                    .OrderByDescending(y => y.DateCreation)
                     .ToList();
             }
-            else
+            else if (CategoryId == null && SubCatId == null)
             {
-                selectAds = _context.Ads.Where(a => a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId))
+                    .OrderByDescending(t => t.DateCreation)
                     .ToList();
             }
+
             return PartialView(selectAds);
         }
 
@@ -248,7 +295,6 @@ namespace Board.Controllers
 
                 foreach (var addAds in select)
                 {
-
                     var checkListAds = listAds.FirstOrDefault(a => a.Name.Contains(addAds.Name));
 
                     if (checkListAds == null)
@@ -260,7 +306,7 @@ namespace Board.Controllers
 
             ViewBag.NameSearch = nameSearch;
 
-            return View(listAds);
+            return View(listAds.OrderByDescending(a => a.DateCreation));
         }
         
         public ActionResult SelectAds(Guid? Id, string adstrans, string catTrans, string subcattrans = null)

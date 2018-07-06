@@ -394,6 +394,7 @@
     <Content Include="Views\Banner\Edit.cshtml" />
     <Content Include="Views\Ads\DeleteImage.cshtml" />
     <Content Include="Views\Home\Politic.cshtml" />
+    <Content Include="Views\Ads\AllAdsInProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
