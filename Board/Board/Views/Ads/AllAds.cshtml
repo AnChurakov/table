@@ -30,55 +30,89 @@
 <div class="d-lg-flex justify-content-between">
     <div class="col px-0">
         <div class="filter">
-            @using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
-            {
-                <div class="d-flex">
-                    <div class="form-group col-lg-6 col-xs-12  px-0 d-flex justify-content-around align-items-center">
-                        <label for="adCity" class="text-center">Город</label>
+            @*@using (Ajax.BeginForm("SortCityAds", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "results" }))
+            {*@
+            <div class="d-flex">
+                <div class="form-group col-lg-6 col-xs-12  px-0 d-flex justify-content-around align-items-center">
+                    <label for="adCity" class="text-center">Город</label>
 
-                        <select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
-                            <option selected disabled>Выберите город</option>
+                    <select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
+
+                        @if (Session["SaveCityName"] != null && Session["SaveCityName"].ToString() != "AllCity")
+                        {
+                            <option value="@Session["SaveCityId"]" disabled selected>@Session["SaveCityName"]</option>
                             <option value="AllCity">По всем городам</option>
-                            <option value="@ViewBag.Izh.Id">@ViewBag.Izh.Name</option>
-                            @foreach (var city in ViewBag.Citys)
-                            {
-                                <option value="@city.Id">@city.Name</option>
-                            }
-                        </select>
-                        <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
-                        <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
-                        <button type="submit" class="btn btn-primary">Применить</button>
+                        }
+                        else
+                        {
+                            <option value="AllCity" selected>По всем городам</option>
+                        }
 
-                    </div>
-                </div>
+                        <option value="@ViewBag.Izh.Id">@ViewBag.Izh.Name</option>
+                        @foreach (var city in ViewBag.Citys)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+
+
+                    @*<select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
+
+            @if (Session["SaveCityName"] != null)
+            {
+                <option value="@Session["SaveCityId"]" disabled selected>@ViewBag.SaveCityName</option>
             }
+            else
+            {
+                <option selected disabled>Выберите город</option>
+            }
+            <option value="AllCity">По всем городам</option>
+            <option value="@ViewBag.Izh.Id">@ViewBag.Izh.Name</option>
+            @foreach (var city in ViewBag.Citys)
+            {
+                <option value="@city.Id">@city.Name</option>
+            }
+        </select>*@
+                    <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
+                    <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
+                    @*<button type="submit" class="btn btn-primary">Применить</button>*@
+
+                </div>
+            </div>
+
         </div>
 
         <div id="results">
+
             @foreach (var ads in Model)
             {
                 var name = ads.Name.ToString();
-               
+
                 <div class="advert mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                       
-                            @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration @*subcattrans = ads.SubCategory.Transliteration*@ }, 
-                           new { @class = "d-block col-lg-7 px-0 AdsName advert__fontsize" })
-                        
-                            @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
+
+                        @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration @*subcattrans = ads.SubCategory.Transliteration*@},
+                          new { @class = "d-block col-lg-7 px-0 AdsName advert__fontsize" })
+
+                        @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
                         <div class="col-lg-5 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
                             <div class="advert__city col  px-0">@ads.Citys.Name</div>
                             <div class="advert__date col px-0">@ads.DateCreation.Value.Day.@ads.DateCreation.Value.Month.@ads.DateCreation.Value.Year</div>
-                            <div class="advert__user col px-0">@ads.User.FirstName  @ads.User.LastName</div>
+                            <div class="advert__user col px-0">@ads.User.FirstName</div>
                         </div>
                     </div>
                 </div>
             }
+
+
+            <div id="pag">
+                Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("AllAds", new { page }))
+            </div>
+
         </div>
 
-        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        
 
     </div>
     <div class="col-lg-3 col-md-12 px-0 text-center flex-column">
@@ -100,6 +134,29 @@
         <script>
             $(document).ready(function () {
 
+
+                $("#adCity").change(function () {
+
+                    var SubCatId = $("#SubCatId").val();
+                    var CategoryId = $("#CategoryId").val();
+                    var CityId = $(this).val();
+
+                    $.ajax({
+                        url: '@Url.Action("SortCityAds", "Ads")',
+                        type: "POST",
+                        dataType: "html",
+                        data: "CityId=" + CityId + "&SubCatId=" + SubCatId + "&CategoryId=" + CategoryId,
+                        success: function (data) {
+
+                            $("#results").html(data);
+
+                            
+                        }
+                    });
+
+                });
+
+
                 $("#searchbtn").click(function () {
 
                     keyword = $("#Keyword").val();
@@ -107,7 +164,6 @@
                     var categoryid = $("#CategoryId").val();
 
                     $.ajax({
-                        @*url:"~/@Url.Action("SearchSingle", "Ads")",*@
                         url: '@Url.Action("SearchSingle", "Ads")',
                         type: "POST",
                         dataType: "html",

@@ -38,13 +38,33 @@ namespace Board.Controllers
             return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
+        //Для вывода всех объявлений на странице Все объявления
         public ActionResult AllAdsInProject(int? page)
         {
+            List<Ads> _selectAds = new List<Ads>();
+
             int sizePage = 30;
 
             int pageNumber = (page ?? 1);
 
-            var _selectAds = _context.Ads.OrderByDescending(a => a.DateCreation).ToList();
+            if (Session["SaveCityId"] != null)
+            {
+                var CityId = Session["SaveCityId"].ToString();
+
+                _selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId))
+                    .OrderByDescending(a => a.DateCreation)
+                    .ToList();
+
+                Session["CountAds"] = _selectAds.Count;
+
+            }
+            else
+            {
+                _selectAds = _context.Ads.OrderByDescending(t => t.DateCreation).ToList();
+
+                Session["CountAds"] = _selectAds.Count;
+
+            }
 
             ViewBag.Citys = _context.City.Where(t => t.Name != "Ижевск").OrderBy(a => a.Name).ToList();
 
@@ -55,11 +75,12 @@ namespace Board.Controllers
             return View(_selectAds.ToPagedList(pageNumber, sizePage));
         }
 
+        //Вывод всех объвлений в выбранной категории
         public ActionResult AllAds(string translitCat, int? page, string subcattrans = null)
         {
             List<Ads> listAds = new List<Ads>();
 
-            int sizePage = 40;
+            int sizePage = 30;
 
             int pageNumber = (page ?? 1);
 
@@ -69,15 +90,49 @@ namespace Board.Controllers
 
             if (subcattrans == null)
             {
-                listAds = _context.Ads.Where(a => a.Categorys.Special == true && a.Categorys.Transliteration == selectCat.Transliteration)
-                        .OrderByDescending(t => t.DateCreation)
-                        .ToList();
+                if (Session["SaveCityId"] == null)
+                {
+                    listAds = _context.Ads.Where(a => a.Categorys.Special == true && a.Categorys.Transliteration == selectCat.Transliteration)
+                            .OrderByDescending(t => t.DateCreation)
+                            .ToList();
+
+                    Session["CountAds"] = listAds.Count;
+                }
+                else 
+                {
+                    var CityId = Session["SaveCityId"].ToString();
+
+                    listAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Special == true && a.Categorys.Transliteration == selectCat.Transliteration)
+                            .OrderByDescending(t => t.DateCreation)
+                            .ToList();
+
+                    Session["CountAds"] = listAds.Count;
+
+                    ViewBag.SaveCityName = Session["SaveCityName"].ToString();
+                }
             }
             else
             {
-                listAds = _context.Ads.Where(a => a.SubCategory.Transliteration == subcattrans && a.Categorys.Transliteration == selectCat.Transliteration)
-                        .OrderByDescending(t => t.DateCreation)
-                        .ToList();
+                if (Session["SaveCityId"] == null)
+                {
+                    listAds = _context.Ads.Where(a => a.SubCategory.Transliteration == subcattrans && a.Categorys.Transliteration == selectCat.Transliteration)
+                            .OrderByDescending(t => t.DateCreation)
+                            .ToList();
+
+                    Session["CountAds"] = listAds.Count;
+                }
+                else
+                {
+                    var CityId = Session["SaveCityId"].ToString();
+
+                    listAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.SubCategory.Transliteration == subcattrans && a.Categorys.Transliteration == selectCat.Transliteration)
+                                                .OrderByDescending(t => t.DateCreation)
+                                                .ToList();
+
+                    Session["CountAds"] = listAds.Count;
+
+                    ViewBag.SaveCityName = Session["SaveCityName"].ToString();
+                }
             }
 
             ViewBag.Citys = _context.City.Where(t => t.Name != "Ижевск").OrderBy(a => a.Name).ToList();
@@ -244,22 +299,59 @@ namespace Board.Controllers
         }
 
         [HttpPost]
-        public ActionResult SortCityAds(string CityId, Guid? CategoryId, Guid? SubCatId)
+        public ActionResult SortCityAds(string CityId, int? page, Guid? CategoryId, Guid? SubCatId)
         {
             List<Ads> selectAds = new List<Ads>();
+
+            int sizePage = 30;
+
+            int pageNumber = (page ?? 1);
+
+            if (CityId != "AllCity")
+            {
+                var _selectCity = _context.City.FirstOrDefault(a => a.Id == new Guid(CityId));
+
+                Session["SaveCityName"] = _selectCity.Name;
+
+                Session["SaveCityId"] = _selectCity.Id;
+            }
 
             if (CityId == "AllCity")
             {
                 if (CategoryId != null && SubCatId != null)
                 {
+                    Session["SaveCityName"] = "AllCity";
+
+                    Session["SaveCityId"] = null;
+
                     selectAds = _context.Ads.Where(a => a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
                         .OrderByDescending(y => y.DateCreation)
                         .ToList();
+
+                    Session["CountAds"] = selectAds.Count;
+                }
+                else if (CategoryId != null)
+                {
+                    Session["SaveCityName"] = "AllCity";
+
+                    Session["SaveCityId"] = null;
+
+                    selectAds = _context.Ads.Where(a => a.Categorys.Id == CategoryId).OrderByDescending(y => y.DateCreation)
+                        .ToList();
+
+                    Session["CountAds"] = selectAds.Count;
                 }
                 else
                 {
+                    Session["SaveCityName"] = null;
+
+                    Session["SaveCityId"] = null;
+
                     selectAds = _context.Ads.OrderByDescending(y => y.DateCreation)
                         .ToList();
+
+                    Session["CountAds"] = selectAds.Count;
+
                 }
             }
             else if(CityId != "AllCity" && CategoryId != null && SubCatId != null)
@@ -267,15 +359,27 @@ namespace Board.Controllers
                 selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
                     .OrderByDescending(y => y.DateCreation)
                     .ToList();
+
+                Session["CountAds"] = selectAds.Count;
             }
-            else if (CategoryId == null && SubCatId == null)
+            else if (CityId != "AllCity" && CategoryId != null)
             {
-                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId))
+                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId)
                     .OrderByDescending(t => t.DateCreation)
                     .ToList();
-            }
 
-            return PartialView(selectAds);
+                Session["CountAds"] = selectAds.Count;
+            }
+            else if(CityId != "AllCity" && CategoryId == null)
+            {
+                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId)).OrderByDescending(t => t.DateCreation)
+                    .ToList();
+
+                Session["CountAds"] = selectAds.Count;
+            }
+           
+
+            return PartialView(selectAds.ToPagedList(pageNumber, sizePage));
         }
 
         [HttpPost]

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Board.Models.Ads>
+﻿@using PagedList.Mvc;
+@using Board.Models
+@model PagedList.IPagedList<Board.Models.Ads>
 
 @foreach (var ads in Model)
 {
@@ -20,4 +22,12 @@
         </div>
     </div>
 
+}
+
+@if ((int)Session["CountAds"] >= 3)
+{
+<div id="pag">
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("AllAdsInProject", new { page }))
+</div>
 }

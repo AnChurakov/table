@@ -22,10 +22,10 @@
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
     <File Include="bin/Board.dll">
-      <publishTime>07/06/2018 18:19:31</publishTime>
+      <publishTime>07/08/2018 20:27:13</publishTime>
     </File>
     <File Include="bin/Board.pdb">
-      <publishTime>07/06/2018 18:19:31</publishTime>
+      <publishTime>07/08/2018 20:27:13</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/26/2018 22:20:08</publishTime>
@@ -517,10 +517,10 @@
       <publishTime>06/27/2018 14:53:03</publishTime>
     </File>
     <File Include="Views/Ads/AllAds.cshtml">
-      <publishTime>07/06/2018 17:35:57</publishTime>
+      <publishTime>07/08/2018 14:04:37</publishTime>
     </File>
     <File Include="Views/Ads/AllAdsInProject.cshtml">
-      <publishTime>07/06/2018 18:08:42</publishTime>
+      <publishTime>07/08/2018 20:03:35</publishTime>
     </File>
     <File Include="Views/Ads/DeleteImage.cshtml">
       <publishTime>06/14/2018 21:58:47</publishTime>
@@ -541,7 +541,7 @@
       <publishTime>06/15/2018 14:03:17</publishTime>
     </File>
     <File Include="Views/Ads/SortCityAds.cshtml">
-      <publishTime>07/06/2018 18:15:45</publishTime>
+      <publishTime>07/08/2018 11:24:10</publishTime>
     </File>
     <File Include="Views/Banner/AllBanners.cshtml">
       <publishTime>05/26/2018 22:20:06</publishTime>
@@ -634,7 +634,7 @@
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/06/2018 17:37:31</publishTime>
+      <publishTime>07/08/2018 20:27:26</publishTime>
     </File>
   </ItemGroup>
 </Project>
