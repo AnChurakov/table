@@ -2,6 +2,7 @@
 @using Board.Models
 @model PagedList.IPagedList<Board.Models.Ads>
 
+
 @foreach (var ads in Model)
 {
 
@@ -13,21 +14,34 @@
             @Html.ActionLink(name, "SelectAds", "Ads", new { name = ads.Name, id = ads.Id },
                 new { @class = "d-block col-lg-7 px-0 AdsName advert__fontsize" })
 
-            @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
             <div class="col-lg-5 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
                 <div class="advert__city col  px-0">@ads.Citys.Name</div>
                 <div class="advert__date col px-0">@ads.DateCreation.Value.Day.@ads.DateCreation.Value.Month.@ads.DateCreation.Value.Year</div>
-                <div class="advert__user col px-0">@ads.User.FirstName</div>
+                <div class="advert__user col px-0">@ads.User.FirstName @ads.User.Patronymic</div>
             </div>
         </div>
     </div>
 
+
 }
 
-@if ((int)Session["CountAds"] >= 3)
+@if ((int)Session["CountAds"] > 30)
 {
-<div id="pag">
-    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("AllAdsInProject", new { page }))
-</div>
+    var cat = TempData["Category"];
+
+    <div id="pag">
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+        @if (TempData["SubCat"] != null)
+        {
+            var subcat = TempData["SubCat"];
+
+            @Html.PagedListPager(Model, page => Url.Action("AllAds", new { page, translitCat = cat, subcattrans = subcat }))
+        }
+        else
+        {
+            @Html.PagedListPager(Model, page => Url.Action("AllAds", new { page, translitCat = cat }))
+        }
+
+    </div>
 }

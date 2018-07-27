@@ -3,6 +3,7 @@
 @model PagedList.IPagedList<Board.Models.Ads>
 @{
     ViewBag.Title = ViewBag.Category;
+    
 }
 <div class="form-group mt-4 d-flex justify-content-center align-items-center">
     <label for="adSearch" class="text-right mobileHide">Поиск в текущей категории</label>
@@ -24,7 +25,7 @@
          }
     </h2>
 
-    @Html.ActionLink("Добавить объявление", "AddAds", "Ads", new { slug = "advertisment"}, new { @class = "btn btn-success advert__btn" })
+    @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success advert__btn" })
 </div>
 
 <div class="d-lg-flex justify-content-between">
@@ -75,6 +76,7 @@
         </select>*@
                     <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
                     <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
+                    <input type="hidden" value="@Request.Url" id="url" />
                     @*<button type="submit" class="btn btn-primary">Применить</button>*@
 
                 </div>
@@ -92,23 +94,24 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration @*subcattrans = ads.SubCategory.Transliteration*@},
-                          new { @class = "d-block col-lg-7 px-0 AdsName advert__fontsize" })
+                           new { @class = "d-block col-lg-7 px-0 AdsName advert__fontsize" })
 
-                        @*<a href="~/ads/" class="d-block col-lg-3 px-0 AdsName advert__fontsize">@ads.Name</a>*@
+
                         <div class="col-lg-5 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
                             <div class="advert__city col  px-0">@ads.Citys.Name</div>
                             <div class="advert__date col px-0">@ads.DateCreation.Value.Day.@ads.DateCreation.Value.Month.@ads.DateCreation.Value.Year</div>
-                            <div class="advert__user col px-0">@ads.User.FirstName</div>
+                            <div class="advert__user col px-0">@ads.User.FirstName @ads.User.Patronymic</div>
                         </div>
                     </div>
                 </div>
             }
+          
 
-
-            <div id="pag">
-                Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-                @Html.PagedListPager(Model, page => Url.Action("AllAds", new { page }))
-            </div>
+                <div id="pag">
+                    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("AllAds", new { page }))
+                </div>
+        
 
         </div>
 
@@ -140,6 +143,7 @@
                     var SubCatId = $("#SubCatId").val();
                     var CategoryId = $("#CategoryId").val();
                     var CityId = $(this).val();
+                    var url = $("#url").val();
 
                     $.ajax({
                         url: '@Url.Action("SortCityAds", "Ads")',

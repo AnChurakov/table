@@ -62,8 +62,8 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-lg-6 col-md-6">Описание объявления<sup class="text-danger">*</sup></label>
                         <div class="col-xs-12 col-lg-6 col-md-6">
-                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Desc", required = "required" })
-                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Desc", required = "required", @cols = "20", @rows = "5" })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger"})
                         </div>
                     </div>
 

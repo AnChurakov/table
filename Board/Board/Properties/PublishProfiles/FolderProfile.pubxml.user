@@ -22,10 +22,10 @@
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
     <File Include="bin/Board.dll">
-      <publishTime>07/08/2018 20:27:13</publishTime>
+      <publishTime>07/24/2018 13:33:53</publishTime>
     </File>
     <File Include="bin/Board.pdb">
-      <publishTime>07/08/2018 20:27:13</publishTime>
+      <publishTime>07/24/2018 13:33:53</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/26/2018 22:20:08</publishTime>
@@ -358,7 +358,7 @@
       <publishTime>05/26/2018 22:20:04</publishTime>
     </File>
     <File Include="Content/style.css">
-      <publishTime>07/03/2018 17:00:58</publishTime>
+      <publishTime>07/24/2018 15:32:44</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>05/26/2018 22:20:08</publishTime>
@@ -511,22 +511,22 @@
       <publishTime>05/26/2018 22:20:05</publishTime>
     </File>
     <File Include="Views/Ads/AddAds.cshtml">
-      <publishTime>06/29/2018 10:15:26</publishTime>
+      <publishTime>07/14/2018 13:32:20</publishTime>
     </File>
     <File Include="Views/Ads/AdsSearch.cshtml">
-      <publishTime>06/27/2018 14:53:03</publishTime>
+      <publishTime>07/16/2018 15:24:24</publishTime>
     </File>
     <File Include="Views/Ads/AllAds.cshtml">
-      <publishTime>07/08/2018 14:04:37</publishTime>
+      <publishTime>07/23/2018 12:29:13</publishTime>
     </File>
     <File Include="Views/Ads/AllAdsInProject.cshtml">
-      <publishTime>07/08/2018 20:03:35</publishTime>
+      <publishTime>07/16/2018 16:20:52</publishTime>
     </File>
     <File Include="Views/Ads/DeleteImage.cshtml">
       <publishTime>06/14/2018 21:58:47</publishTime>
     </File>
     <File Include="Views/Ads/Edit.cshtml">
-      <publishTime>06/29/2018 10:45:51</publishTime>
+      <publishTime>07/12/2018 19:27:13</publishTime>
     </File>
     <File Include="Views/Ads/GetAllAds.cshtml">
       <publishTime>05/26/2018 22:20:05</publishTime>
@@ -535,13 +535,16 @@
       <publishTime>06/15/2018 20:02:02</publishTime>
     </File>
     <File Include="Views/Ads/SearchSingle.cshtml">
-      <publishTime>07/06/2018 18:18:46</publishTime>
+      <publishTime>07/16/2018 15:23:29</publishTime>
     </File>
     <File Include="Views/Ads/SelectAds.cshtml">
-      <publishTime>06/15/2018 14:03:17</publishTime>
+      <publishTime>07/24/2018 18:01:07</publishTime>
+    </File>
+    <File Include="Views/Ads/SortAdsCityAllAds.cshtml">
+      <publishTime>07/16/2018 18:18:26</publishTime>
     </File>
     <File Include="Views/Ads/SortCityAds.cshtml">
-      <publishTime>07/08/2018 11:24:10</publishTime>
+      <publishTime>07/16/2018 18:18:10</publishTime>
     </File>
     <File Include="Views/Banner/AllBanners.cshtml">
       <publishTime>05/26/2018 22:20:06</publishTime>
@@ -589,7 +592,7 @@
       <publishTime>06/15/2018 15:03:33</publishTime>
     </File>
     <File Include="Views/Manage/Index.cshtml">
-      <publishTime>06/07/2018 07:02:42</publishTime>
+      <publishTime>07/16/2018 15:25:36</publishTime>
     </File>
     <File Include="Views/Manage/ManageLogins.cshtml">
       <publishTime>05/26/2018 22:20:06</publishTime>
@@ -634,7 +637,7 @@
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/08/2018 20:27:26</publishTime>
+      <publishTime>07/24/2018 15:37:13</publishTime>
     </File>
   </ItemGroup>
 </Project>

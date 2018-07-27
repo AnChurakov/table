@@ -6,7 +6,7 @@
 <div class="d-lg-flex justify-content-between align-items-center headAds py-4 text-center">
    
     <h2 class="h2 text-secondary advert__header">
-
+        @ViewBag.Category
         @if (ViewBag.SubCatName != null)
         {
             <button type="button" class="btn btn-primary">
@@ -66,12 +66,16 @@
 
                 <div class="col-lg-5 pr-0">
                     <div class="advert__info info">
-                        <div class="pb-2 advert__face">
-                            <p class="text-secondary font-weight-bold info__header">Контактное лицо</p>
-                            <p class="info__text">@Model.User.FirstName @Model.User.LastName</p>
+                        <div class="pb-2 pl-2 advert__face">
+                            <p class="text-secondary font-weight-bold info__header">Контакт</p>
+                            <p class="info__text">@Model.User.FirstName @Model.User.Patronymic</p>
                         </div>
-                        <div class="pb-2 advert__face">
-                            <p class="text-secondary font-weight-bold info__header">Номер телефона</p>
+                        <div class="pb-2 pl-2 advert__face">
+                            <p class="text-secondary font-weight-bold info__header">Город</p>
+                            <p class="info__text">@Model.Citys.Name</p>
+                        </div>
+                        <div class="pb-2 pl-2 advert__face">
+                            <p class="text-secondary font-weight-bold info__header">Телефон</p>
                             @if (Model.User.PhoneNumber == null)
                             {
                                 <p class="info__text">Данные не указаны</p>

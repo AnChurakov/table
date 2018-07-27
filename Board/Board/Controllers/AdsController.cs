@@ -186,6 +186,7 @@ namespace Board.Controllers
             IEnumerable<HttpPostedFileBase> upload)
         {
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == AdsId);
+            
 
             if (NameAds != null || NameAds != string.Empty)
             {
@@ -211,6 +212,7 @@ namespace Board.Controllers
                 TempData["Flag"] = "Fail";
             }
 
+           
             foreach (var file in upload)
             {
                 if (file != null)
@@ -235,18 +237,7 @@ namespace Board.Controllers
                     _context.ImageAds.Add(image);
 
                 }
-                else
-                {
-                    ImageAds img = new ImageAds
-                    {
-                        Id = Guid.NewGuid(),
-                        Ads = selectAds,
-                        Path = "/Files/no-photo.png"
-                    };
-
-                    _context.ImageAds.Add(img);
-
-                }
+                
 
             }
 
@@ -263,8 +254,7 @@ namespace Board.Controllers
 
             List<Ads> select = new List<Ads>();
 
-            //var selectAds = _context.Ads.Where(a => a.Name.Contains(Keyword) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
-            //     .ToList();
+         
 
             string[] arrayKeywords = Keyword.Split(' ', '!', '\'', ',', '.', '-');
 
@@ -298,6 +288,7 @@ namespace Board.Controllers
             return PartialView(listAds);
         }
 
+        //Сортировка по городам в категориях
         [HttpPost]
         public ActionResult SortCityAds(string CityId, int? page, Guid? CategoryId, Guid? SubCatId)
         {
@@ -318,6 +309,7 @@ namespace Board.Controllers
 
             if (CityId == "AllCity")
             {
+    
                 if (CategoryId != null && SubCatId != null)
                 {
                     Session["SaveCityName"] = "AllCity";
@@ -329,6 +321,11 @@ namespace Board.Controllers
                         .ToList();
 
                     Session["CountAds"] = selectAds.Count;
+
+                    //TempData["SubCat"] = _context.SubCategory.Where(a => a.Id == SubCatId).Select(t => t.Transliteration).ToString();
+
+                    //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
+
                 }
                 else if (CategoryId != null)
                 {
@@ -340,6 +337,115 @@ namespace Board.Controllers
                         .ToList();
 
                     Session["CountAds"] = selectAds.Count;
+
+                   
+                    //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
+
+                }
+                else
+                {
+                    Session["SaveCityName"] = null;
+
+                    Session["SaveCityId"] = null;
+
+                    selectAds = _context.Ads.OrderByDescending(y => y.DateCreation)
+                        .ToList();
+
+                    Session["CountAds"] = selectAds.Count;
+
+                    //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
+
+                }
+            }
+            else if(CityId != "AllCity" && CategoryId != null && SubCatId != null)
+            {
+                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                    .OrderByDescending(y => y.DateCreation)
+                    .ToList();
+
+                Session["CountAds"] = selectAds.Count;
+
+                //TempData["SubCat"] = _context.SubCategory.Where(a => a.Id == SubCatId).Select(t => t.Transliteration).ToString();
+
+                //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
+
+            }
+            else if (CityId != "AllCity" && CategoryId != null)
+            {
+                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId)
+                    .OrderByDescending(t => t.DateCreation)
+                    .ToList();
+
+                Session["CountAds"] = selectAds.Count;
+
+                //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
+
+            }
+            else if(CityId != "AllCity" && CategoryId == null)
+            {
+                selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId)).OrderByDescending(t => t.DateCreation)
+                    .ToList();
+
+                Session["CountAds"] = selectAds.Count;
+
+            }
+
+            if (SubCatId != null)
+            {
+                TempData["SubCat"] = _context.SubCategory.FirstOrDefault(a => a.Id == SubCatId).Transliteration;
+            }
+
+            TempData["Category"] = _context.Categorys.FirstOrDefault(a => a.Id == CategoryId).Transliteration;
+
+            return PartialView(selectAds.ToPagedList(pageNumber, sizePage));
+        }
+
+        //Сортировка по городам на странице Все объявления
+        [HttpPost]
+        public ActionResult SortAdsCityAllAds(string CityId, int? page, Guid? CategoryId, Guid? SubCatId)
+        {
+            List<Ads> selectAds = new List<Ads>();
+
+            int sizePage = 30;
+
+            int pageNumber = (page ?? 1);
+
+            if (CityId != "AllCity")
+            {
+                var _selectCity = _context.City.FirstOrDefault(a => a.Id == new Guid(CityId));
+
+                Session["SaveCityName"] = _selectCity.Name;
+
+                Session["SaveCityId"] = _selectCity.Id;
+            }
+
+            if (CityId == "AllCity")
+            {
+
+                if (CategoryId != null && SubCatId != null)
+                {
+                    Session["SaveCityName"] = "AllCity";
+
+                    Session["SaveCityId"] = null;
+
+                    selectAds = _context.Ads.Where(a => a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
+                        .OrderByDescending(y => y.DateCreation)
+                        .ToList();
+
+                    Session["CountAds"] = selectAds.Count;
+
+                }
+                else if (CategoryId != null)
+                {
+                    Session["SaveCityName"] = "AllCity";
+
+                    Session["SaveCityId"] = null;
+
+                    selectAds = _context.Ads.Where(a => a.Categorys.Id == CategoryId).OrderByDescending(y => y.DateCreation)
+                        .ToList();
+
+                    Session["CountAds"] = selectAds.Count;
+
                 }
                 else
                 {
@@ -354,13 +460,14 @@ namespace Board.Controllers
 
                 }
             }
-            else if(CityId != "AllCity" && CategoryId != null && SubCatId != null)
+            else if (CityId != "AllCity" && CategoryId != null && SubCatId != null)
             {
                 selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId) && a.Categorys.Id == CategoryId && a.SubCategory.Id == SubCatId)
                     .OrderByDescending(y => y.DateCreation)
                     .ToList();
 
                 Session["CountAds"] = selectAds.Count;
+
             }
             else if (CityId != "AllCity" && CategoryId != null)
             {
@@ -369,15 +476,16 @@ namespace Board.Controllers
                     .ToList();
 
                 Session["CountAds"] = selectAds.Count;
+
             }
-            else if(CityId != "AllCity" && CategoryId == null)
+            else if (CityId != "AllCity" && CategoryId == null)
             {
                 selectAds = _context.Ads.Where(a => a.Citys.Id == new Guid(CityId)).OrderByDescending(t => t.DateCreation)
                     .ToList();
 
                 Session["CountAds"] = selectAds.Count;
+
             }
-           
 
             return PartialView(selectAds.ToPagedList(pageNumber, sizePage));
         }
@@ -385,9 +493,6 @@ namespace Board.Controllers
         [HttpPost]
         public ActionResult AdsSearch(string nameSearch)
         {
-            //List<Ads> resultSearch = new List<Ads>();
-
-            //var searchResult = _context.Ads.Where(a => a.Name.Contains(nameSearch)).ToList();
 
             List<Ads> listAds = new List<Ads>();
 
@@ -422,6 +527,13 @@ namespace Board.Controllers
             ViewBag.ListImage = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
 
             ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == true).ToList();
+
+            ViewBag.Category = selectAds.Categorys.Name;
+
+            if (selectAds.SubCategory != null)
+            {
+                ViewBag.SubCatName = selectAds.SubCategory.Name;
+            }
 
             return View(selectAds);
         } 
