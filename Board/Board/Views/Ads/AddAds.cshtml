@@ -56,6 +56,7 @@
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "Name", required = "required" })
                             @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                            <div id="errorName">Название не должно содержать специальных символов кроме . ! , и не должно быть пустым</div>
                         </div>
                     </div>
 
@@ -64,7 +65,9 @@
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Desc", required = "required", @cols = "20", @rows = "5" })
                             @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger"})
+                            <div id="errorDesc">Текст объявления не должен содержать специальных символов кроме . ! , и не должен быть пустым</div>
                         </div>
+                        
                     </div>
 
                     <div class="form-group">
@@ -108,13 +111,11 @@
                     </div>
 
 
-
-
                     <div class="form-group" id="file">
                         <label class="control-label col-md-6">Выберите фотографию (расширение .png, .jpg, .jpeg)</label>
                         <div class="col-xs-12 col-lg-4 col-md-4">
-                            <input type="file" class="form-control" name="upload" />
-
+                            <input type="file" class="form-control" id="upload" name="upload" />
+                            <div id="errorImg">Файл с таким расширением нельзя загрузить. Только PNG, JPEG либо JPG</div>
                         </div>
                         <div class="col-xs-12 col-lg-12 col-md-12">
                             <input type="button" id="Add" class="btn btn-primary" value="Добавить еще фотографию" />
@@ -151,15 +152,54 @@
             var desc = $("#Desc");
             var required = $("#SubCatRequired");
 
+            $("#errorImg").css({"color":"red"}).hide();
             $("#file").first().find("#Delete").hide();
+            $("#errorDesc, #errorName").css({"color":"red"}).hide();
 
             subcat.hide();
+
+            //desc.change(function () {
+
+            //    var mask = /^[a-zA-Zа-яА-Я0-9.,! ]+$/i;
+
+            //    if (mask.test($(this).val())) {
+            //        $(this).css({ "border": "1px solid green" });
+            //        $("#AddAds").attr("disabled", false);
+            //        $("#errorDesc").hide();
+            //    }
+            //    else {
+            //        $(this).css({ "border": "1px solid red" });
+            //        $("#AddAds").attr("disabled", true);
+            //        $("#errorDesc").show();
+            //    }
+
+            //});
+
+            name.change(function () {
+
+                var mask = /^[a-zA-Zа-яА-Я0-9.,! ]+$/i;
+
+                if (mask.test($(this).val())) {
+                    $(this).css({ "border": "1px solid green"});
+                    $("#AddAds").attr("disabled", false);
+                    $("#errorName").hide();
+                }
+                else {
+                    $(this).css({ "border": "1px solid red" });
+                    $("#AddAds").attr("disabled", true);
+                    $("#errorName").show();
+                }
+
+            });
 
             $("body").on("click", "#Add", function (e) {
 
                 e.preventDefault();
 
                 var blockfile = $(this).parent().parent().clone();
+
+                blockfile.find("#errorImg").hide();
+                blockfile.find("#upload").css({"border":"1px solid lightgray"});
 
                 var filename = blockfile.find("input[type='file']").val();
 
@@ -169,8 +209,6 @@
 
                     blockfile.appendTo("#append");
 
-                    //blockfile.find("#Delete").show();
-
                     var valFile = blockfile.find("input[type='file']").val("");
 
                 }
@@ -178,8 +216,6 @@
 
                     submitEvent.preventDefault();
                 }
-
-             
 
             });
 
@@ -192,6 +228,8 @@
                 blockfile.remove();
 
             });
+
+           
 
             $("#AddForm").submit(function (submitEvent) {
 
@@ -207,18 +245,29 @@
 
                     var extension = filename.replace(/^.*\./, '');
 
-                    if (extension == "jpeg" || extension == "png" || extension == "jpg" || extension == '') {
-                       
-                        flag = true;
+                    if (filename != "") {
 
-                        count++;
+                        if (extension == "jpeg" || extension == "png" || extension == "jpg" || extension == '') {
+
+                            flag = true;
+
+                            count++;
+
+                            $(this).css({ "border": "1px solid green" });
+                            $(this).parent().parent().find("errorImg").hide();
+                        }
+                        else {
+
+                            submitEvent.preventDefault();
+                            flag = false;
+                            $(this).css({ "border": "1px solid red" });
+                            $(this).parent().parent().find("#errorImg").show();
+                        }
                     }
                     else {
-
-                        submitEvent.preventDefault();
-                        flag = false;
+                        $(this).parent().parent().remove();
                     }
-                
+
                    
                 });
 
@@ -253,9 +302,6 @@
                     });
 
             });
-
-
-
 
         })
     </script>

@@ -3,59 +3,113 @@
 <div class="row">
     <div class="col-md-6 col-lg-6">
 
-         @if (TempData["Flag"] == "Success")
-            { 
+        @if (TempData["Flag"] == "Success")
+        {
             <div class="alert alert-success" role="alert">
                 Данные успешно изменены
             </div>
-            }
+        }
 
-            @if (TempData["Flag"] == "Fail")
-            {
-                <div class="alert alert-danger" role="alert">
-                    Данные не изменены
-                </div>
-            }
+        @if (TempData["Flag"] == "Fail")
+        {
+            <div class="alert alert-danger" role="alert">
+                Данные не изменены
+            </div>
+        }
 
-</div>
-       
+    </div>
 
-       <div class="col-xs-12 col-lg-12 col-md-12">
-        <h2>Личный кабинет</h2>  
+
+    <div class="col-xs-12 col-lg-12 col-md-12">
+        <h2>Личный кабинет</h2>
         @Html.ActionLink("Смена пароля", "ChangePassword", "Manage", null, new { @class = "btn btn-warning col-xs-12 mt-2 mobile-full" })
         @Html.ActionLink("Номер телефона", "AddPhoneNumber", "Manage", null, new { @class = "btn btn-warning col-xs-12 mt-2 mobile-full" })
         @Html.ActionLink("Мои объявления", "MyAds", "Ads", null, new { @class = "btn btn-warning col-xs-12 mt-2 mobile-full" })
         @Html.ActionLink("Добавить объявление", "AddAds", "Ads", null, new { @class = "btn btn-success  col-xs-12 mt-2 mobile-full" })
-        </div>  
+    </div>
 
     <div class="col-xs-12 col-lg-6 col-md-6">
         @using (Html.BeginForm("UpdateFIO", "Manage", FormMethod.Post))
         {
             <p class="mt-2">Поля отмеченные <sup class="text-danger">*</sup> обязательны для заполнения</p>
             <div class="form-group">
-             <label>Имя<sup class="text-danger">*</sup></label>
-             <input type="text" required class="form-control" name="firstname" value="@Model.FirstName" />
-         </div>
+                <label>Имя<sup class="text-danger">*</sup></label>
+                <input type="text" required class="form-control" id="firstname" name="firstname" value="@Model.FirstName" />
+                <div id="errorName">Имя должно содержать только русские символы</div>
+            </div>
 
-         @*<div class="form-group">
-             <label>Фамилия</label>
-             <input type="text" placeholder="По желанию" class="form-control" name="lastname" value="@Model.LastName" />
-         </div>*@
+            @*<div class="form-group">
+                    <label>Фамилия</label>
+                    <input type="text" placeholder="По желанию" class="form-control" name="lastname" value="@Model.LastName" />
+                </div>*@
 
-         <div class="form-group">
-             <label>Отчество</label>
-             <input type="text" placeholder="По желанию" class="form-control" name="patr" value="@Model.Patronymic" />
-         </div>
+            <div class="form-group">
+                <label>Отчество</label>
+                <input type="text" placeholder="По желанию" class="form-control" id="patr" name="patr" value="@Model.Patronymic" />
+                <div id="errorPatr">Отчество должно содержать только русские символы</div>
+            </div>
 
-         <div class="form-group">
-             <input type="submit" value="Подтвердить" class="btn btn-success" />
-         </div>
+            <div class="form-group">
+                <input type="submit" id="Add" value="Подтвердить" class="btn btn-success" />
+            </div>
 
         }
     </div>
 
 
 </div>
+@Scripts.Render("~/bundles/jqueryval")
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+
+            $("#errorPatr, #errorName").css({ "color": "red" }).hide();
+
+            $("#firstname").change(function () {
+
+                var mask = /^[а-яА-Я ]+$/i;
+
+                if (mask.test($(this).val())) {
+                    $(this).css({ "border": "1px solid green" });
+                    $("#Add").attr("disabled", false);
+                    $("#errorName").hide();
+                }
+                else {
+                    $(this).css({ "border": "1px solid red" });
+                    $("#Add").attr("disabled", true);
+                    $("#errorName").show();
+                }
+
+            });
+
+            $("#patr").change(function () {
+
+
+                if ($(this).val() != "") {
+                    var mask = /^[а-яА-Я ]+$/i;
+
+                    if (mask.test($(this).val())) {
+                        $(this).css({ "border": "1px solid green" });
+                        $("#Add").attr("disabled", false);
+                        $("#errorPatr").hide();
+                    }
+                    else {
+                        $(this).css({ "border": "1px solid red" });
+                        $("#Add").attr("disabled", true);
+                        $("#errorPatr").show();
+                    }
+                }
+                else {
+                    $(this).css({ "border": "1px solid lightgray" });
+                    $("#errorPatr").hide();
+                }
+            })
+
+
+        })
+    </script>
+}
 
 
 

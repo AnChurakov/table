@@ -26,32 +26,49 @@
         {
             <div class="form-group">
                 <lable>Название</lable>
-                <input type="text" class="form-control" name="NameAds" value="@Model.Name" />
+                <input type="text" class="form-control" name="NameAds" id="Name" value="@Model.Name" />
             </div>
 
             <div class="form-group">
                 <lable>Описание</lable>
-                @Html.TextArea("DescAds", Model.Description, new { @class = "form-control", @cols = "10", @rows = "10" })
+                @Html.TextArea("DescAds", Model.Description, new { @class = "form-control", id = "Desc", @cols = "10", @rows = "10" })
                 <input type="hidden" value="@Model.Id" name="AdsId" />
+                <div id="errorDesc">Текст объявления не должен содержать специальных символов кроме . ! , и не должен быть пустым</div>
             </div>
 
             //using (Ajax.BeginForm("DeleteImage", "Ads", new AjaxOptions { UpdateTargetId = "AllImages" }))
             //{
-             <div class="row" id="AllImages">             
-                  @foreach (var images in Model.ImageAds)
-                  {
+            <div class="row" id="AllImages">
+                @foreach (var images in Model.ImageAds)
+                {
+                    if (Model.ImageAds.Count == 1 && images.Path == "/Files/no-photo.png")
+                    {
 
                         <div class="col-xs-12 col-lg-4 col-md-4">
                             <div class="card ml-1 mt-1" style="width: 18rem;">
                                 <img class="card-img-top" width="200" height="200" src="@images.Path">
                                 <div class="card-body">
                                     <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
-                                    <input type="hidden" class="ImageId" value="@images.Id" name="ImageId"/>
-                                    <input type="button"  class="btn btn-danger DeleteImageBtn" value="Удалить фотографию" />
+                                    <input type="hidden" class="ImageId" value="@images.Id" name="ImageId" />
+
                                 </div>
                             </div>
                         </div>
-                  }
+                    }
+                    else
+                    {
+                        <div class="col-xs-12 col-lg-4 col-md-4">
+                            <div class="card ml-1 mt-1" style="width: 18rem;">
+                                <img class="card-img-top" width="200" height="200" src="@images.Path">
+                                <div class="card-body">
+                                    <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
+                                    <input type="hidden" class="ImageId" value="@images.Id" name="ImageId" />
+                                    <input type="button" class="btn btn-danger DeleteImageBtn" value="Удалить фотографию" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
 
             </div>
               
@@ -72,7 +89,7 @@
                 <div id="append"></div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-success" value="Обновить объявление" />
+                <input type="submit" id="AddAds" class="btn btn-success" value="Обновить объявление" />
             </div>
         }
 
@@ -85,7 +102,45 @@
     <script>
         $(document).ready(function () {
 
+            var desc = $("#Desc");
+            var name = $("#Name");
+
             $("#file").first().find("#Delete").hide();
+            $("#errorDesc, #errorName").css({ "color": "red" }).hide();
+
+            desc.change(function () {
+
+                var mask = /^[a-zA-Zа-яА-Я0-9.,! ]+$/i;
+
+                if (mask.test($(this).val())) {
+                    $(this).css({ "border": "1px solid green" });
+                    $("#AddAds").attr("disabled", false);
+                    $("#errorDesc").hide();
+                }
+                else {
+                    $(this).css({ "border": "1px solid red" });
+                    $("#AddAds").attr("disabled", true);
+                    $("#errorDesc").show();
+                }
+
+            });
+
+            name.change(function () {
+
+                var mask = /^[a-zA-Zа-яА-Я0-9.,! ]+$/i;
+
+                if (mask.test($(this).val())) {
+                    $(this).css({ "border": "1px solid green" });
+                    $("#AddAds").attr("disabled", false);
+                    $("#errorName").hide();
+                }
+                else {
+                    $(this).css({ "border": "1px solid red" });
+                    $("#AddAds").attr("disabled", true);
+                    $("#errorName").show();
+                }
+
+            });
 
             $("body").on("click", "#Add", function (e) {
 
@@ -130,26 +185,27 @@
 
                     var extension = filename.replace(/^.*\./, '');
 
-                    if (extension == "jpeg" || extension == "png" || extension == "jpg" || extension == '') {
+                    if (filename != "") {
 
-                        flag = true;
+                        if (extension == "jpeg" || extension == "png" || extension == "jpg" || extension == '') {
 
-                        count++;
+                            flag = true;
+
+                            count++;
+
+                            $(this).css({ "border": "1px solid green", "color": "green" });
+                        }
+                        else {
+
+                            submitEvent.preventDefault();
+
+                            flag = false;
+                        }
+
                     }
                     else {
-                
-                        submitEvent.preventDefault();
-
-                        flag = false;
-                    }
-
-                    if (extension == filename) {
-
-                        extension = '';
-
-                    } else {
-
-                        extension = extension.toLowerCase();
+                        $(this).parent().parent().remove();
+                        $(this).css({ "border": "1px solid red", "color": "red" });
                     }
 
                 });

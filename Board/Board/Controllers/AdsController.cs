@@ -212,34 +212,37 @@ namespace Board.Controllers
                 TempData["Flag"] = "Fail";
             }
 
-           
-            foreach (var file in upload)
+
+            if (upload != null)
             {
-                if (file != null)
+                foreach (var file in upload)
                 {
-                    string fileName = System.IO.Path.GetFileName(file.FileName);
-
-                    var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
-
-                    file.SaveAs(pathFile);
-
-                    var splitPathFile = pathFile.Split('\\');
-
-                    string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
-
-                    ImageAds image = new ImageAds
+                    if (file != null)
                     {
-                        Id = Guid.NewGuid(),
-                        Ads = selectAds,
-                        Path = correctPathFile
-                    };
+                        string fileName = System.IO.Path.GetFileName(file.FileName);
 
-                    _context.ImageAds.Add(image);
+                        var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
 
+                        file.SaveAs(pathFile);
+
+                        var splitPathFile = pathFile.Split('\\');
+
+                        string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
+
+                        ImageAds image = new ImageAds
+                        {
+                            Id = Guid.NewGuid(),
+                            Ads = selectAds,
+                            Path = correctPathFile
+                        };
+
+                        _context.ImageAds.Add(image);
+
+                    }
+                    
                 }
-                
-
             }
+
 
             _context.SaveChanges();
 
@@ -253,8 +256,6 @@ namespace Board.Controllers
             List<Ads> listAds = new List<Ads>();
 
             List<Ads> select = new List<Ads>();
-
-         
 
             string[] arrayKeywords = Keyword.Split(' ', '!', '\'', ',', '.', '-');
 
@@ -322,10 +323,7 @@ namespace Board.Controllers
 
                     Session["CountAds"] = selectAds.Count;
 
-                    //TempData["SubCat"] = _context.SubCategory.Where(a => a.Id == SubCatId).Select(t => t.Transliteration).ToString();
-
-                    //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
-
+                    
                 }
                 else if (CategoryId != null)
                 {
@@ -339,8 +337,6 @@ namespace Board.Controllers
                     Session["CountAds"] = selectAds.Count;
 
                    
-                    //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
-
                 }
                 else
                 {
@@ -353,8 +349,6 @@ namespace Board.Controllers
 
                     Session["CountAds"] = selectAds.Count;
 
-                    //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
-
                 }
             }
             else if(CityId != "AllCity" && CategoryId != null && SubCatId != null)
@@ -363,12 +357,7 @@ namespace Board.Controllers
                     .OrderByDescending(y => y.DateCreation)
                     .ToList();
 
-                Session["CountAds"] = selectAds.Count;
-
-                //TempData["SubCat"] = _context.SubCategory.Where(a => a.Id == SubCatId).Select(t => t.Transliteration).ToString();
-
-                //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
-
+               
             }
             else if (CityId != "AllCity" && CategoryId != null)
             {
@@ -378,8 +367,7 @@ namespace Board.Controllers
 
                 Session["CountAds"] = selectAds.Count;
 
-                //TempData["Category"] = _context.Categorys.Where(a => a.Id == CategoryId).Select(t => t.Transliteration).ToString();
-
+                
             }
             else if(CityId != "AllCity" && CategoryId == null)
             {
@@ -569,46 +557,49 @@ namespace Board.Controllers
             var selectSubCat = _context.SubCategory.FirstOrDefault(a => a.Id == SubCat);
             var selectUser = _context.Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
 
-            if (selectCategory != null && selectCity != null && selectUser != null)
-            {
-                var translit = Transliteration.Front(model.Name);
-
-                Ads ads = new Ads
+          
+                if (selectCategory != null && selectCity != null && selectUser != null)
                 {
-                    Id = Guid.NewGuid(),
-                    Name = model.Name,
-                    Description = model.Description,
-                    DateCreation = DateTime.Now,
-                    Categorys = selectCategory,
-                    SubCategory = selectSubCat,
-                    Citys = selectCity,
-                    User = selectUser,
-                    Transliteration = translit
-                };
+                    var translit = Transliteration.Front(model.Name);
 
-                foreach (var file in upload)
-                {
-                    if (file != null)
+                    Ads ads = new Ads
                     {
-                        string fileName = System.IO.Path.GetFileName(file.FileName);
+                        Id = Guid.NewGuid(),
+                        Name = model.Name,
+                        Description = model.Description,
+                        DateCreation = DateTime.Now,
+                        Categorys = selectCategory,
+                        SubCategory = selectSubCat,
+                        Citys = selectCity,
+                        User = selectUser,
+                        Transliteration = translit
+                    };
 
-                        var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
-
-                        file.SaveAs(pathFile);
-
-                        var splitPathFile = pathFile.Split('\\');
-
-                        string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
-
-                        ImageAds image = new ImageAds
+                    if (upload != null)
+                    {
+                        foreach (var file in upload)
                         {
-                            Id = Guid.NewGuid(),
-                            Ads = ads,
-                            Path = correctPathFile
-                        };
 
-                        _context.ImageAds.Add(image);
+                            string fileName = System.IO.Path.GetFileName(file.FileName);
 
+                            var pathFile = System.IO.Path.Combine(Server.MapPath("~/Files"), fileName);
+
+                            file.SaveAs(pathFile);
+
+                            var splitPathFile = pathFile.Split('\\');
+
+                            string correctPathFile = string.Format("/{0}/{1}", splitPathFile[5], splitPathFile[6]);
+
+                            ImageAds image = new ImageAds
+                            {
+                                Id = Guid.NewGuid(),
+                                Ads = ads,
+                                Path = correctPathFile
+                            };
+
+                            _context.ImageAds.Add(image);
+
+                        }
                     }
                     else
                     {
@@ -620,23 +611,22 @@ namespace Board.Controllers
                         };
 
                         _context.ImageAds.Add(img);
-                        
+
                     }
 
+                    _context.Ads.Add(ads);
+
+                    _context.SaveChanges();
+
+                    ViewBag.Flag = "Success";
+                }
+                else
+                {
+                    ViewBag.Flag = "Fail";
                 }
 
-                _context.Ads.Add(ads);
-
-                _context.SaveChanges();
-
-                ViewBag.Flag = "Success";
-            }
-            else
-            {
-                ViewBag.Flag = "Fail";
-            }
-
-            return RedirectToAction("MyAds");
+                return RedirectToAction("MyAds");
+            
         }
 
         [HttpGet]
