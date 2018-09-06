@@ -56,7 +56,7 @@
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "Name", required = "required" })
                             @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-                            <div id="errorName">Название не должно содержать специальных символов кроме . ! , и не должно быть пустым</div>
+                            <div id="errorName">Название не должно содержать специальных символов кроме . ! , - не должно быть пустым</div>
                         </div>
                     </div>
 
@@ -177,7 +177,7 @@
 
             name.change(function () {
 
-                var mask = /^[a-zA-Zа-яА-Я0-9.,! ]+$/i;
+                var mask = /^[a-zA-Zа-яА-Я0-9.,!\-ёЁ\\\*\/\"\' ]+$/i;
 
                 if (mask.test($(this).val())) {
                     $(this).css({ "border": "1px solid green"});

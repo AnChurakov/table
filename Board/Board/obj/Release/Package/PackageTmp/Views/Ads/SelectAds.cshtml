@@ -34,7 +34,9 @@
                 <div class="col-lg-7 pl-0">
                     <div class="advert__photos">
                         <div class="advert__photo advert__photo--current mb-1">
-                            <img class="advert__curent-img" src="#" alt="photo">
+                            @*<img class="advert__curent-img" src="#" alt="photo">*@
+                            <div class="advert__current-img"></div>
+                        
                         </div>
                         <div id="carouselControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
@@ -119,6 +121,18 @@
 
             $("#complaint").click(function () {
                 $(this).text("Ваша жалоба успешно отправлена");
+            });
+
+            var firstsrc = $(".advert__img:first").attr("src");
+
+            $(".advert__current-img").css({ "width": "500px", "background-repeat": "no-repeat", "height": "500px", "background-size": "contain", "background-image": "url(" + firstsrc + ")", "background-position": "center" });
+
+            $(".advert__img").click(function () {
+
+                var path = $(this).attr("src");
+
+                $(".advert__current-img").css({"width":"500px","background-repeat":"no-repeat" ,"height":"500px", "background-size":"contain", "background-image":"url("+path+")", "background-position":"center"});
+
             });
 
         })

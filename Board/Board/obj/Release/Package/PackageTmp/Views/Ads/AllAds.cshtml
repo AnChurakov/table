@@ -56,24 +56,6 @@
                         }
                     </select>
 
-
-                    @*<select class="ml-4 mr-1 form-control" name="CityId" id="adCity">
-
-            @if (Session["SaveCityName"] != null)
-            {
-                <option value="@Session["SaveCityId"]" disabled selected>@ViewBag.SaveCityName</option>
-            }
-            else
-            {
-                <option selected disabled>Выберите город</option>
-            }
-            <option value="AllCity">По всем городам</option>
-            <option value="@ViewBag.Izh.Id">@ViewBag.Izh.Name</option>
-            @foreach (var city in ViewBag.Citys)
-            {
-                <option value="@city.Id">@city.Name</option>
-            }
-        </select>*@
                     <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
                     <input type="hidden" value="@ViewBag.SubCategory" name="SubCatId" />
                     <input type="hidden" value="@Request.Url" id="url" />
@@ -90,14 +72,21 @@
             {
                 var name = ads.Name.ToString();
 
-                <div class="advert mb-3">
+          
+
+                <div class="advert" style="border-bottom:1px solid lightgray;">
                     <div class="d-flex justify-content-between align-items-center">
+                        
+                        <div class="d-block mb-2 px-0 mt-2 img-ads" style="background-size:contain;background-repeat:no-repeat; background-position:center;width:100px; height:100;background-image:url(@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault()))"></div>
 
-                        @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration @*subcattrans = ads.SubCategory.Transliteration*@},
-                           new { @class = "d-block col-lg-7 px-0 AdsName advert__fontsize" })
+                        @*<img src="@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault())" class="d-block mb-3 px-0 mt-3 img-ads" width="100" height="100"/>*@
+                        
+
+                        @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration},
+                            new { @class = "d-block col-lg-4 px-0 AdsName pl-2 advert__fontsize" })
 
 
-                        <div class="col-lg-5 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
+                        <div class="col-lg-6 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
                             <div class="advert__city col  px-0">@ads.Citys.Name</div>
                             <div class="advert__date col px-0">@ads.DateCreation.Value.Day.@ads.DateCreation.Value.Month.@ads.DateCreation.Value.Year</div>
                             <div class="advert__user col px-0">@ads.User.FirstName @ads.User.Patronymic</div>
@@ -105,13 +94,13 @@
                     </div>
                 </div>
             }
-          
 
-                <div id="pag">
-                    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-                    @Html.PagedListPager(Model, page => Url.Action("AllAds", new { page }))
-                </div>
-        
+
+            <div id="pag">
+                Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("AllAds", new { page }))
+            </div>
+
 
         </div>
 

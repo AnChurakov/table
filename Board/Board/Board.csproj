@@ -205,16 +205,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\Translit.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdsController.cs" />
-    <Compile Include="Controllers\BannerController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\CityController.cs" />
-    <Compile Include="Controllers\ComplaintController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\SubCategoryController.cs" />
+    <Compile Include="Files\Controllers\AccountController.cs" />
+    <Compile Include="Files\Controllers\AdsController.cs" />
+    <Compile Include="Files\Controllers\BannerController.cs" />
+    <Compile Include="Files\Controllers\CategoryController.cs" />
+    <Compile Include="Files\Controllers\CityController.cs" />
+    <Compile Include="Files\Controllers\ComplaintController.cs" />
+    <Compile Include="Files\Controllers\HomeController.cs" />
+    <Compile Include="Files\Controllers\ManageController.cs" />
+    <Compile Include="Files\Controllers\RoleController.cs" />
+    <Compile Include="Files\Controllers\SubCategoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -399,7 +399,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

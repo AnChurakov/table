@@ -45,7 +45,8 @@ body {
   color: #6e6e6e;
 }
 .advert__fontsize{
-    font-size:20px;
+    font-size:18px;
+    text-decoration:none;
 }
 .advert__header {
   font-weight: bold;
@@ -62,19 +63,20 @@ body {
   filter: none;
 }
 .advert__photo:not(.advert__photo--current) {
-  width: 17%;
+  width: 100px;
+  height:100px;
   margin-right: 1.5rem;
   cursor: pointer;
 }
 .advert__photo--current {
-  height: 400px;
+  height: 450px;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items:center;
 }
 .advert__photo--current img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 .advert__photo:not(.advert__photo--current) img {
@@ -93,12 +95,16 @@ body {
   margin-right: 0;
 }
 .AdsName {
-    text-decoration:underline;
+    text-decoration:none;
+    font-weight:bold;
 }
 .AdsName:visited{
     color:black;
 }
-
+.img-ads {
+    width:100px;
+    height:100px;
+}
 .info__header {
   font-size: 0.9rem;
 }
@@ -116,6 +122,16 @@ body {
     .info {
         display: flex;
         justify-content: space-between;
+    }
+
+    .img-ads {
+        width:70px;
+        height:70px;
+    }
+
+    .advert__fontsize{
+        font-size:15px;
+    
     }
 
     .info__text{
@@ -165,5 +181,10 @@ body {
     .link-site {
         font-size:15px;
     }
+
+    .advert__photo--current {
+        height:350px;
+    }
+   
 }
 

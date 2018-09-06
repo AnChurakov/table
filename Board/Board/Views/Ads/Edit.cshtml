@@ -108,26 +108,26 @@
             $("#file").first().find("#Delete").hide();
             $("#errorDesc, #errorName").css({ "color": "red" }).hide();
 
-            desc.change(function () {
+            //desc.change(function () {
 
-                var mask = /^[a-zA-Zа-яА-Я0-9.,! ]+$/i;
+            //    var mask = /^[a-zA-Zа-яА-Я0-9.,!\-ёЁ\\\* ]+$/i;
 
-                if (mask.test($(this).val())) {
-                    $(this).css({ "border": "1px solid green" });
-                    $("#AddAds").attr("disabled", false);
-                    $("#errorDesc").hide();
-                }
-                else {
-                    $(this).css({ "border": "1px solid red" });
-                    $("#AddAds").attr("disabled", true);
-                    $("#errorDesc").show();
-                }
+            //    if (mask.test($(this).val())) {
+            //        $(this).css({ "border": "1px solid green" });
+            //        $("#AddAds").attr("disabled", false);
+            //        $("#errorDesc").hide();
+            //    }
+            //    else {
+            //        $(this).css({ "border": "1px solid red" });
+            //        $("#AddAds").attr("disabled", true);
+            //        $("#errorDesc").show();
+            //    }
 
-            });
+            //});
 
             name.change(function () {
 
-                var mask = /^[a-zA-Zа-яА-Я0-9.,! ]+$/i;
+                var mask = /^[a-zA-Zа-яА-Я0-9.,!\-ёЁ\\\*\/\"\' ]+$/i;
 
                 if (mask.test($(this).val())) {
                     $(this).css({ "border": "1px solid green" });
