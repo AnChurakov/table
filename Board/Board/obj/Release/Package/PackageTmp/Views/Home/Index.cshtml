@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Board.Models.Category>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Надежный поиск вещей";
+   
 }
 
 @using (Html.BeginForm("AdsSearch", "Ads", FormMethod.Post))

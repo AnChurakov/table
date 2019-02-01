@@ -1,0 +1,39 @@
+﻿@using PagedList.Mvc;
+@using Board.Models
+@model PagedList.IPagedList<Board.Models.Ads>
+
+@foreach (var ads in Model)
+{
+
+    var name = ads.Name.ToString();
+
+    <div class="advert" style="border-bottom:1px solid lightgray;">
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div class="d-block mb-3 px-0 mt-3 img-ads" style="background-size:contain;background-repeat:no-repeat; background-position:center;width:100px; height:100;background-image:url(@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault()))"></div>
+
+
+            @*<img src="@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault())" class="img-ads mb-3 px-0 mt-3" width="100" height="100" />*@
+
+
+            @Html.ActionLink(name, "SelectAds", "Ads", new { id = ads.Id, adstrans = ads.Transliteration, catTrans = ads.Categorys.Transliteration},
+                new { @class = "d-block col-lg-4 px-0 AdsName pl-2 advert__fontsize" })
+
+
+            <div class="col-lg-6 col-xs-12 px-0 d-md-flex justify-content-between text-center px-5 mobileHide">
+                <div class="advert__city col  px-0">@ads.Citys.Name</div>
+                <div class="advert__date col px-0">@ads.DateCreation.Value.Day.@ads.DateCreation.Value.Month.@ads.DateCreation.Value.Year</div>
+                <div class="advert__user col px-0">@ads.User.FirstName @ads.User.Patronymic</div>
+            </div>
+        </div>
+    </div>
+
+}
+@if ((int)Session["CountAds"] > 30)
+{
+
+    <div id="pag">
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("AllAdsInProject", new { page }))
+    </div>
+}

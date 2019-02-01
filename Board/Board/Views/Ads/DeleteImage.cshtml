@@ -1,0 +1,19 @@
+﻿@model Board.Models.Ads
+
+
+        @foreach (var images in Model.ImageAds)
+        {
+
+                        <div class="col-xs-12 col-lg-4 col-md-4">
+                            <div class="card ml-1 mt-1" style="width: 18rem;">
+                                <img class="card-img-top" width="200" height="200" src="@images.Path">
+                                <div class="card-body">
+                                    <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
+                                    <input type="hidden" class="ImageId" value="@images.Id" name="ImageId"/>
+                                    <input type="button" class="btn btn-danger DeleteImageBtn" value="Удалить фотографию" />
+                                </div>
+                            </div>
+                        </div>
+        }
+    
+

@@ -64,10 +64,10 @@
                         <label class="control-label col-xs-12 col-lg-6 col-md-6">Описание объявления<sup class="text-danger">*</sup></label>
                         <div class="col-xs-12 col-lg-6 col-md-6">
                             @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Desc", required = "required", @cols = "20", @rows = "5" })
-                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger"})
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                             <div id="errorDesc">Текст объявления не должен содержать специальных символов кроме . ! , и не должен быть пустым</div>
                         </div>
-                        
+
                     </div>
 
                     <div class="form-group">
@@ -118,12 +118,19 @@
                             <div id="errorImg">Файл с таким расширением нельзя загрузить. Только PNG, JPEG либо JPG</div>
                         </div>
                         <div class="col-xs-12 col-lg-12 col-md-12">
-                            <input type="button" id="Add" class="btn btn-primary" value="Добавить еще фотографию" />
+                            @*<input type="button" id="Add" class="btn btn-primary" value="Добавить еще фотографию" />*@
                             @*<input type="button" id="Delete" class="btn btn-danger" value="Удалить текущую фотографию" />*@
                         </div>
                     </div>
 
+
+
                     <div id="append"></div>
+
+                    <div class="col-xs-12 col-lg-12 col-md-12">
+                        <input type="button" id="Add" class="btn btn-primary" value="Добавить еще фотографию" />
+                        @*<input type="button" id="Delete" class="btn btn-danger" value="Удалить текущую фотографию" />*@
+                    </div><br />
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
@@ -196,7 +203,7 @@
 
                 e.preventDefault();
 
-                var blockfile = $(this).parent().parent().clone();
+                var blockfile = $("#file").clone();
 
                 blockfile.find("#errorImg").hide();
                 blockfile.find("#upload").css({"border":"1px solid lightgray"});
