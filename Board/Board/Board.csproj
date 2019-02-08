@@ -396,6 +396,7 @@
     <Content Include="Views\Home\Politic.cshtml" />
     <Content Include="Views\Ads\AllAdsInProject.cshtml" />
     <Content Include="Views\Ads\SortAdsCityAllAds.cshtml" />
+    <Content Include="Views\Shared\SingleAdsWithSocial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

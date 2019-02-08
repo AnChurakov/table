@@ -22,10 +22,10 @@
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
     <File Include="bin/Board.dll">
-      <publishTime>02/01/2019 21:32:39</publishTime>
+      <publishTime>02/08/2019 18:31:31</publishTime>
     </File>
     <File Include="bin/Board.pdb">
-      <publishTime>02/01/2019 21:32:39</publishTime>
+      <publishTime>02/08/2019 18:31:31</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/26/2018 22:20:08</publishTime>
@@ -454,7 +454,7 @@
       <publishTime>05/26/2018 22:20:05</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
-      <publishTime>05/26/2018 22:20:05</publishTime>
+      <publishTime>02/08/2019 18:24:42</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.min.js">
       <publishTime>05/26/2018 22:20:05</publishTime>
@@ -517,7 +517,7 @@
       <publishTime>08/15/2018 16:34:27</publishTime>
     </File>
     <File Include="Views/Ads/AllAds.cshtml">
-      <publishTime>08/18/2018 19:49:46</publishTime>
+      <publishTime>02/08/2019 18:09:42</publishTime>
     </File>
     <File Include="Views/Ads/AllAdsInProject.cshtml">
       <publishTime>12/08/2018 11:54:02</publishTime>
@@ -538,7 +538,7 @@
       <publishTime>08/15/2018 16:35:00</publishTime>
     </File>
     <File Include="Views/Ads/SelectAds.cshtml">
-      <publishTime>02/01/2019 21:28:48</publishTime>
+      <publishTime>02/07/2019 20:16:22</publishTime>
     </File>
     <File Include="Views/Ads/SortAdsCityAllAds.cshtml">
       <publishTime>08/15/2018 16:34:49</publishTime>
@@ -574,7 +574,7 @@
       <publishTime>05/27/2018 11:36:43</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>05/26/2018 22:20:06</publishTime>
+      <publishTime>02/08/2019 15:00:10</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>06/29/2018 10:04:30</publishTime>
@@ -618,11 +618,14 @@
     <File Include="Views/Shared/Lockout.cshtml">
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
+    <File Include="Views/Shared/SingleAdsWithSocial.cshtml">
+      <publishTime>02/08/2019 14:36:40</publishTime>
+    </File>
     <File Include="Views/Shared/_AdminPanel.cshtml">
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/01/2019 20:55:22</publishTime>
+      <publishTime>02/08/2019 15:02:54</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>05/26/2018 22:20:06</publishTime>
@@ -637,7 +640,7 @@
       <publishTime>05/26/2018 22:20:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/01/2019 21:32:47</publishTime>
+      <publishTime>02/08/2019 18:31:34</publishTime>
     </File>
   </ItemGroup>
 </Project>

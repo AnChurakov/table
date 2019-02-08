@@ -20,6 +20,12 @@ namespace Board
           );
 
             routes.MapRoute(
+             name: "About",
+             url: "About",
+             defaults: new { controller = "Home", action = "About" }
+         );
+
+            routes.MapRoute(
               name: "CreateAds",
               url: "Create",
               defaults: new { controller = "Ads", action = "AddAds" }

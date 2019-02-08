@@ -77,7 +77,9 @@
                 <div class="advert" style="border-bottom:1px solid lightgray;">
                     <div class="d-flex justify-content-between align-items-center">
                         
-                        <div class="d-block mb-2 px-0 mt-2 img-ads" style="background-size:contain;background-repeat:no-repeat; background-position:center;width:100px; height:100;background-image:url(@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault()))"></div>
+                       <div class="d-block mb-2 px-0 mt-2 img-ads" style="background-size:contain;background-repeat:no-repeat; background-position:center;width:100px;
+                             height:100;background-image:url(@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault()))">                         
+                        </div>
 
                         @*<img src="@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault())" class="d-block mb-3 px-0 mt-3 img-ads" width="100" height="100"/>*@
                         

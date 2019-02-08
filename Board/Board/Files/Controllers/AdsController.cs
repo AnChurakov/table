@@ -66,10 +66,12 @@ namespace Board.Controllers
 
             }
 
+            //Вывод города Ижевск отдельного из списка остальных городов
             ViewBag.Citys = _context.City.Where(t => t.Name != "Ижевск").OrderBy(a => a.Name).ToList();
 
             ViewBag.Izh = _context.City.FirstOrDefault(a => a.Name == "Ижевск");
-
+            
+            //Вывод баннеров на странице
             ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false).ToList();
 
             return View(_selectAds.ToPagedList(pageNumber, sizePage));
@@ -513,6 +515,8 @@ namespace Board.Controllers
             ViewBag.CheckImg = selectAds.ImageAds.Count;
 
             ViewBag.ListImage = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
+
+            ViewBag.FirstImageSocial = _context.ImageAds.FirstOrDefault(a => a.Ads.Id == Id).Path;
 
             ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == true).ToList();
 
