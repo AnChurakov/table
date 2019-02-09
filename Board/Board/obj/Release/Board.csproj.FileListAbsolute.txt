@@ -316,3 +316,4 @@ D:\cs\table\Board\Board\obj\Release\Board.dll
 D:\cs\table\Board\Board\obj\Release\Board.pdb
 D:\cs\table\Board\Board\obj\Release\Board.Migrations.TranslitAdsCatSubCat.resources
 D:\cs\table\Board\Board\obj\Release\Board.csprojAssemblyReference.cache
+D:\cs\table\Board\Board\obj\Release\Board.Migrations.AddLinkBanner.resources

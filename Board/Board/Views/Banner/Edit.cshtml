@@ -15,15 +15,23 @@
                     <div class="col-md-6">
                         @Html.TextBoxFor(m => m.Name, new { @value = Model.Name, @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-                        @Html.TextBoxFor(m => m.Id, new { @value = Model.Id, @type = "hidden"})
+                        @Html.TextBoxFor(m => m.Id, new { @value = Model.Id, @type = "hidden" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.Description, new { @class = "col-md-7 control-label" })
                     <div class="col-md-6">
-                        @Html.TextAreaFor(m => m.Description, new {@value = Model.Description, @class = "form-control" })
+                        @Html.TextAreaFor(m => m.Description, new { @value = Model.Description, @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Link, new { @class = "col-md-7 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Link, new { @value=Model.Link, @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Link, "", new { @class = "text-danger" })
                     </div>
                 </div>
 

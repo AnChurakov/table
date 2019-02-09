@@ -131,6 +131,7 @@ namespace Board.Controllers
                                                 .OrderByDescending(t => t.DateCreation)
                                                 .ToList();
 
+                    //Получение количества объявлений
                     Session["CountAds"] = listAds.Count;
 
                     ViewBag.SaveCityName = Session["SaveCityName"].ToString();
@@ -152,7 +153,9 @@ namespace Board.Controllers
 
             ViewBag.CategoryId = selectCat.Id;
 
-            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false).ToList();
+            //Получение всех баннеров для вывода на странице Все объявления категории
+            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false)
+                .OrderBy(t => t.Id).ToList();
 
             return View(listAds.ToPagedList(pageNumber, sizePage));
         }
@@ -244,7 +247,18 @@ namespace Board.Controllers
                     
                 }
             }
+            else
+            {
+                ImageAds img = new ImageAds
+                {
+                    Id = Guid.NewGuid(),
+                    Ads = selectAds,
+                    Path = "/Files/no-photo.png"
+                };
 
+                _context.ImageAds.Add(img);
+
+            }
 
             _context.SaveChanges();
 
@@ -516,10 +530,13 @@ namespace Board.Controllers
 
             ViewBag.ListImage = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
 
+            //фотография для социально сети
             ViewBag.FirstImageSocial = _context.ImageAds.FirstOrDefault(a => a.Ads.Id == Id).Path;
 
+            //изображения баннеров
             ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == true).ToList();
 
+            //Название категории
             ViewBag.Category = selectAds.Categorys.Name;
 
             if (selectAds.SubCategory != null)

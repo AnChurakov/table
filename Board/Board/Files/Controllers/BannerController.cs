@@ -69,7 +69,8 @@ namespace Board.Controllers
                         Id = Guid.NewGuid(),
                         Name = model.Name,
                         SinglePage = CheckSinglePageBanner(SinglePage),
-                        Description = model.Description
+                        Description = model.Description,
+                        Link = model.Link
                     };
 
                     string fileName = System.IO.Path.GetFileName(upload.FileName);
@@ -135,6 +136,8 @@ namespace Board.Controllers
                 banner.Name = model.Name;
 
                 banner.Description = model.Description;
+
+                banner.Link = model.Link;
 
                 banner.SinglePage = CheckSinglePageBanner(SinglePage);
 

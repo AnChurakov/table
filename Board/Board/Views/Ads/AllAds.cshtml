@@ -112,12 +112,16 @@
     <div class="col-lg-3 col-md-12 px-0 text-center flex-column">
         @foreach (var banner in ViewBag.Banner)
         {
-            <div class="card mb-4" style="width: 18rem;">
-              <img class="card-img-top" src="@Url.Content(banner.Path)">
-              <div class="card-body">
+        <div class="card mb-4" style="width: 18rem;">
+            <img class="card-img-top" src="@Url.Content(banner.Path)">
+            @if (banner.Banners.Link != null || banner.Banners.Link != string.Empty)
+            {
+                <a href="@banner.Banners.Link">@banner.Banners.Link</a>
+            }
+            <div class="card-body">
                 <p class="card-text">@banner.Banners.Description</p>
-              </div>
             </div>
+        </div>
             @*<img src="@Url.Content(banner.Path)" class="img-thumbnail"/>*@
         }
 
