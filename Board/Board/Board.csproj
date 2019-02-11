@@ -274,6 +274,14 @@
     <Compile Include="Migrations\201902081727523_AddLinkBanner.Designer.cs">
       <DependentUpon>201902081727523_AddLinkBanner.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902090859358_AddDateBanner.cs" />
+    <Compile Include="Migrations\201902090859358_AddDateBanner.Designer.cs">
+      <DependentUpon>201902090859358_AddDateBanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902091004261_AddDateImageBanner.cs" />
+    <Compile Include="Migrations\201902091004261_AddDateImageBanner.Designer.cs">
+      <DependentUpon>201902091004261_AddDateImageBanner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ads.cs" />
@@ -294,8 +302,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\fontawesome-all.css" />
+    <Content Include="Content\owl.carousel.min.css" />
+    <Content Include="Content\owl.theme.default.min.css" />
+    <Content Include="Content\owl.theme.green.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\social-share-kit.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\summernote-bs4.css" />
+    <Content Include="Content\summernote.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fa-brands-400.svg" />
     <Content Include="fonts\fa-regular-400.svg" />
@@ -335,8 +349,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\social-share-kit.min.js" />
+    <Content Include="Scripts\summernote-bs4.min.js" />
+    <Content Include="Scripts\summernote.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -460,6 +478,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902081727523_AddLinkBanner.resx">
       <DependentUpon>201902081727523_AddLinkBanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902090859358_AddDateBanner.resx">
+      <DependentUpon>201902090859358_AddDateBanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902091004261_AddDateImageBanner.resx">
+      <DependentUpon>201902091004261_AddDateImageBanner.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

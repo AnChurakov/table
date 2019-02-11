@@ -72,7 +72,9 @@ namespace Board.Controllers
             ViewBag.Izh = _context.City.FirstOrDefault(a => a.Name == "Ижевск");
             
             //Вывод баннеров на странице
-            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false).ToList();
+            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false)
+                .OrderByDescending(t => t.DateCreate)
+                .ToList();
 
             return View(_selectAds.ToPagedList(pageNumber, sizePage));
         }
@@ -153,9 +155,10 @@ namespace Board.Controllers
 
             ViewBag.CategoryId = selectCat.Id;
 
-            //Получение всех баннеров для вывода на странице Все объявления категории
+            //Вывод баннеров на странице
             ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == false)
-                .OrderBy(t => t.Id).ToList();
+                .OrderByDescending(t => t.DateCreate)
+                .ToList();
 
             return View(listAds.ToPagedList(pageNumber, sizePage));
         }
@@ -247,18 +250,18 @@ namespace Board.Controllers
                     
                 }
             }
-            else
-            {
-                ImageAds img = new ImageAds
-                {
-                    Id = Guid.NewGuid(),
-                    Ads = selectAds,
-                    Path = "/Files/no-photo.png"
-                };
+            //else
+            //{
+            //    ImageAds img = new ImageAds
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        Ads = selectAds,
+            //        Path = "/Files/no-photo.png"
+            //    };
 
-                _context.ImageAds.Add(img);
+            //    _context.ImageAds.Add(img);
 
-            }
+            //}
 
             _context.SaveChanges();
 
@@ -526,15 +529,20 @@ namespace Board.Controllers
         {
             var selectAds = _context.Ads.FirstOrDefault(a => a.Id == Id);
 
-            ViewBag.CheckImg = selectAds.ImageAds.Count;
-
             ViewBag.ListImage = _context.ImageAds.Where(a => a.Ads.Id == Id).ToList();
 
             //фотография для социально сети
-            ViewBag.FirstImageSocial = _context.ImageAds.FirstOrDefault(a => a.Ads.Id == Id).Path;
+            //var socialImage = _context.ImageAds.FirstOrDefault(a => a.Ads.Id == Id).Path;
+
+            //if (socialImage != null)
+            //{
+            //    ViewBag.FirstImageSocial = _context.ImageAds.FirstOrDefault(a => a.Ads.Id == Id).Path;
+            //}
 
             //изображения баннеров
-            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == true).ToList();
+            ViewBag.Banner = _context.ImageBanners.Where(a => a.Banners.SinglePage == true)
+                .OrderByDescending(t => t.DateCreate)
+                .ToList();
 
             //Название категории
             ViewBag.Category = selectAds.Categorys.Name;
@@ -622,7 +630,7 @@ namespace Board.Controllers
 
                         }
                     }
-                    else
+                    /*else
                     {
                         ImageAds img = new ImageAds
                         {
@@ -633,7 +641,7 @@ namespace Board.Controllers
 
                         _context.ImageAds.Add(img);
 
-                    }
+                    }*/
 
                     _context.Ads.Add(ads);
 

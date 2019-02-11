@@ -70,7 +70,8 @@ namespace Board.Controllers
                         Name = model.Name,
                         SinglePage = CheckSinglePageBanner(SinglePage),
                         Description = model.Description,
-                        Link = model.Link
+                        Link = model.Link,
+                        DateCreate = DateTime.Now
                     };
 
                     string fileName = System.IO.Path.GetFileName(upload.FileName);
@@ -87,7 +88,8 @@ namespace Board.Controllers
                     {
                         Id = Guid.NewGuid(),
                         Banners = banner,
-                        Path = correctPathFile
+                        Path = correctPathFile,
+                        DateCreate = DateTime.Now
                     };
 
                     _context.ImageBanners.Add(imgban);

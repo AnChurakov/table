@@ -12,6 +12,8 @@ namespace Board.Models
 
         public string Path { get; set; }
 
+        public DateTime? DateCreate { get; set; }
+
         public virtual Banner Banners { get; set; }
     }
 }

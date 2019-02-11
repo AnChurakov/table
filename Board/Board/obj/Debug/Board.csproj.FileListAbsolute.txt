@@ -458,3 +458,5 @@ D:\cs\table\Board\Board\obj\Debug\Board.Migrations.AddFieldDateCreate.resources
 D:\cs\table\Board\Board\obj\Debug\Board.Migrations.TranslitAdsCatSubCat.resources
 D:\cs\table\Board\Board\obj\Debug\Board.csprojAssemblyReference.cache
 D:\cs\table\Board\Board\obj\Debug\Board.Migrations.AddLinkBanner.resources
+D:\cs\table\Board\Board\obj\Debug\Board.Migrations.AddDateBanner.resources
+D:\cs\table\Board\Board\obj\Debug\Board.Migrations.AddDateImageBanner.resources

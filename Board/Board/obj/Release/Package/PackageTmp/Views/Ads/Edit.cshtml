@@ -39,40 +39,43 @@
             //using (Ajax.BeginForm("DeleteImage", "Ads", new AjaxOptions { UpdateTargetId = "AllImages" }))
             //{
             <div class="row" id="AllImages">
-                @foreach (var images in Model.ImageAds)
+                @if (Model.ImageAds != null || Model.ImageAds.Count != 0)
                 {
-                    if (Model.ImageAds.Count == 1 && images.Path == "/Files/no-photo.png")
-                    {
 
-                        <div class="col-xs-12 col-lg-4 col-md-4">
-                            <div class="card ml-1 mt-1" style="width: 18rem;">
-                                <img class="card-img-top" width="200" height="200" src="@images.Path">
-                                <div class="card-body">
-                                    <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
-                                    <input type="hidden" class="ImageId" value="@images.Id" name="ImageId" />
+                        foreach (var images in Model.ImageAds)
+                        {
+                            @*if (Model.ImageAds.Count == 1 && images.Path == "/Files/no-photo.png")
+                            {
 
+                                <div class="col-xs-12 col-lg-4 col-md-4">
+                                    <div class="card ml-1 mt-1" style="width: 18rem;">
+                                        <img class="card-img-top" width="200" height="200" src="@images.Path">
+                                        <div class="card-body">
+                                            <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
+                                            <input type="hidden" class="ImageId" value="@images.Id" name="ImageId" />
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-xs-12 col-lg-4 col-md-4">
-                            <div class="card ml-1 mt-1" style="width: 18rem;">
-                                <img class="card-img-top" width="200" height="200" src="@images.Path">
-                                <div class="card-body">
-                                    <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
-                                    <input type="hidden" class="ImageId" value="@images.Id" name="ImageId" />
-                                    <input type="button" class="btn btn-danger DeleteImageBtn" value="Удалить фотографию" />
+                            }
+                            else
+                            {*@
+                                <div class="col-xs-12 col-lg-4 col-md-4">
+                                    <div class="card ml-1 mt-1" style="width: 18rem;">
+                                        <img class="card-img-top" width="200" height="200" src="@images.Path">
+                                        <div class="card-body">
+                                            <input type="hidden" class="ImageAdsId" value="@Model.Id" name="AdsId" />
+                                            <input type="hidden" class="ImageId" value="@images.Id" name="ImageId" />
+                                            <input type="button" class="btn btn-danger DeleteImageBtn" value="Удалить фотографию" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    }
+                            @*}*@
+                        }
                 }
 
-            </div>
-              
 
+            </div>       
 
             <div class="form-group mt-3" id="file">
                     <label class="control-label col-md-6">Выберите фотографию (расширение .png, .jpg, .jpeg)</label>

@@ -69,8 +69,14 @@
                 <div class="advert" style="border-bottom:1px solid lightgray;">
                     <div class="d-flex justify-content-between align-items-center">
 
-                        <div class="d-block mb-2 px-0 mt-2 img-ads" style="background-size:contain;background-repeat:no-repeat; background-position:center;width:100px; height:100;background-image:url(@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault()))"></div>
-
+                        @if (ads.ImageAds.Count != 0)
+                        {
+                            <div class="d-block mb-2 px-0 mt-2 img-ads" style="background-size:contain;background-repeat:no-repeat; background-position:center;width:100px; height:100;background-image:url(@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault()))"></div>
+                        }
+                        else
+                        {
+                            <div class="d-block mb-2 px-0 mt-2 img-ads" style="background-size:contain;background-repeat:no-repeat; background-position:center;width:100px; height:100;background-image:url('/Files/no-photo.png')"></div>
+                        }
                         @*<img src="@Url.Content(ads.ImageAds.Select(a => a.Path).FirstOrDefault())" class="img-ads d-block mb-3 px-0 mt-3" width="100" height="100" />*@
 
 

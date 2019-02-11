@@ -20,6 +20,8 @@ namespace Board.Models
         [Display(Name = "На странице отдельного объявления")]
         public bool SinglePage { get; set; }
 
+        public DateTime? DateCreate { get; set; }
+
         [Display(Name = "Ссылка")]
         public string Link { get; set; }
 
