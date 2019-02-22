@@ -76,6 +76,7 @@ namespace Board.Controllers
                 .OrderByDescending(t => t.DateCreate)
                 .ToList();
 
+
             return View(_selectAds.ToPagedList(pageNumber, sizePage));
         }
 
