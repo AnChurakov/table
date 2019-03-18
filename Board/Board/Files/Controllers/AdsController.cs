@@ -32,8 +32,8 @@ namespace Board.Controllers
             int sizePage = 15;
 
             int pageNumber = (page ?? 1);
-            
-            var selectAds = _context.Ads.ToList();
+
+            var selectAds = _context.Ads.OrderByDescending(a => a.DateCreation).ToList();
 
             return View(selectAds.ToPagedList(pageNumber, sizePage));
         }
@@ -287,11 +287,16 @@ namespace Board.Controllers
                         .OrderByDescending(t => t.DateCreation)
                         .ToList();
                 }
-                else
+                else if (CategoryId != null)
                 {
-                     select = _context.Ads.Where(a => a.Name.Contains(singleKeyword))
-                        .OrderByDescending(t => t.DateCreation)
-                        .ToList();
+                    select = _context.Ads.Where(a => a.Name.Contains(singleKeyword) && 
+                    a.Categorys.Id == CategoryId).OrderByDescending(t => t.DateCreation).ToList();
+                }
+                else{
+
+                    select = _context.Ads.Where(a => a.Name.Contains(singleKeyword))
+                       .OrderByDescending(t => t.DateCreation)
+                       .ToList();
                 }
 
                 foreach(var addAds in select)
